@@ -30,6 +30,7 @@ CREATE TABLE pets (
     customer_id int,
     vaccination boolean,
     neutor boolean,
+--    need to clarify how we want to define energey_level and add similar constraint as gender, or possible switch to number
     energy_level varchar,
     personality varchar,
     image varchar,
@@ -54,9 +55,9 @@ CREATE TABLE invitation (
     invitation_id SERIAL,
     account_from int NOT NULL,
     account_to int NOT NULL,
-    play_date_id int,
+    playdate_id int,
     CONSTRAINT PK_invitation_id PRIMARY KEY (invitation_id),
-    CONSTRAINT FK_invitation_play_date FOREIGN KEY (play_date_id) REFERENCES play_date(play_date_id)
+    CONSTRAINT FK_invitation_playdate FOREIGN KEY (playdate_id) REFERENCES playdate(playdate_id)
 );
 
 CREATE TABLE playdate_pets (

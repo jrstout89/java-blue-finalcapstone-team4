@@ -28,14 +28,18 @@ CREATE TABLE pets (
     date_of_birth date NOT NULL,
     gender varchar NOT NULL,
     customer_id int,
+    pet_size varchar NOT NULL,
     vaccination boolean,
     neutor boolean,
+--  potentially put energy level into its own table.
     energy_level varchar,
     personality varchar,
     image varchar,
     CONSTRAINT PK_pet_id PRIMARY KEY (pet_id),
     CONSTRAINT FK_pets_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    CONSTRAINT gender_constraint CHECK (gender IN ('male', 'female'))
+    CONSTRAINT gender_constraint CHECK (gender IN ('male', 'female')),
+    CONSTRAINT pet_size_constraint CHECK (pet_size IN ('small', 'medium', 'large', 'extra large')),
+    CONSTRAINT energy_level_constraint CHECK (pet_size IN ('low', 'medium', 'high'))
 );
 
 CREATE TABLE playdate (
@@ -54,9 +58,9 @@ CREATE TABLE invitation (
     invitation_id SERIAL,
     account_from int NOT NULL,
     account_to int NOT NULL,
-    play_date_id int,
+    playdate_id int,
     CONSTRAINT PK_invitation_id PRIMARY KEY (invitation_id),
-    CONSTRAINT FK_invitation_play_date FOREIGN KEY (play_date_id) REFERENCES play_date(play_date_id)
+    CONSTRAINT FK_invitation_playdate FOREIGN KEY (playdate_id) REFERENCES playdate(playdate_id)
 );
 
 CREATE TABLE playdate_pets (

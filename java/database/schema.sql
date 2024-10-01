@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, customer, pet, playDate, invitation, playdate_pets, forum cascade;
+DROP TABLE IF EXISTS users, customers, pets, playDate, invitation, playdate_pets, forum cascade;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -83,6 +83,6 @@ CREATE TABLE forum (
     CONSTRAINT FK_forum_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
-
+INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
 
 COMMIT TRANSACTION;

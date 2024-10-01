@@ -85,4 +85,12 @@ CREATE TABLE forum (
 
 INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
 
+INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9999', 'someemail@gmail.com', 'Seth', 'Jacobs', '1');
+
+INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('South Boston Dog Park', '10', '1', '10-02-2024', '1600', '60');
+INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('East 1st Dog Park', '15', '1', '10-02-2024', '1700', '120');
+INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('Carleton Court Dog Park', '10', '1', '10-02-2024', '1800', '60');
+INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('Mansfield Street Dog Park', '20', '1', '10-02-2024', '1700', '120');
+INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('RUFF North End Dog Park', '15', '1', '10-02-2024', '1600', '60');
+
 COMMIT TRANSACTION;

@@ -11,7 +11,7 @@ import UserView from '../views/UserView.vue';
 import PetView from '../views/PetView.vue';
 import AddPetView from '../views/AddPetView.vue';
 import ForumView from '../views/ForumView.vue';
-import PetDetails from '../views/PetDetails.vue';
+import PetDetails from '../views/PetDetailsView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component

@@ -1,5 +1,5 @@
 <template>
-    <h1>Forum</h1>
+  <h1>Pet Details</h1>
 </template>
 
 <script>

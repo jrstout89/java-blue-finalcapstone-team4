@@ -28,6 +28,7 @@ CREATE TABLE pets (
     date_of_birth date NOT NULL,
     gender varchar NOT NULL,
     customer_id int,
+    pet_size varchar NOT NULL,
     vaccination boolean,
     neutor boolean,
 --    need to clarify how we want to define energey_level and add similar constraint as gender, or possible switch to number
@@ -36,7 +37,9 @@ CREATE TABLE pets (
     image varchar,
     CONSTRAINT PK_pet_id PRIMARY KEY (pet_id),
     CONSTRAINT FK_pets_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    CONSTRAINT gender_constraint CHECK (gender IN ('male', 'female'))
+    CONSTRAINT gender_constraint CHECK (gender IN ('male', 'female')),
+    CONSTRAINT pet_size_constraint CHECK (pet_size IN ('small', 'medium', 'large', 'extra large')),
+    CONSTRAINT energy_level_constraint CHECK (pet_size IN ('low', 'medium', 'high')),
 );
 
 CREATE TABLE playdate (

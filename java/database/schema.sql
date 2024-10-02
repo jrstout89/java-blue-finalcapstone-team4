@@ -12,11 +12,11 @@ CREATE TABLE users (
 
 CREATE TABLE customers (
 	customer_id SERIAL,
-	phone_number varchar(12) NOT NULL,
+	phone_number varchar(12),
     email varchar NOT NULL,
     first_name varchar NOT NULL,
     last_name varchar NOT NULL,
-    user_id int,
+    user_id int NOT NULL,
     CONSTRAINT PK_customer_id PRIMARY KEY (customer_id),
     CONSTRAINT FK_customer_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

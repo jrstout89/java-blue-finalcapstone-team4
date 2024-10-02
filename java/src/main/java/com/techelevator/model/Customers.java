@@ -3,7 +3,7 @@ package com.techelevator.model;
 public class Customers {
 
     private int id;
-    private int PhoneNumber;
+    private String phoneNumber;
     private String email;
     private String firstName;
     private String lastName;
@@ -12,9 +12,9 @@ public class Customers {
     public Customers() {
     }
 
-    public Customers(int id, int phoneNumber, String email, String firstName, String lastName, int userId) {
+    public Customers(int id, String phoneNumber, String email, String firstName, String lastName, int userId) {
         this.id = id;
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,12 +29,12 @@ public class Customers {
         this.id = id;
     }
 
-    public int getPhoneNumber() {
-        return PhoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        PhoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {

@@ -12,7 +12,7 @@ CREATE TABLE users (
 
 CREATE TABLE customers (
 	customer_id SERIAL,
-	phone_number varchar(12) NOT NULL,
+	phone_number varchar(12),
     email varchar NOT NULL,
     first_name varchar NOT NULL,
     last_name varchar NOT NULL,

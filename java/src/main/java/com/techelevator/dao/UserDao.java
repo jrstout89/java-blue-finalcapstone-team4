@@ -1,5 +1,7 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Customers;
+import com.techelevator.model.RegisterCustomersDto;
 import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 
@@ -14,4 +16,9 @@ public interface UserDao {
     User getUserByUsername(String username);
 
     User createUser(RegisterUserDto user);
+
+    Customers createCustomers (RegisterCustomersDto customer);
+
+    public Customers getCustomerById(int customerId);
+
 }

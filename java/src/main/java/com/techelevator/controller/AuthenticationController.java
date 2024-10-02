@@ -63,7 +63,6 @@ public class AuthenticationController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             } else {
                 userDao.createUser(newUser);
-
             }
         }
         catch (DaoException e) {
@@ -72,4 +71,8 @@ public class AuthenticationController {
     }
 
 }
+
+// need to create endpoint for /registerCustomer, front end will force user to create customer profile after instead of just submitting user account.
+//@Valid @RequestBody RegisterCustomersDto newCustomer
+//userDao.createCustomers(newCustomer);
 

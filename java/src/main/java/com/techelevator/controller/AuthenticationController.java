@@ -58,21 +58,33 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public void register(@Valid @RequestBody RegisterUserDto newUser) {
-        try {
+//        try {
             if (userDao.getUserByUsername(newUser.getUsername()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             } else {
-                userDao.createUser(newUser);
+                User newlyCreatedUser = userDao.createUser(newUser);
+
+                userDao.createCustomers(newUser, newlyCreatedUser.getId());
             }
-        }
-        catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
-        }
+//        }
+//        catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
+//        }
     }
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "/register-customer", method = RequestMethod.POST)
+//    public void registerCustomer(@Valid @RequestBody Customers newCustomer) {
+//        try {
+//            if (userDao.getCustomerById(newCustomer.getId()) != null) {
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer already exists.");
+//            } else {
+//                userDao.createCustomers(newCustomer);
+//            }
+//        }
+//        catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Customer registration failed.");
+//        }
+//    }
 
 }
-
-// need to create endpoint for /registerCustomer, front end will force user to create customer profile after instead of just submitting user account.
-//@Valid @RequestBody RegisterCustomersDto newCustomer
-//userDao.createCustomers(newCustomer);
 

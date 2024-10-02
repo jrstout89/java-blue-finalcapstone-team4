@@ -17,7 +17,7 @@ public interface UserDao {
 
     User createUser(RegisterUserDto user);
 
-    Customers createCustomers (RegisterCustomersDto customer);
+    Customers createCustomers (RegisterUserDto customer, int userId);
 
     public Customers getCustomerById(int customerId);
 

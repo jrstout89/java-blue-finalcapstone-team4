@@ -44,7 +44,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public Customers getCustomerById(int customerId) {
         Customers customers = null;
-        String sql = "SELECT customer_id, phone_number, email, first_name, last_name, user_id FROM customers WHERE customers_id = ?";
+        String sql = "SELECT customer_id, phone_number, email, first_name, last_name, user_id FROM customers WHERE customer_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, customerId);
             if (results.next()) {
@@ -112,22 +112,22 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public Customers createCustomers (RegisterCustomersDto customer) {
+    public Customers createCustomers (RegisterUserDto customer, int userId) {
 
         Customers newCustomer = null;
-        String insertCustomerSql = "INSERT INTO customers (phone_number, email, first_name, last_name) values (LOWER(TRIM(?)), ?, ?, ?) RETURNING customer_id";
+        String insertCustomerSql = "INSERT INTO customers (phone_number, email, first_name, last_name, user_id) values (LOWER(TRIM(?)), ?, ?, ?, ?) RETURNING customer_id";
 
-        try {
-            int newCustomerId = jdbcTemplate.queryForObject(insertCustomerSql, int.class, customer.getPhoneNumber(), customer.getEmail(), customer.getFirstName(), customer.getLastName());
+//        try {
+            int newCustomerId = jdbcTemplate.queryForObject(insertCustomerSql, int.class, customer.getPhoneNumber(), customer.getEmail(), customer.getFirstName(), customer.getLastName(), userId);
 
             newCustomer = getCustomerById(newCustomerId);
 
 
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
         return newCustomer;
 
     }
@@ -144,12 +144,11 @@ public class JdbcUserDao implements UserDao {
 
     private Customers mapRowToCustomers(SqlRowSet rs) {
         Customers customers = new Customers();
-        customers.setId(rs.getInt("customers_id"));
+        customers.setId(rs.getInt("customer_id"));
         customers.setPhoneNumber(rs.getString("phone_number"));
         customers.setEmail(rs.getString("email"));
-        customers.setFirstName(rs.getString("firstName"));
-        customers.setLastName(rs.getString("lastName"));
-        customers.setLastName(rs.getString("lastName"));
+        customers.setFirstName(rs.getString("first_name"));
+        customers.setLastName(rs.getString("last_name"));
         customers.setUserId(rs.getInt("user_id"));
         return customers;
     }

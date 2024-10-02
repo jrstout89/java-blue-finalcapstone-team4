@@ -16,7 +16,7 @@ CREATE TABLE customers (
     email varchar NOT NULL,
     first_name varchar NOT NULL,
     last_name varchar NOT NULL,
-    user_id int,
+    user_id int NOT NULL,
     CONSTRAINT PK_customer_id PRIMARY KEY (customer_id),
     CONSTRAINT FK_customer_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

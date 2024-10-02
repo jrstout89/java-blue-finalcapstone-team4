@@ -77,7 +77,6 @@ CREATE TABLE playdate_pets (
 );
 
 CREATE TABLE forum (
-    forum_id SERIAL,
     customer_id int,
     forum_title varchar NOT NULL,
     created_date date NOT NULL,
@@ -89,6 +88,7 @@ CREATE TABLE forum (
 
 INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
 
+    forum_id SERIAL,
 INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9999', 'someemail@gmail.com', 'Seth', 'Jacobs', '1');
 
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Dog day afternoon','South Boston Dog Park', '1280 Columbia Rd, Boston, MA 02127', '10', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh5.googleusercontent.com/p/AF1QipNA6GjALmYtD0IEiHTvLh1_NtJLgByLEFlyfpzj=w114-h114-n-k-no');

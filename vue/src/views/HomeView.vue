@@ -8,7 +8,7 @@
     
       <nav class="links">
         <router-link to="/login" id="login" class="link">Log in</router-link>
-        <router-link to="/users" id="profile" class="link">Profile</router-link>  
+        <router-link to="/user" id="profile" class="link">Profile</router-link>  
       </nav>
     </div>
 

@@ -6,9 +6,10 @@
         
         <div id="side-bar">
             <ul>
-                <li>Location</li>
-                <li>Date</li>
-                <li>
+                <li>Title: <input class="input is-normal" type="text" placeholder="search by title"/></li>
+                <li>Location: <input class="input is-normal" type="text" placeholder="search by location"/></li>
+                <li>Date: <input class="calender" type="date"/></li>
+                <!-- <li>
                      Pet
                      <button @click="toggleDropdown" class="down-arrow" aria-expanded="isActive">
                         <i class="fas" :class="isActive ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -18,17 +19,17 @@
                         <li>Energy Level</li>
                         <li>Size</li>
                      </ul>
-                 </li>
+                 </li> -->
              </ul>
         </div>
 
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <div>
-                <h3>Location: {{ event.eventLocation }}</h3>
+                <h3>{{ event.eventTitle }}</h3>
+                <p>Location:  {{ event.eventLocation }}</p>
                 <p>Date: {{ event.eventDate }}</p>
                 <p>Time: {{ event.eventTime }}</p>
-                <p>Duration: {{ event.eventDuration }}</p>
-                <p>maximum pets:{{ event.maximumPets }}</p>
+                <p>Duration: {{ event.eventDuration}} mins</p>
             </div>
         </div>
     </div>

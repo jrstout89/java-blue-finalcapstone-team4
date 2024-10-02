@@ -44,12 +44,16 @@ CREATE TABLE pets (
 
 CREATE TABLE playdate (
     playdate_id SERIAL,
+    event_title varchar,
     event_location varchar,
+    event_address varchar,
     maximum_pets int,
     event_host int,
     event_date date NOT NULL,
     event_time time NOT NULL,
     event_duration int NOT NULL,
+    event_description varchar(400),
+    event_image varchar,
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
     CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id)
 );
@@ -87,10 +91,11 @@ INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw9
 
 INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9999', 'someemail@gmail.com', 'Seth', 'Jacobs', '1');
 
-INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('South Boston Dog Park', '10', '1', '10-02-2024', '1600', '60');
-INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('East 1st Dog Park', '15', '1', '10-02-2024', '1700', '120');
-INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('Carleton Court Dog Park', '10', '1', '10-02-2024', '1800', '60');
-INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('Mansfield Street Dog Park', '20', '1', '10-02-2024', '1700', '120');
-INSERT INTO playdate (event_location, maximum_pets, event_host, event_date, event_time, event_duration) VALUES ('RUFF North End Dog Park', '15', '1', '10-02-2024', '1600', '60');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Dog day afternoon','South Boston Dog Park', '1280 Columbia Rd, Boston, MA 02127', '10', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh5.googleusercontent.com/p/AF1QipNA6GjALmYtD0IEiHTvLh1_NtJLgByLEFlyfpzj=w114-h114-n-k-no');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Paw & Pals', 'East 1st Dog Park', '768-764 E 1st St, Boston, MA 02127', '15', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipN9zSRPTCrP7qTc958e8gULxw-oXZJjOcBpqBat=s680-w680-h510');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Puppy Friends', 'Carleton Court Dog Park', 'SW Corridor Path, Boston, MA 02116', '10', '1', '10-02-2024', '1800', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipOGaRlO3MMBjwCySCns2_PU152nZ0E8IUDv3cbv=s680-w680-h510');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Wag the Dog', 'Mansfield Street Dog Park', '488-556 Lincoln St, Boston, MA 02134', '20', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipNXVNEDCcLnnzLXyX1_LlfjtA-tAlREipOqZ9oD=s680-w680-h510');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Furry Friday', 'RUFF North End Dog Park', 'BOST-0301936000, Boston, MA 02113', '15', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipPnl-LD1JHvbNJ_KcQ_6CkjFELvN1JS5Q9Eu_IE=s680-w680-h510');
+
 
 COMMIT TRANSACTION;

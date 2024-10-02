@@ -1,66 +1,92 @@
 <template>
   <div class="home">
-    <div class="header-container"> 
-     <img id="HappyDog" src="../img/HappyDog.gif" alt="HappyDog">
-      <img id="header" src="../img/Header.png" alt="Header">
+    <div class="header-container">
+    
+      <img id="HappyDog" src="../img/HappyDog.gif" alt="HappyDog">
+      <img id="welcome" src="../img/welcome.png" alt="welcome">
+      <img id="name" src="../img/petPlayPal.png" alt="name">
+    
+      <nav class="links">
+        <router-link to="/login" id="login" class="link">Log in</router-link>
+        <router-link to="/users" id="profile" class="link">Profile</router-link>  
+      </nav>
     </div>
-    <nav class="links">
-      
-      <router-link id="" to="/playDates">Current Events</router-link> 
-      <router-link to="">Search Events</router-link>
-      <router-link to="/login">Log in</router-link>
-    </nav>
-    <br/>
-    <img src="../img/playingDogs.jpg" alt="Playing Dogs">
+
+    <img id="map" src="../img/map.png" alt="map">
+    <current-events-vue/>
     <footer>@Copyright</footer>
     <RouterView/>
   </div>
 </template>
 
 <script>
+import CurrentEventsVue from '../components/CurrentEvents.vue';
 import { RouterView } from 'vue-router';
 import router from '../router';
 
+
 export default {
+  components:{
+    CurrentEventsVue
+  }
 };
 </script>
 
 <style>
-.links{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  font-size: 30px;
-}
 .header-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-#happyDog {
-  display: flex;
-  flex-direction: left;
-}
-  #header {
-  width: 518px;
-}
-  .home {
-   display: flex;
-   flex-direction: column;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between; 
+    padding: 5px; 
+    border-bottom: 1px solid black;
+   }
+   #HappyDog, #welcome, #name {
+    width: 32%;
+    max-width: 100px;
+    height: auto;
+   }
+   #HappyDog {
+    max-width: 150px;
+    height: auto; 
+    margin-right: 10px; 
+   }
+   #welcome {
+    max-width: 450px; 
+    height: auto; 
+    margin-top: -15px; 
+    margin-right: 10px; 
+    }
+    #name {
+    max-width: 600px;
+    height: auto; 
+    margin-top: 25px;
+    margin-left: 20px;
+    } 
+  .links {
+    flex-grow: 1px;
+    display: flex;
+    align-items: flex-end;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10%;
+  }
   
+  .link {
+    margin-left: 50px; 
+    text-decoration: none;
   }
-  router-link {
-    margin: 10px;
+  .link:hover {
+    text-decoration: underline; 
+}
+ #map{
     display: block;
-    border: 10px;
-    padding: 10px;
-  }
- #HappyDog{
-  display: flex;
-  height: 200px;
-  width: 200px;
- }
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    }
 </style>
+    
+    
+

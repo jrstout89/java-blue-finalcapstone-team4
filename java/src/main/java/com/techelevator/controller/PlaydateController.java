@@ -19,7 +19,7 @@ public class PlaydateController {
     @Autowired
     private PlaydateDao playdateDao;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(path = "/events", method = RequestMethod.GET)
     public List<Playdate> getAllPlaydates() {
         return playdateDao.getAllPlaydates();
     }

@@ -1,34 +1,60 @@
 <template>
   <div class="home">
     <div class="header-container">
-    
-      <img id="HappyDog" src="../img/HappyDog.gif" alt="HappyDog">
-      <img id="welcome" src="../img/welcome.png" alt="welcome">
-      <img id="name" src="../img/petPlayPal.png" alt="name">
-    
-      <nav class="links">
-        <router-link to="/login" id="login" class="link">Log in</router-link>
-        <router-link to="/user" id="profile" class="link">Profile</router-link>  
-      </nav>
+      <div id="header">
+        <router-link to="/">
+          <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
+        </router-link> 
+      </div>
+      <div class="tabs">
+        <ul>
+          <router-link to="/"> <li><a>Home</a></li></router-link>
+          <router-link to="/playdates"><li><a>Events</a></li></router-link>
+          <router-link to="/forum"> <li><a>Forum</a></li></router-link>
+          <router-link to="/user"><li><a>Profile</a></li></router-link> 
+          <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
+        </ul>
+      </div>
     </div>
 
-    <img id="map" src="../img/map.png" alt="map">
-    <current-events-vue/>
-    <footer>@Copyright</footer>
-    <RouterView/>
+    <div class="events">
+      <div class="search-bar">
+        <h1 id="greeting">Welcome!</h1>
+        <input type="text" v-model="search" placeholder="Search Events">
+        <button @click="searchEvents">Search</button>
+      </div>
+      <PlayDatesView v-if="isVisible" />
+    </div>
+    <nav class="about">
+      <img src="../img/HappyDog.gif" alt="happy" />
+      <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
+      <p id="content">At Pet Play Pal, our mission is to provide a safe, fun, and nurturing environment where pets can socialize, play, and thrive. We understand that pets need companionship and exercise to stay happy and healthy. Our dedicated team is committed to offering engaging play sessions, socialization opportunities, and enrichment activities that cater to each pet's unique needs. Whether it’s a day of play, training, or simply making new friends, we strive to create a joyful experience for every furry family member. Join us in fostering a vibrant community where pets can connect, explore, and have a paw-sitive time!
+      </p>
+      
+    </nav>
   </div>
 </template>
 
 <script>
-import CurrentEventsVue from '../components/CurrentEvents.vue';
+import PlayDatesView from './PlayDatesView.vue';
 import { RouterView } from 'vue-router';
 import router from '../router';
 
 
 export default {
   components:{
-    CurrentEventsVue
-  }
+    PlayDatesView
+  },
+  data() {
+    return {
+      isVisible: false,
+    };
+  },
+  methods: {
+    toggleVisibility() {
+      this.isVisible = !this.isVisible;
+    },
+  },
 };
 </script>
 
@@ -39,53 +65,46 @@ export default {
     justify-content: space-between; 
     padding: 5px; 
     border-bottom: 1px solid black;
-   }
-   #HappyDog, #welcome, #name {
-    width: 32%;
-    max-width: 100px;
-    height: auto;
-   }
-   #HappyDog {
-    max-width: 150px;
-    height: auto; 
-    margin-right: 10px; 
-   }
-   #welcome {
-    max-width: 450px; 
-    height: auto; 
-    margin-top: -15px; 
-    margin-right: 10px; 
-    }
-    #name {
-    max-width: 600px;
-    height: auto; 
-    margin-top: 25px;
-    margin-left: 20px;
-    } 
-  .links {
-    flex-grow: 1px;
-    display: flex;
-    align-items: flex-end;
-    font-size: 25px;
-    margin-left: auto;
-    margin-right: 10px;
-    margin-top: 10%;
   }
-  
-  .link {
-    margin-left: 50px; 
-    text-decoration: none;
-  }
-  .link:hover {
-    text-decoration: underline; 
+.tabs{
+  margin-left: auto;
 }
- #map{
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    margin-top: 20px;
-    }
+.events{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    background-image: url('../img/running.jpg' );
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: auto;
+}
+#greeting{
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: cursive;
+}
+.search-bar{ 
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    padding-bottom: 30%;
+}
+.about {
+    display: flex; /* Enables flexbox layout */
+    align-items: flex-start; /* Aligns items at the start vertically */
+    padding: 20px; /* Adds padding around the section */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin: 20px; /* Adds margin around the section */
+}
+
+
+
+
 </style>
     
     

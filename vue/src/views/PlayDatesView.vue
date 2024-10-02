@@ -1,9 +1,15 @@
 <template>
-    <h1>Play Dates</h1>
+<current-events></current-events>
 </template>
 
 <script>
+import CurrentEvents from '../components/CurrentEvents.vue'
+
 export default {
+    components:{
+        CurrentEvents
+    },
+
 
 }
 </script>

@@ -63,6 +63,7 @@ public class AuthenticationController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             } else {
                 userDao.createUser(newUser);
+
             }
         }
         catch (DaoException e) {

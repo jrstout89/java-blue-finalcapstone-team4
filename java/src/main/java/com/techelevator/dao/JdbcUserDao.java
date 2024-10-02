@@ -73,13 +73,26 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User createUser(RegisterUserDto user) {
+
+        // code to populate users table
         User newUser = null;
         String insertUserSql = "INSERT INTO users (username, password_hash, role) values (LOWER(TRIM(?)), ?, ?) RETURNING user_id";
         String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
         String ssRole = user.getRole().toUpperCase().startsWith("ROLE_") ? user.getRole().toUpperCase() : "ROLE_" + user.getRole().toUpperCase();
+
+        //code to populate customer table.
+        String insertCustomerSql =
+
         try {
+            // code for user table
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
+
+            //code for customer table.
+            jdbcTemplate.update(insertCustomerSql)
+
             newUser = getUserById(newUserId);
+
+
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {

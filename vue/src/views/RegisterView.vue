@@ -6,12 +6,12 @@
         {{ registrationErrorMsg }}
       </div>
       <div class="form-input-group">
-        <label for="FirstName">First Name</label>
-        <input type="text" id="FirstName" />
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" v-model="user.firstName" required/>
       </div>
       <div class="form-input-group">
         <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" />
+        <input type="text" id="lastName" v-model="user.LastName" required/>
       </div>
       <div class="form-input-group">
         <label for="username">Username</label>
@@ -27,11 +27,11 @@
       </div>
       <div class="form-input-group">
         <label for="email">Email</label>
-        <input type="email" id="email" />
+        <input type="email" id="email" v-model="user.email" required/>
       </div>
       <div class="form-input-group">
         <label for="phoneNumber">Phone Number</label>
-        <input type="phoneNumber" id="phoneNumber"/>
+        <input type="text" id="phoneNumber" v-model="user.phoneNumber"/>
       </div>
       <button type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
@@ -50,6 +50,10 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '', 
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',

@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Customers;
-import com.techelevator.model.RegisterCustomersDto;
 import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 

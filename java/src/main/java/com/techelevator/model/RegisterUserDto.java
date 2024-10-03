@@ -21,6 +21,9 @@ public class RegisterUserDto {
     private String firstName;
 
     private String lastName;
+    private String phoneNumber;
+
+    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -53,10 +56,6 @@ public class RegisterUserDto {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    private String phoneNumber;
-
-    private String email;
 
     public String getUsername() {
         return username;

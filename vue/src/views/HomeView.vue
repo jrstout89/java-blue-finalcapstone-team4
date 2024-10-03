@@ -1,34 +1,64 @@
 <template>
   <div class="home">
     <div class="header-container">
-    
-      <img id="HappyDog" src="../img/HappyDog.gif" alt="HappyDog">
-      <img id="welcome" src="../img/welcome.png" alt="welcome">
-      <img id="name" src="../img/petPlayPal.png" alt="name">
-    
-      <nav class="links">
-        <router-link to="/login" id="login" class="link">Log in</router-link>
-        <router-link to="/user" id="profile" class="link">Profile</router-link>  
-      </nav>
+      <div id="header">
+        <router-link to="/">
+          <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
+        </router-link> 
+      </div>
+      <div class="tabs">
+        <ul>
+          <router-link to="/"> <li><a>Home</a></li></router-link>
+          <router-link to="/playdates"><li><a>Events</a></li></router-link>
+          <router-link to="/forum"> <li><a>Forum</a></li></router-link>
+          <router-link to="/user"><li><a>Profile</a></li></router-link> 
+          <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
+        </ul>
+      </div>
     </div>
 
-    <img id="map" src="../img/map.png" alt="map">
-    <current-events-vue/>
-    <footer>@Copyright</footer>
-    <RouterView/>
+    <div class="events">
+      <div class="search-bar">
+        <h1 id="greeting">Welcome!</h1>
+        <input type="text" v-model="search" placeholder="Search Events">
+        <button @click="searchEvents">Search</button>
+      </div>
+      <PlayDatesView v-if="isVisible" />
+    </div>
+    <nav class="about">
+      <div id="content">
+        <img id="dog" src="../img/HappyDog.gif" alt="happy" />
+        <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
+      </div>
+        <p id="text">At Pet Play Pal, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
+        </p>
+    </nav>
+    <footer>
+      <p>&copy; 2024 Pet Play Pal. All rights reserved.</p>
+    </footer>
   </div>
 </template>
 
 <script>
-import CurrentEventsVue from '../components/CurrentEvents.vue';
+import PlayDatesView from './PlayDatesView.vue';
 import { RouterView } from 'vue-router';
 import router from '../router';
 
 
 export default {
   components:{
-    CurrentEventsVue
-  }
+    PlayDatesView
+  },
+  data() {
+    return {
+      isVisible: false,
+    };
+  },
+  methods: {
+    toggleVisibility() {
+      this.isVisible = !this.isVisible;
+    },
+  },
 };
 </script>
 
@@ -39,53 +69,61 @@ export default {
     justify-content: space-between; 
     padding: 5px; 
     border-bottom: 1px solid black;
-   }
-   #HappyDog, #welcome, #name {
-    width: 32%;
-    max-width: 100px;
-    height: auto;
-   }
-   #HappyDog {
-    max-width: 150px;
-    height: auto; 
-    margin-right: 10px; 
-   }
-   #welcome {
-    max-width: 450px; 
-    height: auto; 
-    margin-top: -15px; 
-    margin-right: 10px; 
-    }
-    #name {
-    max-width: 600px;
-    height: auto; 
-    margin-top: 25px;
-    margin-left: 20px;
-    } 
-  .links {
-    flex-grow: 1px;
-    display: flex;
-    align-items: flex-end;
-    font-size: 25px;
-    margin-left: auto;
-    margin-right: 10px;
-    margin-top: 10%;
   }
-  
-  .link {
-    margin-left: 50px; 
-    text-decoration: none;
-  }
-  .link:hover {
-    text-decoration: underline; 
+.tabs{
+  margin-left: auto;
 }
- #map{
-    display: block;
-    max-width: 100%;
+.events{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    background-image: url('../img/running.jpg' );
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: auto;
+  }
+#greeting{
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: cursive;
+  }
+.search-bar{ 
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    padding-bottom: 30%;
+  }
+.about {
+    display: flex; 
+    align-items: flex-start; 
+    padding: 20px; 
+    margin: 20px; 
+    flex-direction: column;
+    justify-content: center;
+  }
+#content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+#subtitle{
+    font-size: 2em;
+    font-family: cursive;
+  }
+  #dog{
+    width: 50px;
+    margin-right: 10px;
     height: auto;
-    margin: 0 auto;
-    margin-top: 20px;
-    }
+  }
+  #text{
+    font-size: 1.5em;
+    font-family: cursive;
+  }
+
 </style>
     
     

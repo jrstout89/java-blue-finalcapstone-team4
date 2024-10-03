@@ -31,6 +31,8 @@ CREATE TABLE pets (
     pet_size varchar NOT NULL,
     vaccination boolean,
     neutor boolean,
+    neuter boolean,
+--  potentially put energy level into its own table.
     energy_level varchar,
     personality varchar,
     image varchar,
@@ -53,6 +55,7 @@ CREATE TABLE playdate (
     event_duration int NOT NULL,
     event_description varchar(400),
     event_image varchar,
+    playdate_status varchar,
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
     CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id)
 );

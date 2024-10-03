@@ -7,6 +7,7 @@ import com.techelevator.model.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -19,8 +20,11 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
+import java.security.Principal;
+
 @RestController
 @CrossOrigin
+@PreAuthorize("isAuthenticated()")
 public class AuthenticationController {
 
     private final TokenProvider tokenProvider;
@@ -33,6 +37,7 @@ public class AuthenticationController {
         this.userDao = userDao;
     }
 
+    @PreAuthorize("permitAll")
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginDto) {
 
@@ -55,36 +60,30 @@ public class AuthenticationController {
         return new ResponseEntity<>(new LoginResponseDto(jwt, user), httpHeaders, HttpStatus.OK);
     }
 
+    @PreAuthorize("permitAll")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public void register(@Valid @RequestBody RegisterUserDto newUser) {
-//        try {
+      try {
             if (userDao.getUserByUsername(newUser.getUsername()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             } else {
-                userDao.createUser(newUser);
-
-//                userDao.createCustomers(newUser, newlyCreatedUser.getId());
+                User newlyCreatedUser = userDao.createUser(newUser);
+                userDao.createCustomers(newUser, newlyCreatedUser.getId());
             }
-//        }
-//        catch (DaoException e) {
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
-//        }
+        }
+        catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
+        }
     }
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "/register-customer", method = RequestMethod.POST)
-//    public void registerCustomer(@Valid @RequestBody Customers newCustomer) {
-//        try {
-//            if (userDao.getCustomerById(newCustomer.getId()) != null) {
-//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer already exists.");
-//            } else {
-//                userDao.createCustomers(newCustomer);
-//            }
-//        }
-//        catch (DaoException e) {
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Customer registration failed.");
-//        }
-//    }
+
+    //User profile page
+    @GetMapping(path = "/users")
+    public Customers getCustomer(Principal user){
+        String username = user.getName();
+        return userDao.getCustomer(username);
+    }
+
 
 }
 

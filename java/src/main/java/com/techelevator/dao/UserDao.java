@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserDao {
 
     List<User> getUsers();
+    Customers getCustomer(String username);
+    //User profile page
 
     User getUserById(int id);
 

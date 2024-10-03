@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Playdate;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -89,6 +90,34 @@ public class JdbcPlaydateDao implements PlaydateDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to the database.", e);
         }
+    }
+
+    @Override
+    public boolean updatePlaydate(Playdate playdate) {
+        String sqlSelect = "SELECT * FROM playdate WHERE id = ?";
+        String sqlUpdate = "UPDATE playdate SET event_title = ?, " +
+                "event_location = ?, event_address = ?," +
+                " maximum_pets = ?, event_host = ?," +
+                " event_date = ?, event_time = ?, " +
+                "event_duration = ?, event_description = ?," +
+                " event_image = ?  WHERE id = ?";
+        int numberOfRows = 0;
+        try{
+         numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
+                playdate.getEventAddress(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(),
+                playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(),playdate.getEventImage(),
+                playdate.getId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return numberOfRows==1;
+    }
+    @Override
+    public int deletePlaydateById(int id) {
+        String sql = "DELETE FROM playdate WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     // Method to accept a playdate request.

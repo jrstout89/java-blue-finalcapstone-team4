@@ -11,9 +11,7 @@ public interface PlaydateDao {
     Playdate getPlaydateById(int id);
 
     Playdate createPlaydate(Playdate playdate);
-
-//    Playdate acceptPlaydate(int id);
-//
-//    Playdate declinePlaydate(int id);
+    boolean  updatePlaydate(Playdate playdate);
+    int deletePlaydateById(int id);
 
 }

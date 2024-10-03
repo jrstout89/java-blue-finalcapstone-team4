@@ -33,8 +33,17 @@ public class PlaydateController {
     public Playdate createPlaydate(@RequestBody Playdate playdate) {
         return playdateDao.createPlaydate(playdate);
     }
-    //delete event/id
-    //update event/id
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path="/update-event", method = RequestMethod.PUT)
+    public boolean updatePlaydate(@RequestBody Playdate playdate){
+        return playdateDao.updatePlaydate(playdate);
+    }
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path = "/events/{id}", method = RequestMethod.DELETE)
+    public void deletePlaydate(@PathVariable int id){
+        playdateDao.deletePlaydateById(id);
+    }
+
 
 
 

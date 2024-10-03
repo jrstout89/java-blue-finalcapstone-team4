@@ -54,7 +54,7 @@ CREATE TABLE playdate (
     event_description varchar(400),
     event_image varchar,
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
-    CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id),
+    CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id)
 );
 
 CREATE TABLE invitation (

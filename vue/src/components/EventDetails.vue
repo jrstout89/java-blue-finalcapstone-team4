@@ -1,17 +1,35 @@
 <template>
-  <div>
-    <h1 class="event-title">{{ event.eventTitle }}</h1>
-    <p>{{ event.eventLocation }}</p>
-    <p>{{ event.eventAddress }}</p>
-    <div class="event-time">
-        <p>{{ formattedDate }}</p>
-        <p>&nbsp;|&nbsp;{{ formattedTime }} </p>
-        <p>&nbsp;|&nbsp;{{ event.eventDuration }} mins</p>
+    <div class="home">
+        <div class="header-container">
+            <div id="header">
+                <router-link to="/">
+                <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
+                </router-link> 
+            </div>
+            <div class="tabs">
+                <ul>
+                <router-link to="/"> <li><a>Home</a></li></router-link>
+                <router-link to="/playdates"><li><a>Events</a></li></router-link>
+                <router-link to="/forum"> <li><a>Forum</a></li></router-link>
+                <router-link to="/user"><li><a>Profile</a></li></router-link> 
+                <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
+                </ul>
+            </div>
+        </div>
     </div>
-    <p>{{ event.eventDescription }}</p>
-    <img :src="event.eventImage" alt="Event Image">
-    
-  </div>
+    <div>
+        <h1 class="event-title">{{ event.eventTitle }}</h1>
+        <p>{{ event.eventLocation }}</p>
+        <p>{{ event.eventAddress }}</p>
+        <div class="event-time">
+            <p>{{ formattedDate }}</p>
+            <p>&nbsp;|&nbsp;{{ formattedTime }} </p>
+            <p>&nbsp;|&nbsp;{{ event.eventDuration }} mins</p>
+        </div>
+        <p>{{ event.eventDescription }}</p>
+        <img :src="event.eventImage" alt="Event Image">
+        
+    </div>
 </template>
 
 <script>

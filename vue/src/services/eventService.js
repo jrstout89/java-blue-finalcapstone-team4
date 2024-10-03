@@ -9,9 +9,9 @@ export default {
     getEvents() {
         return http.get('/events');
     },
-    // getEvent(id) {
-    //     return http.get(`/events/${id}`);
-    // },
+    getEventById(id) {
+        return http.get(`/events/${id}`);
+    },
     // addEvent(event) {
     //     return http.post('/events', event);
     // },

@@ -9,6 +9,6 @@ public interface PetDao {
     List<Pets> getPetsByCustomerId(int customerId);
     Pets getPetById(int id);
     boolean updatePet(Pets pet, int customerId);
-    int deletePetById(int id);
+    void deletePetById(int id);
     void addPet(Pets pet);
 }

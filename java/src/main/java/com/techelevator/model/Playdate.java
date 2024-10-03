@@ -13,11 +13,20 @@ public class Playdate {
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
+    private PlaydateStatus status;
 
-    public Playdate() {
+    public enum PlaydateStatus {
+        PENDING,
+        ACCEPTED,
+        DECLINED
     }
 
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage) {
+    // Set default status to PENDING.
+    public Playdate() {
+        this.status = PlaydateStatus.PENDING;
+    }
+
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage, PlaydateStatus status) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;
@@ -29,6 +38,7 @@ public class Playdate {
         this.eventDuration = eventDuration;
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
+        this.status = status;
     }
 
     public int getId() {
@@ -117,5 +127,13 @@ public class Playdate {
 
     public void setEventDuration(int eventDuration) {
         this.eventDuration = eventDuration;
+    }
+
+    public PlaydateStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PlaydateStatus status) {
+        this.status = status;
     }
 }

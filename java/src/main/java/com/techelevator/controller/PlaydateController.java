@@ -4,24 +4,47 @@ import com.techelevator.dao.PlaydateDao;
 import com.techelevator.model.Playdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin
-//@PreAuthorize("isAuthenticated()")
 public class PlaydateController {
 
     @Autowired
     private PlaydateDao playdateDao;
 
+    // Get all playdates.
     @RequestMapping(path = "/events", method = RequestMethod.GET)
     public List<Playdate> getAllPlaydates() {
         return playdateDao.getAllPlaydates();
     }
 
+    // Get a playdate by ID.
+    @RequestMapping(path = "/events/{id}", method = RequestMethod.GET)
+    public Playdate getPlaydateById(@PathVariable int id) {
+        return playdateDao.getPlaydateById(id);
+    }
+
+    // Create a new playdate.
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path = "/events", method = RequestMethod.POST)
+    public Playdate createPlaydate(@RequestBody Playdate playdate) {
+        return playdateDao.createPlaydate(playdate);
+    }
+
+    // Accept a playdate by ID.
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path = "/events/{id}/accept", method = RequestMethod.PUT)
+    public Playdate acceptPlaydate(@PathVariable int id) {
+        return playdateDao.acceptPlaydate(id);
+    }
+
+    // Decline a playdate by ID.
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path = "/events/{id}/decline", method = RequestMethod.PUT)
+    public Playdate declinePlaydate(@PathVariable int id) {
+        return playdateDao.declinePlaydate(id);
+    }
 }

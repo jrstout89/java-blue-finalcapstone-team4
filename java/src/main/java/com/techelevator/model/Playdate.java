@@ -13,9 +13,8 @@ public class Playdate {
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
-    private String status;
     public Playdate(){}
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage,String status) {
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;
@@ -27,7 +26,6 @@ public class Playdate {
         this.eventDuration = eventDuration;
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
-        this.status = status;
     }
 
     public int getId() {
@@ -116,13 +114,5 @@ public class Playdate {
 
     public void setEventDuration(int eventDuration) {
         this.eventDuration = eventDuration;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

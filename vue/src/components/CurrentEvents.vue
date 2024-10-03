@@ -1,12 +1,14 @@
 <template>
-    <div class="events">
+    <div class="playdates">
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <div>
-                <h3>{{ event.eventTitle }}</h3>
-                <p>Location:  {{ event.eventLocation }}</p>
-                <p>Date: {{ event.eventDate }}</p>
-                <p>Time: {{ event.eventTime }}</p>
-                <p>Duration: {{ event.eventDuration}} mins</p>
+                <img v-bind:src="event.eventImage" alt="event image" width="300" height="200">
+                <h3><strong>{{ event.eventTitle }}</strong></h3>
+                <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
+                <p><strong>Address:</strong> {{ event.eventAddress }}</p>
+                <p><strong>Date:</strong> {{ event.eventDate }}</p>
+                <p><strong>Time:</strong> {{ event.eventTime }}</p>
+                <p><strong>Duration:</strong> {{ event.eventDuration}} mins</p>
             </div>
         </div>
     </div>
@@ -28,11 +30,14 @@ export default{
             }
         );
     },
+    methods:{
+        
+    }
 }
 
 </script>
 <style>
-    .events{
+    .playdates{
         display: flex;
         flex-direction: row; 
     }
@@ -40,12 +45,13 @@ export default{
         border: 1px solid black;
         margin: 10px;
         padding: 10px;
-        width: 300px;
+        width: auto;
         flex-grow: 1;
         margin-left: 20px;
     }
     .event h3{
         margin: 0;
+        font-family: cursive;
     }
     .event p{
         margin: 0;

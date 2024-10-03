@@ -26,12 +26,16 @@
       <PlayDatesView v-if="isVisible" />
     </div>
     <nav class="about">
-      <img src="../img/HappyDog.gif" alt="happy" />
-      <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
-      <p id="content">At Pet Play Pal, our mission is to provide a safe, fun, and nurturing environment where pets can socialize, play, and thrive. We understand that pets need companionship and exercise to stay happy and healthy. Our dedicated team is committed to offering engaging play sessions, socialization opportunities, and enrichment activities that cater to each pet's unique needs. Whether it’s a day of play, training, or simply making new friends, we strive to create a joyful experience for every furry family member. Join us in fostering a vibrant community where pets can connect, explore, and have a paw-sitive time!
-      </p>
-      
+      <div id="content">
+        <img id="dog" src="../img/HappyDog.gif" alt="happy" />
+        <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
+      </div>
+        <p id="text">At Pet Play Pal, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
+        </p>
     </nav>
+    <footer>
+      <p>&copy; 2024 Pet Play Pal. All rights reserved.</p>
+    </footer>
   </div>
 </template>
 
@@ -80,30 +84,45 @@ export default {
     background-position: center;
     height: 100vh;
     width: auto;
-}
+  }
 #greeting{
     font-size: 3em;
     margin-bottom: 20px;
     font-family: cursive;
-}
+  }
 .search-bar{ 
     align-items: center;
     justify-content: center;
     margin-bottom: 50px;
     padding-bottom: 30%;
-}
+  }
 .about {
-    display: flex; /* Enables flexbox layout */
-    align-items: flex-start; /* Aligns items at the start vertically */
-    padding: 20px; /* Adds padding around the section */
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    margin: 20px; /* Adds margin around the section */
-}
-
-
-
+    display: flex; 
+    align-items: flex-start; 
+    padding: 20px; 
+    margin: 20px; 
+    flex-direction: column;
+    justify-content: center;
+  }
+#content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+#subtitle{
+    font-size: 2em;
+    font-family: cursive;
+  }
+  #dog{
+    width: 50px;
+    margin-right: 10px;
+    height: auto;
+  }
+  #text{
+    font-size: 1.5em;
+    font-family: cursive;
+  }
 
 </style>
     

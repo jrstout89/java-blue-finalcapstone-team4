@@ -33,6 +33,14 @@ public class PlaydateController {
     public Playdate createPlaydate(@RequestBody Playdate playdate) {
         return playdateDao.createPlaydate(playdate);
     }
+    //delete event/id
+    //update event/id
+
+
+
+
+
+
 
     // Accept a playdate by ID.
 //    @PreAuthorize("isAuthenticated()")

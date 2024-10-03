@@ -13,21 +13,16 @@ public class Playdate {
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
-//    private PlaydateStatus status;
+    private PlaydateStatus status;
 
-//    public enum PlaydateStatus {
-//        PENDING,
-//        ACCEPTED,
-//        DECLINED
-//    }
-
-    // Set default status to PENDING.
-//    public Playdate() {
-//        this.status = PlaydateStatus.PENDING;
-//    }
+    public enum PlaydateStatus {
+        PENDING,
+        ACCEPTED,
+        DECLINED
+    }
 
     public Playdate(){}
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage) {
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage,) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;

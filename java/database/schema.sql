@@ -55,7 +55,7 @@ CREATE TABLE playdate (
     event_duration int NOT NULL,
     event_description varchar(400),
     event_image varchar,
-    playdate_status varchar,
+    playdate_status varchar DEFAULT 'PENDING',
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
     CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id)
 );

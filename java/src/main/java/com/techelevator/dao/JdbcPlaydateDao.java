@@ -94,7 +94,6 @@ public class JdbcPlaydateDao implements PlaydateDao {
 
     @Override
     public boolean updatePlaydate(Playdate playdate) {
-        String sqlSelect = "SELECT * FROM playdate WHERE id = ?";
         String sqlUpdate = "UPDATE playdate SET event_title = ?, " +
                 "event_location = ?, event_address = ?," +
                 " maximum_pets = ?, event_host = ?," +
@@ -116,6 +115,9 @@ public class JdbcPlaydateDao implements PlaydateDao {
     }
     @Override
     public int deletePlaydateById(int id) {
+        if(id<=0){
+            throw new IllegalArgumentException("ID must be greater than zero.");
+        }
         String sql = "DELETE FROM playdate WHERE id = ?";
         return jdbcTemplate.update(sql, id);
     }

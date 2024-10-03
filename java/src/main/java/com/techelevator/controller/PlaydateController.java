@@ -28,7 +28,6 @@ public class PlaydateController {
     }
 
     // Create a new playdate.
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(path = "/events", method = RequestMethod.POST)
     public Playdate createPlaydate(@RequestBody Playdate playdate) {
         return playdateDao.createPlaydate(playdate);

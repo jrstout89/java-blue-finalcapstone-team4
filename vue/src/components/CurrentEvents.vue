@@ -1,28 +1,5 @@
 <template>
-    <div class="header">
-        <h1>All Events</h1>
-    </div>
     <div class="events">
-        
-        <div id="side-bar">
-            <ul>
-                <li>Title: <input class="input is-normal" type="text" placeholder="search by title"/></li>
-                <li>Location: <input class="input is-normal" type="text" placeholder="search by location"/></li>
-                <li>Date: <input class="calender" type="date"/></li>
-                <!-- <li>
-                     Pet
-                     <button @click="toggleDropdown" class="down-arrow" aria-expanded="isActive">
-                        <i class="fas" :class="isActive ? 'fa-angle-up' : 'fa-angle-down'"></i>
-                    </button>
-                     <ul v-show="isActive">
-                        <li>Breed</li>
-                        <li>Energy Level</li>
-                        <li>Size</li>
-                     </ul>
-                 </li> -->
-             </ul>
-        </div>
-
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <div>
                 <h3>{{ event.eventTitle }}</h3>
@@ -41,8 +18,7 @@ import eventService from '../services/eventService';
 export default{
     data(){
         return{
-            events: [],
-            isActive: false,
+            events: []
         }
     },
     created(){
@@ -52,14 +28,6 @@ export default{
             }
         );
     },
-    methods: {
-        toggleDropdown() {
-            this.isActive = !this.isActive;
-        },
-        selectItem(item) {
-            this.activeItem = item;
-        }
-    }
 }
 
 </script>
@@ -82,22 +50,5 @@ export default{
     .event p{
         margin: 0;
     }
-    #side-bar{
-        width: 200px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        background-color: #f0f0f0;
-        margin-bottom: 10px;
-    }
-    #side-bar ul{
-        list-style-type: none;
-        padding: 0;
-    }
-    .header{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        font-family: cursive;
-        border-bottom: black 1px solid;
-    }
+
 </style>

@@ -30,9 +30,7 @@ CREATE TABLE pets (
     customer_id int,
     pet_size varchar NOT NULL,
     vaccination boolean,
-    neutor boolean,
     neuter boolean,
---  potentially put energy level into its own table.
     energy_level varchar,
     personality varchar,
     image varchar,
@@ -57,7 +55,8 @@ CREATE TABLE playdate (
     event_image varchar,
     playdate_status varchar DEFAULT 'PENDING',
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
-    CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id)
+    CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id),
+    CONSTRAINT playdate_status_constraint CHECK (playdate_status IN ('PENDING','ACCEPTED','DECLINED'))
 );
 
 CREATE TABLE invitation (

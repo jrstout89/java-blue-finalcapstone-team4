@@ -1,5 +1,5 @@
 <template>
-    <div class="playdates">
+    <div class="events">
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <div>
                 <img v-bind:src="event.eventImage" alt="event image" width="300" height="200">

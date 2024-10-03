@@ -35,16 +35,16 @@ public class PlaydateController {
     }
 
     // Accept a playdate by ID.
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/events/{id}/accept", method = RequestMethod.PUT)
-    public Playdate acceptPlaydate(@PathVariable int id) {
-        return playdateDao.acceptPlaydate(id);
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @RequestMapping(path = "/events/{id}/accept", method = RequestMethod.PUT)
+//    public Playdate acceptPlaydate(@PathVariable int id) {
+//        return playdateDao.acceptPlaydate(id);
+//    }
 
     // Decline a playdate by ID.
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/events/{id}/decline", method = RequestMethod.PUT)
-    public Playdate declinePlaydate(@PathVariable int id) {
-        return playdateDao.declinePlaydate(id);
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @RequestMapping(path = "/events/{id}/decline", method = RequestMethod.PUT)
+//    public Playdate declinePlaydate(@PathVariable int id) {
+//        return playdateDao.declinePlaydate(id);
+//    }
 }

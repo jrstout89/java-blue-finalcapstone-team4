@@ -17,14 +17,6 @@
       </div>
     </div>
 
-    <div class="events">
-      <div class="search-bar">
-        <h1 id="greeting">Welcome!</h1>
-        <input type="text" v-model="search" placeholder="Search Events">
-        <button @click="searchEvents">Search</button>
-      </div>
-      <PlayDatesView v-if="isVisible" />
-    </div>
     <nav class="about">
       <div id="content">
         <img id="dog" src="../img/HappyDog.gif" alt="happy" />
@@ -72,9 +64,15 @@ export default {
   }
 .tabs{
   margin-left: auto;
-}
-.events{
-    display: flex;
+  }
+#greeting{
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: cursive;
+  }
+
+.about {
+  display: flex;
     flex-direction: column;
     align-items: center; 
     justify-content: center;
@@ -84,25 +82,6 @@ export default {
     background-position: center;
     height: 100vh;
     width: auto;
-  }
-#greeting{
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: cursive;
-  }
-.search-bar{ 
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    padding-bottom: 30%;
-  }
-.about {
-    display: flex; 
-    align-items: flex-start; 
-    padding: 20px; 
-    margin: 20px; 
-    flex-direction: column;
-    justify-content: center;
   }
 #content{
     display: flex;

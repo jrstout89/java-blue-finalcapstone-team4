@@ -33,7 +33,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setEventAddress(results.getString("event_address"));
         playdate.setEventDescription(results.getString("event_description"));
         playdate.setEventImage(results.getString("event_image"));
-        playdate.setStatus(Playdate.PlaydateStatus.valueOf(results.getString("playdate_status")));
+//        playdate.setStatus(Playdate.PlaydateStatus.valueOf(results.getString("playdate_status")));
         return playdate;
     }
 
@@ -79,7 +79,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         try {
 
             // Setting template update to "rowsAffected" to check for exceptions where no rows are inserted.
-            int rowsAffected = jdbcTemplate.update(sql, playdate.getEventTitle(), playdate.getEventLocation(), playdate.getEventAddress(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(), playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(), playdate.getEventImage(), playdate.getStatus().name());
+            int rowsAffected = jdbcTemplate.update(sql, playdate.getEventTitle(), playdate.getEventLocation(), playdate.getEventAddress(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(), playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(), playdate.getEventImage());
 
             // This will handle cases where no rows were inserted.
             if (rowsAffected == 0) {
@@ -92,41 +92,41 @@ public class JdbcPlaydateDao implements PlaydateDao {
     }
 
     // Method to accept a playdate request.
-    @Override
-    public Playdate acceptPlaydate(int id) {
-        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
-        try {
-
-            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been accepted. Using the same term to maintain naming conventions.
-            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.ACCEPTED, id);
-
-            // This will handle cases where the playdate can't be found or already has the accepted status.
-            if (rowsAffected == 0) {
-                throw new DaoException("Playdate not found or has already been accepted.");
-            }
-            return getPlaydateById(id);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to the database.", e);
-        }
-
-    }
+//    @Override
+//    public Playdate acceptPlaydate(int id) {
+//        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
+//        try {
+//
+//            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been accepted. Using the same term to maintain naming conventions.
+//            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.ACCEPTED, id);
+//
+//            // This will handle cases where the playdate can't be found or already has the accepted status.
+//            if (rowsAffected == 0) {
+//                throw new DaoException("Playdate not found or has already been accepted.");
+//            }
+//            return getPlaydateById(id);
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to the database.", e);
+//        }
+//
+//    }
 
     // Method to decline a playdate request.
-    @Override
-    public Playdate declinePlaydate(int id) {
-        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
-        try {
-
-            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been declined. Using the same term to maintain naming conventions.
-            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.DECLINED, id);
-
-            // This will handle cases where the playdate can't be found or already has the declined status.
-            if (rowsAffected == 0) {
-                throw new DaoException("Playdate not found or has already been declined.");
-            }
-            return getPlaydateById(id);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to the database.", e);
-        }
-    }
+//    @Override
+//    public Playdate declinePlaydate(int id) {
+//        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
+//        try {
+//
+//            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been declined. Using the same term to maintain naming conventions.
+//            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.DECLINED, id);
+//
+//            // This will handle cases where the playdate can't be found or already has the declined status.
+//            if (rowsAffected == 0) {
+//                throw new DaoException("Playdate not found or has already been declined.");
+//            }
+//            return getPlaydateById(id);
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to the database.", e);
+//        }
+//    }
 }

@@ -12,8 +12,8 @@ public interface PlaydateDao {
 
     Playdate createPlaydate(Playdate playdate);
 
-    Playdate acceptPlaydate(int id);
-
-    Playdate declinePlaydate(int id);
+//    Playdate acceptPlaydate(int id);
+//
+//    Playdate declinePlaydate(int id);
 
 }

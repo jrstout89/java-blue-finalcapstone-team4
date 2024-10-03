@@ -70,7 +70,23 @@ public class JdbcUserDao implements UserDao {
         }
         return users;
     }
-
+    @Override
+    //User profile page
+    public Customers getCustomer(String username){
+        Customers customers = null;
+        String sql = "select customers.customer_id,customers.phone_number,customers.email,customers.first_name,customers.last_name,customers.user_id from customers " +
+                "join users on customers.user_id = users.user_id  " +
+                "where username = ?";
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+            if (results.next()){
+                customers = mapRowToCustomers(results);
+            }
+        }  catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return customers;
+    }
     @Override
     public User getUserByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
@@ -116,17 +132,17 @@ public class JdbcUserDao implements UserDao {
         Customers newCustomer = null;
         String insertCustomerSql = "INSERT INTO customers (phone_number, email, first_name, last_name, user_id) values (LOWER(TRIM(?)), ?, ?, ?, ?) RETURNING customer_id";
 
-//        try {
+        try {
             int newCustomerId = jdbcTemplate.queryForObject(insertCustomerSql, int.class, customer.getPhoneNumber(), customer.getEmail(), customer.getFirstName(), customer.getLastName(), userId);
 
             newCustomer = getCustomerById(newCustomerId);
 
 
-//        } catch (CannotGetJdbcConnectionException e) {
-//            throw new DaoException("Unable to connect to server or database", e);
-//        } catch (DataIntegrityViolationException e) {
-//            throw new DaoException("Data integrity violation", e);
-//        }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
         return newCustomer;
 
     }

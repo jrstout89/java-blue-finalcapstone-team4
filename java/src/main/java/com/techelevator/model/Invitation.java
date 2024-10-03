@@ -6,15 +6,17 @@ public class Invitation {
     private int accountFrom;
     private int accountTo;
     private int playdateId;
+    private String status;
 
     public Invitation() {
     }
 
-    public Invitation(int id, int accountFrom, int accountTo, int playdateId) {
+    public Invitation(int id, int accountFrom, int accountTo, int playdateId,String status) {
         this.id = id;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.playdateId = playdateId;
+        this.status = status;
     }
 
     public int getId() {
@@ -47,5 +49,13 @@ public class Invitation {
 
     public void setPlaydateId(int playdateId) {
         this.playdateId = playdateId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

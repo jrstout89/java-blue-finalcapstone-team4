@@ -27,7 +27,7 @@ CREATE TABLE pets (
     breed varchar,
     date_of_birth date NOT NULL,
     gender varchar NOT NULL,
-    customer_id int,
+    customer_id int NOT NULL,
     pet_size varchar NOT NULL,
     vaccination boolean,
     neuter boolean,
@@ -47,31 +47,35 @@ CREATE TABLE playdate (
     event_location varchar,
     event_address varchar,
     maximum_pets int,
-    event_host int,
+    event_host int NOT NULL,
     event_date date NOT NULL,
     event_time time NOT NULL,
     event_duration int NOT NULL,
     event_description varchar(400),
     event_image varchar,
-    playdate_status varchar DEFAULT 'PENDING',
     CONSTRAINT PK_playdate_id PRIMARY KEY (playdate_id),
     CONSTRAINT FK_playdate_customers FOREIGN KEY (event_host) REFERENCES customers(customer_id),
-    CONSTRAINT playdate_status_constraint CHECK (playdate_status IN ('PENDING','ACCEPTED','DECLINED'))
 );
 
 CREATE TABLE invitation (
     invitation_id SERIAL,
     account_from int NOT NULL,
     account_to int NOT NULL,
-    playdate_id int,
+    playdate_id int NOT NULL,
+    invitation_status varchar DEFAULT 'PENDING',
+    CONSTRAINT invitation_status_constraint CHECK (invitation_status IN ('PENDING','ACCEPTED','DECLINED')),
     CONSTRAINT PK_invitation_id PRIMARY KEY (invitation_id),
-    CONSTRAINT FK_invitation_playdate FOREIGN KEY (playdate_id) REFERENCES playdate(playdate_id)
+    CONSTRAINT FK_invitation_playdate FOREIGN KEY (playdate_id) REFERENCES playdate(playdate_id),
+    CONSTRAINT FK_invitation_account_from FOREIGN KEY (account_from) REFERENCES customers (customer_id),
+    CONSTRAINT FK_invitation_account_to FOREIGN KEY (account_to) REFERENCES customers (customer_id),
+    CONSTRAINT CK_invitation_not_same_account CHECK (account_from <> account_to)
+
 );
 
 CREATE TABLE playdate_pets (
     playdate_pets_id SERIAL,
-    playdate_id int,
-    pet_id int,
+    playdate_id int NOT NULL,
+    pet_id int NOT NULL,
     CONSTRAINT PK_playdate_pets_id PRIMARY KEY (playdate_pets_id),
     CONSTRAINT FK_playdate_pets_playdate FOREIGN KEY (playdate_id) REFERENCES playdate(playdate_id),
     CONSTRAINT FK_playdate_pets_pets FOREIGN KEY (pet_id) REFERENCES pets(pet_id)
@@ -79,7 +83,7 @@ CREATE TABLE playdate_pets (
 
 CREATE TABLE forum (
     forum_id serial,
-    customer_id int,
+    customer_id int NOT NULL,
     forum_title varchar NOT NULL,
     created_date date NOT NULL,
     update_date date NOT NULL,

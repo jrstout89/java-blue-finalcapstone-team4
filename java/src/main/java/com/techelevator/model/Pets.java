@@ -8,8 +8,9 @@ public class Pets {
     private String dateOfBirth;
     private String gender;
     private int customerId;
+    private String petSize;
     private boolean vaccination;
-    private boolean neutor;
+    private boolean isSpayNeuter;
     private String energyLevel;
     private String personality;
     private String image;
@@ -17,7 +18,7 @@ public class Pets {
     public Pets() {
     }
 
-    public Pets(int id, String name, String breed, String dateOfBirth, String gender, int customerId, boolean vaccination, boolean neutor, String energyLevel, String personality, String image) {
+    public Pets(int id, String name, String breed, String dateOfBirth, String gender, int customerId, boolean vaccination, boolean isSpayNeuter, String energyLevel, String personality, String image) {
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -25,7 +26,7 @@ public class Pets {
         this.gender = gender;
         this.customerId = customerId;
         this.vaccination = vaccination;
-        this.neutor = neutor;
+        this.isSpayNeuter = isSpayNeuter;
         this.energyLevel = energyLevel;
         this.personality = personality;
         this.image = image;
@@ -53,6 +54,15 @@ public class Pets {
 
     public void setBreed(String breed) {
         this.breed = breed;
+    }
+
+
+    public String getPetSize() {
+        return petSize;
+    }
+
+    public void setPetSize(String petSize) {
+        this.petSize = petSize;
     }
 
     public String getDateOfBirth() {
@@ -87,12 +97,12 @@ public class Pets {
         this.vaccination = vaccination;
     }
 
-    public boolean isNeutor() {
-        return neutor;
+    public boolean isSpayNeuter() {
+        return isSpayNeuter;
     }
 
-    public void setNeutor(boolean neutor) {
-        this.neutor = neutor;
+    public void setSpayNeuter(boolean spayNeuter) {
+        isSpayNeuter = spayNeuter;
     }
 
     public String getEnergyLevel() {

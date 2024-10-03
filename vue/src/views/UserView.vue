@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <!-- <div class="home">
         <div class="header-container">
             <div id="header">
                 <router-link to="/">
@@ -16,7 +16,8 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
+    <div> </div>
 </template>
 
 <script>

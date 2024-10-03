@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <!-- <div class="home">
         <div class="header-container">
             <div id="header">
                 <router-link to="/">
@@ -15,14 +15,14 @@
                 <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <div class="content-container">
             <div class="left-column">
                 <!-- Filter will go here -->
             </div>
             <current-events></current-events>
         </div>
-    </div>
+    <!-- </div> -->
 
 </template>
 

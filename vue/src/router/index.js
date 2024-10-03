@@ -59,7 +59,7 @@ const routes = [
   name: "playDates",
   component: PlayDatesView,
   meta: {
-    requiresAuth: true
+    requiresAuth: false
   }
 },
 {

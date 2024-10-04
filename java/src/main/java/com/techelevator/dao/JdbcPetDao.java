@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pets;
+import com.techelevator.model.PlaydatePets;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -133,4 +134,34 @@ public class JdbcPetDao implements PetDao{
             throw new DaoException("Data integrity violation", e);
         }
     }
+
+    @Override
+    public void linkPetPlaydate(PlaydatePets playdatePets) {
+        String sql = "INSERT INTO playdate_pets (playdate_id, pet_id) VALUES(?, ?)";
+        try{
+            jdbcTemplate.update(sql, playdatePets.getPlaydateId(), playdatePets.getPetId());
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public List<Pets> getPetsByPlaydateId(int playdateId) {
+        List<Pets> pets = new ArrayList<>();
+        String sql = "SELECT * FROM pets JOIN playdate_pets on pets.pet_id = playdate_pets.pet_id WHERE playdate_id = ?";
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, playdateId);
+            while (results.next()){
+                pets.add(mapRowToPet(results));
+            }
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return pets;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Pets;
+import com.techelevator.model.PlaydatePets;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface PetDao {
     boolean updatePet(Pets pet, int customerId);
     void deletePetById(int id);
     void addPet(Pets pet);
+    void linkPetPlaydate(PlaydatePets playdatePets);
+    List<Pets> getPetsByPlaydateId(int playdateId);
 }

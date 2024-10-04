@@ -13,8 +13,8 @@
                 <router-link to="/forum"> <li><a>Forum</a></li></router-link>
                 <router-link to="/user"><li><a>Profile</a></li></router-link> 
                 <!-- <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link> -->
-                <router-link to="/login" v-if="!isLoggedIn"><li class="is-active"><a>Log in</a></li></router-link>
-                <router-link to="/logout" v-else><li class="is-active"><a>Log out</a></li></router-link>
+                <router-link to="/login" v-if="!isLoggedIn"><li class="is-active"><a>Login</a></li></router-link>
+                <router-link to="/logout" v-else><li class="is-active"><a>Logout</a></li></router-link>
                 </ul>
             </div>
         </div>
@@ -27,3 +27,14 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+  isLoggedIn() {
+    return this.$store.state.isLoggedIn;
+  }
+}
+}
+</script>
+

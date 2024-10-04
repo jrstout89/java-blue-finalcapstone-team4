@@ -72,16 +72,16 @@ public class JdbcPetDao implements PetDao{
     public Pets getPetById(int id) {
         Pets pets = null;
         String sql = "SELECT * FROM pets WHERE pet_id = ?";
-        try{
+//        try{
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
             if (result.next()){
                pets = mapRowToPet(result);
             }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
         return pets;
     }
 

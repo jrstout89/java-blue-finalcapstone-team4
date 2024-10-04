@@ -72,8 +72,8 @@ const routes = [
   }
 },
   {
-    path: "/pet",
-    name: "pet",
+    path: "/pets",
+    name: "pets",
     component: PetView,
     meta: {
       requiresAuth: true

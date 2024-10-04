@@ -36,8 +36,8 @@ public class PetsController {
     public Pets getPetById(@PathVariable int id){
         return petDao.getPetById(id);
     }
-    @RequestMapping(path="/update-pet", method = RequestMethod.PUT)
-    public boolean updatePet(@Valid @RequestBody Pets pet, Principal principal){
+    @RequestMapping(path="/update-pet/{id}", method = RequestMethod.PUT)
+    public boolean updatePet(@Valid @RequestBody Pets pet,@PathVariable int id, Principal principal){
         Customers customers = userDao.getCustomer(principal.getName());
         return petDao.updatePet(pet, customers.getId());
     }

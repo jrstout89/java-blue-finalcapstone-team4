@@ -20,6 +20,10 @@ export default {
     // },
     // deleteEvent(id) {
     //     return http.delete(`/events/${id}`);
-    // }
-
+    // },
+    getUser() {
+        return http.get(`/user`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            }
 }

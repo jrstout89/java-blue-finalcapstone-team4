@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <!-- <div class="home">
         <div class="header-container">
             <div id="header">
                 <router-link to="/">
@@ -12,13 +12,13 @@
                 <router-link to="/playdates"><li><a>Events</a></li></router-link>
                 <router-link to="/forum"> <li><a>Forum</a></li></router-link>
                 <router-link to="/user"><li><a>Profile</a></li></router-link> 
-                <!-- <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link> -->
+                <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
                 <router-link to="/login" v-if="!isLoggedIn"><li class="is-active"><a>Login</a></li></router-link>
                 <router-link to="/logout" v-else><li class="is-active"><a>Logout</a></li></router-link>
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
   <div id="capstone-app">
     <div id="nav">
       <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp; -->

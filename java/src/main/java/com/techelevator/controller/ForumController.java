@@ -24,7 +24,7 @@ public class ForumController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(path = "/add-forum", method = RequestMethod.POST)
-    public void addForum(@Valid@RequestBody Forum forum){
+    public void addForum(@Valid @RequestBody Forum forum){
         forumDao.createForum(forum);
     }
     @PreAuthorize("isAuthenticated()")

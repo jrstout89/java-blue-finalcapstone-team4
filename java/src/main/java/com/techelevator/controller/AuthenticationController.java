@@ -78,7 +78,7 @@ public class AuthenticationController {
     }
 
     //User profile page
-    @GetMapping(path = "/users")
+    @GetMapping(path = "/user")
     public Customers getCustomer(Principal user){
         String username = user.getName();
         return userDao.getCustomer(username);

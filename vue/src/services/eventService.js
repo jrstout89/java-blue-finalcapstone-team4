@@ -25,5 +25,10 @@ export default {
         return http.get(`/user`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
-            }
+    },
+    getUserEvents(customerId) {
+        return http.get(`/user/${customerId}/events/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    }
 }

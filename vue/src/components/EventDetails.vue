@@ -1,22 +1,4 @@
 <template>
-    <!-- <div class="home">
-        <div class="header-container">
-            <div id="header">
-                <router-link to="/">
-                <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
-                </router-link> 
-            </div>
-            <div class="tabs">
-                <ul>
-                <router-link to="/"> <li><a>Home</a></li></router-link>
-                <router-link to="/playdates"><li><a>Events</a></li></router-link>
-                <router-link to="/forum"> <li><a>Forum</a></li></router-link>
-                <router-link to="/user"><li><a>Profile</a></li></router-link> 
-                <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
-                </ul>
-            </div>
-        </div>
-    </div> -->
     <div>
         <h1 class="event-title">{{ event.eventTitle }}</h1>
         <p>{{ event.eventLocation }}</p>
@@ -39,6 +21,9 @@ export default {
         return {
             event: {},
         };
+    },
+    props: {
+        
     },
     created() {
         return eventService.getEventById(this.$route.params.id).then(

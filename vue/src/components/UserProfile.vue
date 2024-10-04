@@ -1,10 +1,9 @@
 <template>
   <div class="user-info">
-    <h2>{{ user.name }}</h2>
+    <h2>{{ user.firstName }}</h2>
+    <p>{{ user.lastName }}</p>
     <p>{{ user.email }}</p>
-    <p>{{ user.phone }}</p>
-    <p>{{ user.address }}</p>
-
+    <p>{{ user.phoneNumber }}</p>
   </div>
 </template>
 
@@ -17,8 +16,7 @@ export default {
       user: {}
     }
   },
-  methods: {
-    getUserById() {
+  created() {
       return eventService.getUser().then(
         (response) => {
           this.user = response.data;
@@ -26,7 +24,6 @@ export default {
       );
     }
   }
-}
 </script>
 
 <style>

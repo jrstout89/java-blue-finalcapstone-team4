@@ -72,6 +72,26 @@ public class JdbcPlaydateDao implements PlaydateDao {
             throw new DaoException("Unable to connect to the database.", e);
         }
     }
+    @Override
+    public Playdate getPlaydateByUsername(String username) {
+        Playdate playdate = null;
+        String sql = "select playdate.playdate_id,playdate.event_title,playdate.event_location, playdate.event_address, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image from playdate " +
+                "join customers ON playdate.event_host = customers.customer_id " +
+                "join users ON customers.user_id = users.user_id " +
+                "where username = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+            if (results.next()) {
+                return mapRowToPlaydate(results);
+            } else {
+
+                // Handles invalid IDs.
+                throw new DaoException("Playdate not found.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to the database.", e);
+        }
+    }
 
     // Method to create a new playdate.
     @Override

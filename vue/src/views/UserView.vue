@@ -1,32 +1,18 @@
 <template>
     <div class="user-profile">
-        <!-- <UserProfile :user="user"/> -->
-        <h2>Your events</h2>
-        <!-- <EventDetails :events="events" @eventSelected="viewEventDetails" /> -->
-
+        <UserProfile/>
+        <PersonalEvents/>
     </div>
 </template>
 
 <script>
-import EventDetails from '../components/EventDetails.vue';
+import PersonalEvents from '../components/PersonalEvents.vue';
 import UserProfile from '../components/UserProfile.vue';
 
 export default {
     components:{
-        EventDetails,
+        PersonalEvents,
         UserProfile
-    },
-    props: {
-        user: Object,
-        events: Array
-    },
-    methods: {
-        viewEventDetails(event){
-            this.$emit('view-event-details', event);
-        },
-        viewUserProfile(user){
-            this.$emit('view-user-profile', user);
-        }
     }
 }
 </script>

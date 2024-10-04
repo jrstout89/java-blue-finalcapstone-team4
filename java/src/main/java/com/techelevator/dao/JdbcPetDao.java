@@ -36,18 +36,18 @@ public class JdbcPetDao implements PetDao{
     @Override
     public List<Pets> getAllPets() {
         List<Pets> pet = new ArrayList<>();
-        String sql="SELECT * FROM pets";
+        String sql="SELECT * FROM pets;";
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while(results.next()){
                 pet.add(mapRowToPet(results));
             }
-        } catch (CannotGetJdbcConnectionException e) {
+        }catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-        return null;
+        return pet;
     }
 
     @Override
@@ -104,12 +104,18 @@ public class JdbcPetDao implements PetDao{
     }
 
     @Override
-    public int deletePetById(int id) {
+    public void deletePetById(int id) {
         if(id<=0){
             throw new IllegalArgumentException("ID must be greater than zero.");
         }
         String sql = "DELETE FROM pets WHERE id = ?";
-        return jdbcTemplate.update(sql,id);
+        try{
+            jdbcTemplate.update(sql,id);
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     @Override

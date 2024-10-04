@@ -1,21 +1,21 @@
 <template>
-  <div class="home">
-    <!-- <div class="header-container">
+  <!-- <div class="home">
+    <div class="header-container">
       <div id="header">
-        <router-link to="/">
+         <router-link to="/">
           <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
-        </router-link> 
-      </div>
+        </router-link>  -->
+      <!-- </div>
       <div class="tabs">
-        <ul>
-          <router-link to="/"> <li><a>Home</a></li></router-link>
+        <ul> -->
+          <!-- <router-link to="/"> <li><a>Home</a></li></router-link>
           <router-link to="/playdates"><li><a>Events</a></li></router-link>
           <router-link to="/forum"> <li><a>Forum</a></li></router-link>
           <router-link to="/user"><li><a>Profile</a></li></router-link> 
-          <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link>
-        </ul>
+          <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link> -->
+        <!-- </ul>
       </div>
-    </div> -->
+    </div> --> 
 
     <nav class="about">
       <div id="content">
@@ -28,19 +28,18 @@
     <footer>
       <p>&copy; 2024 Pet Play Pal. All rights reserved.</p>
     </footer>
-  </div>
 </template>
 
 <script>
-import PlayDatesView from './PlayDatesView.vue';
+// import PlayDatesView from './PlayDatesView.vue';
 import { RouterView } from 'vue-router';
 import router from '../router';
 
 
 export default {
-  components:{
-    PlayDatesView
-  },
+  // components:{
+  //   PlayDatesView
+  // },
   data() {
     return {
       isVisible: false,

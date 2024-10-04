@@ -4,6 +4,7 @@ import com.techelevator.dao.PetDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.Customers;
 import com.techelevator.model.Pets;
+import com.techelevator.model.PlaydatePets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,6 +50,14 @@ public class PetsController {
     @RequestMapping(path = "/add-pet", method = RequestMethod.POST)
     public void addPet(@Valid @RequestBody Pets pet){
         petDao.addPet(pet);
+    }
+    @RequestMapping(path="/register-playdate", method = RequestMethod.POST)
+    public void linkPetPlaydate(@Valid @RequestBody PlaydatePets playdatePets){
+        petDao.linkPetPlaydate(playdatePets);
+    }
+    @RequestMapping(path = "/{playdateId}/pets", method = RequestMethod.GET)
+    public List<Pets> getPetsByPlaydateId(@PathVariable int playdateId){
+        return petDao.getPetsByPlaydateId(playdateId);
     }
 
 }

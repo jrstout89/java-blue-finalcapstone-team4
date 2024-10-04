@@ -12,7 +12,7 @@
                 <router-link to="/playdates"><li><a>Events</a></li></router-link>
                 <router-link to="/forum"> <li><a>Forum</a></li></router-link>
                 <router-link to="/user"><li><a>Profile</a></li></router-link> 
-                <nav>
+                 <nav>
                 <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
                 <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
                 </nav>

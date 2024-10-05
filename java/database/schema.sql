@@ -13,7 +13,7 @@ CREATE TABLE users (
 CREATE TABLE customers (
 	customer_id SERIAL,
 	phone_number varchar(12),
-    email varchar NOT NULL,
+    email varchar NOT NULL UNIQUE,
     first_name varchar NOT NULL,
     last_name varchar NOT NULL,
     user_id int NOT NULL,
@@ -69,7 +69,6 @@ CREATE TABLE invitation (
     CONSTRAINT FK_invitation_account_from FOREIGN KEY (account_from) REFERENCES customers (customer_id),
     CONSTRAINT FK_invitation_account_to FOREIGN KEY (account_to) REFERENCES customers (customer_id),
     CONSTRAINT CK_invitation_not_same_account CHECK (account_from <> account_to)
-
 );
 
 CREATE TABLE playdate_pets (
@@ -85,17 +84,28 @@ CREATE TABLE forum (
     forum_id serial,
     customer_id int NOT NULL,
     forum_title varchar NOT NULL,
+    forum_content varchar NOT NULL,
     created_date date NOT NULL,
     update_date date NOT NULL,
-    comment varchar,
     CONSTRAINT PK_forum_id PRIMARY KEY (forum_id),
     CONSTRAINT FK_forum_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE comments (
+    comment_id SERIAL,
+    forum_id int NOT NULL,
+    customer_id int NOT NULL,
+    comment_content varchar NOT NULL,
+    created_date date NOT NULL,
+    CONSTRAINT PK_comment_id PRIMARY KEY (comment_id),
+    CONSTRAINT FK_comment_forum FOREIGN KEY (forum_id) REFERENCES forum(forum_id),
+    CONSTRAINT FK_comment_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
 INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
 INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9999', 'someemail@gmail.com', 'Seth', 'Jacobs', '1');
 
-INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Dog day afternoon','South Boston Dog Park', '1280 Columbia Rd, Boston, MA 02127', '10', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh5.googleusercontent.com/p/AF1QipNA6GjALmYtD0IEiHTvLh1_NtJLgByLEFlyfpzj=w114-h114-n-k-no');
+INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Dog Day Afternoon','South Boston Dog Park', '1280 Columbia Rd, Boston, MA 02127', '10', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh5.googleusercontent.com/p/AF1QipNA6GjALmYtD0IEiHTvLh1_NtJLgByLEFlyfpzj=w114-h114-n-k-no');
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Paw & Pals', 'East 1st Dog Park', '768-764 E 1st St, Boston, MA 02127', '15', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipN9zSRPTCrP7qTc958e8gULxw-oXZJjOcBpqBat=s680-w680-h510');
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Puppy Friends', 'Carleton Court Dog Park', 'SW Corridor Path, Boston, MA 02116', '10', '1', '10-02-2024', '1800', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipOGaRlO3MMBjwCySCns2_PU152nZ0E8IUDv3cbv=s680-w680-h510');
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Wag the Dog', 'Mansfield Street Dog Park', '488-556 Lincoln St, Boston, MA 02134', '20', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipNXVNEDCcLnnzLXyX1_LlfjtA-tAlREipOqZ9oD=s680-w680-h510');

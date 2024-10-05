@@ -1,24 +1,32 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 public class Forum {
 
     private int id;
     private int customerId;
     private String forumTitle;
+    // Adding content to as the body of each post (i.e title = "Dogs are the best!!" & content = "Share your best dog stories below."
+    private String forumContent;
     private String createdDate;
     private String updateDate;
-    private String comment;
+    // Changing String comment to List<Comment> comments. Adding another model, Dao, etc. for comments.
+    // I changed my mind... I'm going to remove the comments entirely to reduce redundancy. I'm going to just use JOINS later on as needed. Commenting it out for now just in case I change my mind down the line and/or as needed. Removing it from the constructor and commenting out the getter and setter.
+//    private List<Comments> comments;
 
     public Forum() {
     }
 
-    public Forum(int id, int customerId, String forumTitle, String createdDate, String updateDate, String comment) {
+    // Added forumContent to the constructor. Commenting it out for now per the above.
+    public Forum(int id, int customerId, String forumTitle, String forumContent, String createdDate, String updateDate) {
         this.id = id;
         this.customerId = customerId;
         this.forumTitle = forumTitle;
+        this.forumContent = forumContent;
         this.createdDate = createdDate;
         this.updateDate = updateDate;
-        this.comment = comment;
+//        this.comments = comments;
     }
 
     public int getId() {
@@ -61,11 +69,28 @@ public class Forum {
         this.updateDate = updateDate;
     }
 
-    public String getComment() {
-        return comment;
+//    public String getComment() {
+//        return comment;
+//    }
+//
+//    public void setComments(String comment) {
+//        this.comment = comment;
+//    }
+
+    // Added getters and setters for forumContent and comments list.
+    public String getForumContent() {
+        return forumContent;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setForumContent(String forumContent) {
+        this.forumContent = forumContent;
     }
+
+//    public List<Comments> getComments() {
+//        return comments;
+//    }
+
+//    public void setComments(List<Comments> comments) {
+//        this.comments = comments;
+//    }
 }

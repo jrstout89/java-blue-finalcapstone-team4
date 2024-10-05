@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Comments;
 import com.techelevator.model.Forum;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -12,36 +13,42 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class JdbcForumDao implements ForumDao{
+public class JdbcForumDao implements ForumDao {
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcForumDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    // Added updates for new/changed variables.
     private Forum mapRowToForum(SqlRowSet results){
       Forum forum = new Forum();
       forum.setId(results.getInt("forum_id"));
       forum.setCustomerId(results.getInt("customer_id"));
       forum.setForumTitle(results.getString("forum_title"));
+
       Date createdDate = results.getDate("created_date");
       if (createdDate != null) {
           forum.setCreatedDate(createdDate.toLocalDate().toString());
       }
+
       Date updateDate = results.getDate("update_date");
       if (updateDate != null) {
           forum.setUpdateDate(updateDate.toLocalDate().toString());
       }
-      forum.setComment(results.getString("comment"));
+
+//      forum.setComment(results.getString("comment"));
+//      List<Comments> comments = commentsDao.getCommentsForForum(forum.getId());
+//      forum.setComments(comments);
       return forum;
     }
     @Override
     public void createForum(Forum forum) {
-        String sql = "INSERT INTO forum (customer_id, forum_title, created_date, update_date, comment) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        try{
+        String sql = "INSERT INTO forum (customer_id, forum_title, created_date, update_date) " +
+                "VALUES (?, ?, ?, ?)";
+        try {
             jdbcTemplate.update(sql,forum.getCustomerId(), forum.getForumTitle(), forum.getCreatedDate(),
-                    forum.getUpdateDate(), forum.getComment());
-        }catch (CannotGetJdbcConnectionException e) {
+                    forum.getUpdateDate());
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
@@ -68,11 +75,11 @@ public class JdbcForumDao implements ForumDao{
 
     @Override
     public void updateForum(Forum forum) {
-        String sql = "UPDATE forum SET customer_id = ?, forum_title = ?, update_date = ?, comment = ? " +
+        String sql = "UPDATE forum SET customer_id = ?, forum_title = ?, update_date = ?" +
                 "WHERE forum_id = ?";
         try {
             int rowsAffected = jdbcTemplate.update(sql, forum.getCustomerId(), forum.getForumTitle(),
-                    java.sql.Date.valueOf(forum.getUpdateDate()), forum.getComment(), forum.getId());
+                    java.sql.Date.valueOf(forum.getUpdateDate()), forum.getId());
             if (rowsAffected == 0) {
                 throw new DaoException("No forum found with ID: " + forum.getId());
             }

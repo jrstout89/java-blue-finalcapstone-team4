@@ -56,21 +56,21 @@ const routes = [
     }
   },
   {
-  path: "/playdates",
-  name: "playDates",
-  component: PlayDatesView,
-  meta: {
-    requiresAuth: false
-  }
-},
-{
-  path: "/user",
-  name: "user",
-  component: UserView,
-  meta: {
-    requiresAuth: true
-  }
-},
+    path: "/playdates",
+    name: "playDates",
+    component: PlayDatesView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: UserView,
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: "/pets",
     name: "pets",
@@ -85,32 +85,32 @@ const routes = [
     component: AddPetView,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: "/forum",
+    name: "forum",
+    component: ForumView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/pets/:id",
+    name: "petDetails",
+    component: PetDetails,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/playdates/:id",
+    name: "eventDetails",
+    component: EventDetails,
+    meta: {
+      requiresAuth: false
+    }
   }
-},
-{
-  path: "/forum",
-  name: "forum",
-  component: ForumView,
-  meta: {
-    requiresAuth: true
-  }
-},
-{
-  path: "/pets/:id",
-  name: "petDetails",
-  component: PetDetails,
-  meta: {
-    requiresAuth: true
-  }
-},
-{
-  path: "/playdates/:id",
-  name: "eventDetails",
-  component: EventDetails,
-  meta: {
-    requiresAuth: false
-  }
-}
 ];
 
 // Create the router

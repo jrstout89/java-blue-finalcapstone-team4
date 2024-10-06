@@ -10,6 +10,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Component
@@ -43,11 +45,10 @@ public class JdbcForumDao implements ForumDao {
     }
     @Override
     public void createForum(Forum forum) {
-        String sql = "INSERT INTO forum (customer_id, forum_title, created_date, update_date) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO forum (customer_id, forum_title, forum_content, created_date, update_date) " +
+                "VALUES (?, ?, ?, ?, ?)";
         try {
-            jdbcTemplate.update(sql,forum.getCustomerId(), forum.getForumTitle(), forum.getCreatedDate(),
-                    forum.getUpdateDate());
+            jdbcTemplate.update(sql, forum.getCustomerId(), forum.getForumTitle(), forum.getForumContent(), LocalDateTime.now(), LocalDateTime.now());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {

@@ -1,11 +1,15 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Comments;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +40,14 @@ public class JdbcCommentsDao implements CommentsDao {
     @Override
     public Comments addComment(Comments comment) {
         String sql = "INSERT INTO comments (forum_id, customer_id, comment_content, created_date) VALUES (?, ?, ?, ?) RETURNING comment_id";
-        Integer newCommentId = jdbcTemplate.queryForObject(sql, Integer.class, comment.getForumId(), comment.getCustomerId(), comment.getCommentContent(), comment.getCreatedDate());
-        comment.setCommentId(newCommentId);
+        try{
+            Integer newCommentId = jdbcTemplate.queryForObject(sql, Integer.class, comment.getForumId(), comment.getCustomerId(), comment.getCommentContent(), LocalDateTime.now());
+            comment.setCommentId(newCommentId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
         return comment;
     }
 
@@ -46,9 +56,15 @@ public class JdbcCommentsDao implements CommentsDao {
     public List<Comments> getCommentsForForum(int forumId) {
         List<Comments> comments = new ArrayList<>();
         String sql = "SELECT * FROM comments WHERE forum_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, forumId);
-        while (results.next()) {
-            comments.add(mapRowToComment(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, forumId);
+            while (results.next()) {
+                comments.add(mapRowToComment(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
         }
         return comments;
     }
@@ -57,25 +73,43 @@ public class JdbcCommentsDao implements CommentsDao {
     @Override
     public Comments getCommentById(int commentId) {
         String sql = "SELECT * FROM comments WHERE comment_id = ?";
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, commentId);
-        if (result.next()) {
-            return mapRowToComment(result);
-        } else {
-            return null;
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, commentId);
+            if (result.next()) {
+                return mapRowToComment(result);
+            } else {
+                return null;
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation");
         }
     }
 
     // Update an existing comment.
     @Override
     public boolean updateComment(Comments comment) {
-        String sql = "UPDATE comments SET forum_id = ?, customer_id = ?, comment_content = ?, created_date WHERE comment_id = ?";
-        return jdbcTemplate.update(sql, comment.getForumId(), comment.getCustomerId(), comment.getCommentContent(), comment.getCreatedDate()) > 0;
+        String sql = "UPDATE comments SET forum_id = ?, customer_id = ?, comment_content = ?, created_date = ? WHERE comment_id = ?";
+        try {
+            return jdbcTemplate.update(sql, comment.getForumId(), comment.getCustomerId(), comment.getCommentContent(), LocalDateTime.now(), comment.getCommentId()) > 0;
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     // Delete an existing comment.
     @Override
     public boolean deleteComment(int commentId) {
         String sql = "DELETE FROM comments WHERE comment_id = ?";
-        return jdbcTemplate.update(sql, commentId) > 0;
+        try {
+            return jdbcTemplate.update(sql, commentId) > 0;
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation");
+        }
     }
 }

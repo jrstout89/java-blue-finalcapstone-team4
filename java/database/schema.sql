@@ -85,8 +85,8 @@ CREATE TABLE forum (
     customer_id int NOT NULL,
     forum_title varchar NOT NULL,
     forum_content varchar NOT NULL,
-    created_date date NOT NULL,
-    update_date date NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    update_date TIMESTAMP NOT NULL,
     CONSTRAINT PK_forum_id PRIMARY KEY (forum_id),
     CONSTRAINT FK_forum_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
@@ -96,7 +96,7 @@ CREATE TABLE comments (
     forum_id int NOT NULL,
     customer_id int NOT NULL,
     comment_content varchar NOT NULL,
-    created_date date NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     CONSTRAINT PK_comment_id PRIMARY KEY (comment_id),
     CONSTRAINT FK_comment_forum FOREIGN KEY (forum_id) REFERENCES forum(forum_id),
     CONSTRAINT FK_comment_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
@@ -111,5 +111,8 @@ INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, 
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Wag the Dog', 'Mansfield Street Dog Park', '488-556 Lincoln St, Boston, MA 02134', '20', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipNXVNEDCcLnnzLXyX1_LlfjtA-tAlREipOqZ9oD=s680-w680-h510');
 INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Furry Friday', 'RUFF North End Dog Park', 'BOST-0301936000, Boston, MA 02113', '15', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipPnl-LD1JHvbNJ_KcQ_6CkjFELvN1JS5Q9Eu_IE=s680-w680-h510');
 
+INSERT INTO forum (customer_id, forum_title, forum_content, created_date, update_date) values ('1', 'Favorite Famous Pets', 'How about we talk about our favorite famous pets!! I will get us started with Lassie. Who is yours?', NOW(), NOW());
+
+INSERT INTO comments (forum_id, customer_id, comment_content, created_date) VALUES ('1', '1', 'I love Milo from Milo and Otis.', NOW());
 
 COMMIT TRANSACTION;

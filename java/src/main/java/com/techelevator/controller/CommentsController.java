@@ -39,14 +39,15 @@ public class CommentsController {
     }
 
     // Method to get all of the comments for a specific forum post.
-    @RequestMapping(path = "/{forumId}", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(path = "/forum/comments/{forumId}", method = RequestMethod.GET)
     public List<Comments> getCommentsForForum(@PathVariable int forumId) {
         return commentsDao.getCommentsForForum(forumId);
     }
 
     // Method to get a comment by it's comment ID.
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/{commentId}")
+    @RequestMapping(path = "/comments/{commentId}", method = RequestMethod.GET)
     public Comments getCommentById(@PathVariable int commentId) {
         return commentsDao.getCommentById(commentId);
     }

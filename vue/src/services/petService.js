@@ -22,13 +22,19 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     addPet(pet) {
-        return http.post('/add-pet', pet);
+        return http.post('/add-pet', pet, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     updatePet(pet) {
-        return http.put(`/update-pet/${pet.id}`, pet);
+        return http.put(`/update-pet/${pet.id}`, pet, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     deletePet(id) {
-        return http.delete(`/pets/${id}`);
+        return http.delete(`/pets/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     getAllPetsByCustomerId(customerId) {
         console.log("Fetching pets for customer ID:", customerId);

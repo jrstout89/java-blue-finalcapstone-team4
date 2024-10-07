@@ -5,6 +5,7 @@
 
 <script>
 import PetForm from '../components/PetForm.vue';
+import petService from '../services/petService';
 
 export default {
     components: {
@@ -12,21 +13,38 @@ export default {
     },
     data() {
     return {
-      petObject:{
-        customerId: 1,
-        name: '',
-        breed: '',
-        dateOfBirth: '',
-        gender: '',
-        petSize: '',
-        vaccination: false,
-        isSpayNeuter:false,
-        energyLevel: "",
-        personality: '',
-        image: ''
-      }
+      // petObject:{
+      //   id: 0,
+      //   name: '',
+      //   breed: '',
+      //   dateOfBirth: '',
+      //   gender: '',
+      //   petSize: '',
+      //   vaccination: false,
+      //   isSpayNeuter:false,
+      //   energyLevel: "",
+      //   personality: '',
+      //   image: ''
+      // }
+      petObject: {}
     };
   },
+  methods:{
+    getPet(){
+      petService.getPetById(this.$route.params.id).then(
+        (response) => {
+          this.petObject = response.data;
+        }
+      ).catch(
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  },
+  created(){
+    this.getPet();
+  }
 
 
 }

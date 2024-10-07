@@ -1,11 +1,13 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
+
 public class Pets {
 
     private int id;
     private String name;
     private String breed;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String gender;
     private int customerId;
     private String petSize;
@@ -18,13 +20,14 @@ public class Pets {
     public Pets() {
     }
 
-    public Pets(int id, String name, String breed, String dateOfBirth, String gender, int customerId, boolean vaccination, boolean isSpayNeuter, String energyLevel, String personality, String image) {
+    public Pets(int id, String name, String breed, LocalDate dateOfBirth, String gender, int customerId, String petSize, boolean vaccination, boolean isSpayNeuter, String energyLevel, String personality, String image) {
         this.id = id;
         this.name = name;
         this.breed = breed;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.customerId = customerId;
+        this.petSize = petSize;
         this.vaccination = vaccination;
         this.isSpayNeuter = isSpayNeuter;
         this.energyLevel = energyLevel;
@@ -65,11 +68,11 @@ public class Pets {
         this.petSize = petSize;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

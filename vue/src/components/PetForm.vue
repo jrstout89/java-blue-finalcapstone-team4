@@ -3,14 +3,14 @@
   <div class="field">
   <label class="label">Name</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input">
+    <input class="input" type="text" placeholder="Text input" v-model="this.newPet.name">
   </div>
 </div>
 
 <div class="field">
   <label class="label">Breed</label>
   <div class="control">
-    <input class="input is-success" type="text" placeholder="Text input">
+    <input class="input is-success" type="text" placeholder="Text input" v-model="this.newPet.breed">
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -23,7 +23,7 @@
 <div class="field">
   <label class="label">Date of Birth</label>
   <div class="control">
-    <input class="input is-danger" type="date" placeholder="Email input">
+    <input class="input is-danger" type="date" placeholder="Email input" v-model="this.newPet.dateOfBirth">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -37,9 +37,9 @@
   <label class="label">Gender</label>
   <div class="control">
     <div class="select">
-      <select>
-        <option>Male</option>
-        <option>Female</option>
+      <select v-model="this.newPet.gender">
+        <option>male</option>
+        <option>female</option>
       </select>
     </div>
   </div>
@@ -48,11 +48,11 @@
   <label class="label">Size</label>
   <div class="control">
     <div class="select">
-      <select>
-        <option>Small</option>
-        <option>Medium</option>
-        <option>Large</option>
-        <option>Extra Large</option>
+      <select v-model="this.newPet.petSize">
+        <option>small</option>
+        <option>medium</option>
+        <option>large</option>
+        <option>extra large</option>
       </select>
     </div>
   </div>
@@ -60,14 +60,14 @@
 <div class="field vaccination">
   <div class="control">
     <label class="checkbox">
-     Is Vaccinated <input type="checkbox">
+     Is Vaccinated <input type="checkbox" v-model="this.newPet.vaccination">
     </label>
   </div>
 </div>
 <div class="field spay_neuter">
   <div class="control">
     <label class="checkbox">
-     Is Spayed or Neuter <input type="checkbox">
+     Is Spayed or Neuter <input type="checkbox" v-model="this.newPet.isSpayNeuter">
     </label>
   </div>
 </div>
@@ -75,10 +75,10 @@
   <label class="label">Energy Level</label>
   <div class="control">
     <div class="select">
-      <select>
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
+      <select v-model="this.newPet.energyLevel">
+        <option>low</option>
+        <option>medium</option>
+        <option>high</option>
       </select>
     </div>
   </div>
@@ -87,7 +87,7 @@
 <div class="field">
   <label class="label">Personality</label>
   <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
+    <textarea class="textarea" placeholder="Textarea" v-model="this.newPet.personality"></textarea>
   </div>
 </div>
 <div class="file is-primary">
@@ -126,7 +126,6 @@ export default {
         return{
             newPet:{
                 id: this.pet.id,
-                customerId: this.pet.customerId,
                 name: this.pet.name,
                 breed: this.pet.breed,
                 dateOfBirth: this.pet.dateOfBirth,
@@ -138,27 +137,18 @@ export default {
                 personality: this.pet.personality,
                 image: this.pet.image
             },
+            
         }
     },
     methods:{
 //submit form
       submitForm(){
-            if(!this.validateForm()){
-                return;
-            }
             if(this.newPet.id === 0){
                 petService.addPet(this.newPet).then(
                     (response) => {
                         if(response.status === 201){
-                            this.$store.commit( 
-                                'SET_NOTIFICATION',
-                                {
-                                    message: 'A new card was added.',
-                                    type: 'success'
-                                }
-                            );
                             //redirect to pets page
-                        this.$router.push( {name: 'pets', params: { customerId: this.newPet.customerId } });
+                        this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
                         }
                     }
                 ).catch(
@@ -167,19 +157,11 @@ export default {
                     }
                 );
             }else{
-//update pet
-                petService.updatePet(this.newPet).then(
+                petService.updatePet(this.newPet.id, this.newPet).then(
                     (response) => {
                         if(response.status === 200){
-                            this.$store.commit(
-                                'SET_NOTIFICATION',
-                                {
-                                    message: 'The card was updated.',
-                                    type: 'success'
-                                }
-                            );
                             //redirect to pets page
-                            this.$router.push( {name: 'pets', params: { customerId: this.newPet.customerId } });
+                        this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
                         }
                     }
                 ).catch(
@@ -191,9 +173,12 @@ export default {
         },
 //cancel form
         cancelForm(){
-            this.$router.push( {name: 'pets', params: { customerId: this.newPet.customerId } });
+            this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
         },
 
+    },
+    created(){
+        this.newPet = this.pet;
     }
 }
 </script>

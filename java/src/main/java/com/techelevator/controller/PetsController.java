@@ -42,7 +42,9 @@ public class PetsController {
     @RequestMapping(path="/update-pet/{id}", method = RequestMethod.PUT)
     public boolean updatePet(@Valid @RequestBody Pets pet,@PathVariable int id, Principal principal){
         Customers customers = userDao.getCustomer(principal.getName());
-        return petDao.updatePet(pet, customers.getId());
+        pet.setId(id);
+        boolean updated = petDao.updatePet(pet, customers.getId());
+        return updated;
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(path="/pets/{id}", method = RequestMethod.DELETE)
@@ -51,7 +53,9 @@ public class PetsController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/add-pet", method = RequestMethod.POST)
-    public void addPet(@Valid @RequestBody Pets pet){
+    public void addPet(@Valid @RequestBody Pets pet, Principal principal){
+        Customers customers=userDao.getCustomer(principal.getName());
+        pet.setCustomerId(customers.getId());
         petDao.addPet(pet);
     }
     @RequestMapping(path="/register-playdate", method = RequestMethod.POST)

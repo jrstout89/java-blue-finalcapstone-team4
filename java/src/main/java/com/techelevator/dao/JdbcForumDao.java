@@ -36,7 +36,7 @@ public class JdbcForumDao implements ForumDao {
 
       Date updateDate = results.getDate("update_date");
       if (updateDate != null) {
-          forum.setUpdateDate(updateDate.toLocalDate().toString());
+          forum.setUpdateDate(String.valueOf(updateDate.toLocalDate()));
       }
 
 //      forum.setComment(results.getString("comment"));

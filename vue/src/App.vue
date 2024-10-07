@@ -3,7 +3,7 @@
         <div class="header-container">
             <div id="header">
                 <router-link to="/">
-                <img id="pal" src="src\img\PetPlayPals.png" alt="welcome" />
+                <img id="pal" src=".\img\PetPlayPals.png" alt="welcome" />
                 </router-link> 
             </div>
             <div class="tabs">

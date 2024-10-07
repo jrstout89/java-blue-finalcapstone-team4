@@ -89,6 +89,12 @@ const routes = [
     }
   },
   {
+    path: "/pets/update-pet/:id",
+    name: "updatePet",
+    component: AddPetView,
+    meta: { requiresAuth: true }
+  },
+  {
     path: "/forum",
     name: "forum",
     component: ForumListView,

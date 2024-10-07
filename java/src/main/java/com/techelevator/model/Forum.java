@@ -1,6 +1,6 @@
 package com.techelevator.model;
 
-import java.util.List;
+import java.time.LocalDate;
 
 public class Forum {
 
@@ -9,8 +9,8 @@ public class Forum {
     private String forumTitle;
     // Adding content to as the body of each post (i.e title = "Dogs are the best!!" & content = "Share your best dog stories below."
     private String forumContent;
-    private String createdDate;
-    private String updateDate;
+    private LocalDate createdDate;
+    private LocalDate updateDate;
     // Changing String comment to List<Comment> comments. Adding another model, Dao, etc. for comments.
     // I changed my mind... I'm going to remove the comments entirely to reduce redundancy. I'm going to just use JOINS later on as needed. Commenting it out for now just in case I change my mind down the line and/or as needed. Removing it from the constructor and commenting out the getter and setter.
 //    private List<Comments> comments;
@@ -24,8 +24,8 @@ public class Forum {
         this.customerId = customerId;
         this.forumTitle = forumTitle;
         this.forumContent = forumContent;
-        this.createdDate = createdDate;
-        this.updateDate = updateDate;
+        this.createdDate = LocalDate.parse(createdDate);
+        this.updateDate = LocalDate.parse(updateDate);
 //        this.comments = comments;
     }
 
@@ -53,20 +53,20 @@ public class Forum {
         this.forumTitle = forumTitle;
     }
 
-    public String getCreatedDate() {
+    public LocalDate getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
+        this.createdDate = LocalDate.parse(createdDate);
     }
 
-    public String getUpdateDate() {
+    public LocalDate getUpdateDate() {
         return updateDate;
     }
 
     public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
+        this.updateDate = LocalDate.parse(updateDate);
     }
 
 //    public String getComment() {

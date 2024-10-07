@@ -41,7 +41,7 @@ export default {
             this.isLoading = true;
 
             try {
-                const newComment = {commentContent: this.commentContent};
+                const newComment = {commentContent: this.commentContent, forumId: this.forumId};
                 await ForumService.addCommentToForum(this.forumId, newComment);
                 this.$emit('commentAdded');
                 this.commentContent = '';
@@ -49,7 +49,7 @@ export default {
                 console.error('Error submitting comment', error);
                 this.errorMessage = 'Failed to submit comment. Please try again.';
             } finally {
-                
+
                 // End the loading state
                 this.isLoading = false;
             }

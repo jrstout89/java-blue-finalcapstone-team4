@@ -2,6 +2,8 @@
     <div class="user-profile">
         <UserProfile/>
         <PersonalEvents/>
+        <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link>
+
     </div>
 </template>
 

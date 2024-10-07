@@ -38,7 +38,7 @@ export default {
 
     // Add a new comment to a forum.
     addCommentToForum(forumId, comment) {
-        return http.post(`/forum/${forumId}/comments`, comment, {
+        return http.post(`/forum/${forumId}/add-comment`, comment, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },

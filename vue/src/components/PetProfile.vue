@@ -71,6 +71,8 @@ export default {
     // cancelEdit() {
     //   this.showEditModal = false;
     // },
+    
+    //delete pet
     deletePet(id) {
       if (confirm('Are you sure you want to delete this pet?')) {
         petService.deletePet(id).then(

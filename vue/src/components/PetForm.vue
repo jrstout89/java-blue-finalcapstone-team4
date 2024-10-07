@@ -72,7 +72,7 @@
   </div>
 </div>
 <div class="field size">
-  <label class="label">Size</label>
+  <label class="label">Energy Level</label>
   <div class="control">
     <div class="select">
       <select>

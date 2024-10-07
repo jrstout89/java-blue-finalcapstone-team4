@@ -11,6 +11,11 @@ export default {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
+    getPetByUser() {
+        return http.get('/pets/user', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            },
     getPetById(id) {
         return http.get(`/pet/${id}`, {
             headers: {
@@ -24,5 +29,13 @@ export default {
     },
     deletePet(id) {
         return http.delete(`/pets/${id}`);
+    },
+    getAllPetsByCustomerId(customerId) {
+        console.log("Fetching pets for customer ID:", customerId);
+        return http.get(`/by-customer/${customerId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
     }
 }

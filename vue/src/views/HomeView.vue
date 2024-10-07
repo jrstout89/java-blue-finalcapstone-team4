@@ -24,7 +24,7 @@
       </div>
         <p id="text">At Pet Play Pal, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
         </p>
-        <router-link to="/pets">pets</router-link>
+        <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link>
           <button>View Play Dates</button>
     </nav>
     <footer>

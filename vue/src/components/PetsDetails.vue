@@ -12,7 +12,11 @@
             <p><strong>Vaccination: </strong>{{pets.vaccination}}</p>
             <p><strong>Spay or Neuter: </strong>{{pets.isSpayNeuter}}</p>
             <p><strong>Energy Level: </strong>{{pets.energyLevel}}</p>
-        
+        </div>
+        <div class="buttons">
+         <button class="button is-info">Add</button>
+         <button class="button is-success">Edit</button>
+         <button class="button is-warning">Delete</button>
         </div>
     </div>
 </template>

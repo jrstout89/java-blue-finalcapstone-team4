@@ -7,6 +7,7 @@ import com.techelevator.model.Pets;
 import com.techelevator.model.PlaydatePets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +27,12 @@ public class PetsController {
     public List<Pets> getAllPets(){
         return petDao.getAllPets();
     }
-    @RequestMapping(path="/{customerId}/pets", method = RequestMethod.GET)
+    @RequestMapping(path="/by-customer/{customerId}", method = RequestMethod.GET)
     public List<Pets> getAllPetsByCustomerId(@PathVariable int customerId, Principal principal){
         Customers customers = userDao.getCustomer(principal.getName());
-        customerId = customers.getId();
+        if (customers.getId() != customerId) {
+            throw new AccessDeniedException("You do not have permission to access this resource.");
+        }
         return petDao.getPetsByCustomerId(customerId);
     }
     @RequestMapping(path="/pet/{id}", method = RequestMethod.GET)
@@ -55,7 +58,7 @@ public class PetsController {
     public void linkPetPlaydate(@Valid @RequestBody PlaydatePets playdatePets){
         petDao.linkPetPlaydate(playdatePets);
     }
-    @RequestMapping(path = "/{playdateId}/pets", method = RequestMethod.GET)
+    @RequestMapping(path = "/{playdateId}/pet", method = RequestMethod.GET)
     public List<Pets> getPetsByPlaydateId(@PathVariable int playdateId){
         return petDao.getPetsByPlaydateId(playdateId);
     }

@@ -73,7 +73,7 @@ const routes = [
     }
   },
   {
-    path: "/pets",
+    path: "/:customerId/pets",
     name: "pets",
     component: PetView,
     meta: {
@@ -81,7 +81,7 @@ const routes = [
     }
   },
   {
-    path: "/addpet",
+    path: "/pets/add-pet",
     name: "addPet",
     component: AddPetView,
     meta: {

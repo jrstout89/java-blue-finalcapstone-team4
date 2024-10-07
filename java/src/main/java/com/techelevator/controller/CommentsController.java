@@ -25,7 +25,7 @@ public class CommentsController {
     // Method to add a new comment.
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/add-comment", method = RequestMethod.POST)
+    @RequestMapping(path = "/forum/{forumId}/add-comment", method = RequestMethod.POST)
     public void addComment(@Valid @RequestBody Comments comment, Principal principal) {
         String username = principal.getName();
 

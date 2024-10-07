@@ -27,6 +27,7 @@ public class JdbcForumDao implements ForumDao {
       forum.setId(results.getInt("forum_id"));
       forum.setCustomerId(results.getInt("customer_id"));
       forum.setForumTitle(results.getString("forum_title"));
+      forum.setForumContent(results.getString("forum_content"));
 
       Date createdDate = results.getDate("created_date");
       if (createdDate != null) {
@@ -54,7 +55,6 @@ public class JdbcForumDao implements ForumDao {
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-
     }
 
     @Override

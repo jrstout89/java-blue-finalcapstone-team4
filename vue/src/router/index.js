@@ -10,7 +10,8 @@ import PlayDatesView from '../views/PlayDatesView.vue';
 import UserView from '../views/UserView.vue';
 import PetView from '../views/PetView.vue';
 import AddPetView from '../views/AddPetView.vue';
-import ForumView from '../views/ForumView.vue';
+import ForumListView from '../views/ForumListView.vue';
+import ForumDetailView from '../views/ForumDetailView.vue';
 import PetDetails from '../views/PetDetailsView.vue';
 import EventDetails from '../components/EventDetails.vue';
 
@@ -90,7 +91,15 @@ const routes = [
   {
     path: "/forum",
     name: "forum",
-    component: ForumView,
+    component: ForumListView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/forum/:id",
+    name: "forumDetails",
+    component: ForumDetailView,
     meta: {
       requiresAuth: true
     }

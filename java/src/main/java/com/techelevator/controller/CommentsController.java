@@ -40,7 +40,7 @@ public class CommentsController {
 
     // Method to get all of the comments for a specific forum post.
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/forum/comments/{forumId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/forum/{forumId}/comments", method = RequestMethod.GET)
     public List<Comments> getCommentsForForum(@PathVariable int forumId) {
         return commentsDao.getCommentsForForum(forumId);
     }
@@ -55,7 +55,7 @@ public class CommentsController {
     // Method to update a comment.
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/update-comment/{commentId}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/comments/{commentId}", method = RequestMethod.PUT)
     public void updateComment(@PathVariable int commentId, @Valid @RequestBody Comments comment) {
         comment.setCommentId(commentId);
         commentsDao.updateComment(comment);
@@ -64,7 +64,7 @@ public class CommentsController {
     // Method to delete a comment.
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/delete-comment/{commentId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/comments/{commentId}", method = RequestMethod.DELETE)
     public void deleteComment(@PathVariable int commentId) {
         commentsDao.deleteComment(commentId);
     }

@@ -9,6 +9,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,9 +28,9 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setId(results.getInt("playdate_id"));
         playdate.setEventLocation(results.getString("event_location"));
         playdate.setMaximumPets(results.getInt("maximum_pets"));
-        playdate.setEventHost(results.getString("event_host"));
-        playdate.setEventDate(String.valueOf(results.getDate("event_date")));
-        playdate.setEventTime(String.valueOf(results.getTime("event_time")));
+        playdate.setEventHost(Integer.parseInt(results.getString("event_host")));
+        playdate.setEventDate(LocalDate.parse(String.valueOf(results.getDate("event_date"))));
+        playdate.setEventTime(LocalTime.parse(String.valueOf(results.getTime("event_time"))));
         playdate.setEventDuration(results.getInt("event_duration"));
         playdate.setEventTitle(results.getString("event_title"));
         playdate.setEventAddress(results.getString("event_address"));
@@ -42,8 +44,8 @@ public class JdbcPlaydateDao implements PlaydateDao {
     @Override
     public List<Playdate> getAllPlaydates () {
         List<Playdate> playdates = new ArrayList<>();
-
-        String sql = "SELECT * FROM playdate";
+        // switch * to whatever i need from playdate table/
+        String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
                 while (results.next()) {

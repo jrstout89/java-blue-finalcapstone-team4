@@ -12,15 +12,15 @@ export default {
     getEventById(id) {
         return http.get(`/events/${id}`);
     },
-    // addEvent(event) {
-    //     return http.post('/events', event);
-    // },
-    // updateEvent(event) {
-    //     return http.put(`/events/${event.id}`, event);
-    // },
-    // deleteEvent(id) {
-    //     return http.delete(`/events/${id}`);
-    // },
+    addEvent(event) {
+        return http.post('/events', event);
+    },
+    updateEvent(event) {
+        return http.put(`/update-event`, event);
+    },
+    deleteEvent(id) {
+        return http.delete(`/events/${id}`);
+    },
     getUser() {
         return http.get(`/user`, {
             headers: {

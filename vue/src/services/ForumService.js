@@ -33,6 +33,7 @@ export default {
     addForum(forum) {
         return http.post('/add-forum', forum, {
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
 

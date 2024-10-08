@@ -1,8 +1,10 @@
 <template>
   <div class="forum-info">
     <h2>{{ forum.forumTitle }}</h2>
+    <p style="display: inline">Posted by: {{ forum.username }}</p>
+    <p style="display: inline; margin-left: 5px;">on: {{ forum.createdDate }}</p>
     <p>{{ forum.forumContent }}</p>
-    <p>Created on: {{ forum.createdDate }}</p>
+    
   </div>
 </template>
 

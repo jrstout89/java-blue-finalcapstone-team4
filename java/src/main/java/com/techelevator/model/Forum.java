@@ -14,12 +14,14 @@ public class Forum {
     // Changing String comment to List<Comment> comments. Adding another model, Dao, etc. for comments.
     // I changed my mind... I'm going to remove the comments entirely to reduce redundancy. I'm going to just use JOINS later on as needed. Commenting it out for now just in case I change my mind down the line and/or as needed. Removing it from the constructor and commenting out the getter and setter.
 //    private List<Comments> comments;
+    // Connecting the username in the sql statements
+    private String username;
 
     public Forum() {
     }
 
     // Added forumContent to the constructor. Commenting it out for now per the above.
-    public Forum(int id, int customerId, String forumTitle, String forumContent, String createdDate, String updateDate) {
+    public Forum(int id, int customerId, String forumTitle, String forumContent, String createdDate, String updateDate, String username) {
         this.id = id;
         this.customerId = customerId;
         this.forumTitle = forumTitle;
@@ -27,6 +29,7 @@ public class Forum {
         this.createdDate = LocalDate.parse(createdDate);
         this.updateDate = LocalDate.parse(updateDate);
 //        this.comments = comments;
+        this.username = username;
     }
 
     public int getId() {
@@ -93,4 +96,12 @@ public class Forum {
 //    public void setComments(List<Comments> comments) {
 //        this.comments = comments;
 //    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

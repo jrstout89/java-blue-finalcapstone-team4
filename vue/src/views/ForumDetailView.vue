@@ -87,7 +87,7 @@ export default {
       if (!this.forum.id) return;
       try {
         const response = await ForumService.getCommentsForForum(this.forum.id);
-        this.comments = response.data;
+        this.comments = response.data.reverse();
       } catch (error) {
         console.error('Error getting comments', error);
         this.error = 'Error getting comments: ' + (error.response ? error.response.data : error.message);

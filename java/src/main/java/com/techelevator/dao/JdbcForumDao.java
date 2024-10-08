@@ -28,6 +28,7 @@ public class JdbcForumDao implements ForumDao {
       forum.setCustomerId(results.getInt("customer_id"));
       forum.setForumTitle(results.getString("forum_title"));
       forum.setForumContent(results.getString("forum_content"));
+      forum.setUsername(results.getString("username"));
 
       Date createdDate = results.getDate("created_date");
       if (createdDate != null) {
@@ -38,12 +39,9 @@ public class JdbcForumDao implements ForumDao {
       if (updateDate != null) {
           forum.setUpdateDate(String.valueOf(updateDate.toLocalDate()));
       }
-
-//      forum.setComment(results.getString("comment"));
-//      List<Comments> comments = commentsDao.getCommentsForForum(forum.getId());
-//      forum.setComments(comments);
       return forum;
     }
+
     @Override
     public void createForum(Forum forum) {
         String sql = "INSERT INTO forum (customer_id, forum_title, forum_content, created_date, update_date) " +
@@ -60,7 +58,12 @@ public class JdbcForumDao implements ForumDao {
     @Override
     public Forum getForumById(int id) {
         Forum forum = null;
-        String sql = "SELECT * FROM forum WHERE forum_id=?";
+//        String sql = "SELECT * FROM forum WHERE forum_id=?";
+        String sql = "SELECT forum.forum_id, forum.customer_id, forum.forum_title, forum.forum_content, forum.created_date, forum.update_date, users.username " +
+                "FROM forum " +
+                "JOIN customers ON forum.customer_id = customers.customer_id " +
+                "JOIN users ON customers.user_id = users.user_id " +
+                "WHERE forum.forum_id = ?";
         try{
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
             if(result.next()){
@@ -109,7 +112,11 @@ public class JdbcForumDao implements ForumDao {
     @Override
     public List<Forum> getAllForums() {
         List<Forum> forums = new ArrayList<>();
-        String sql = "SELECT * FROM forum;";
+//        String sql = "SELECT * FROM forum;";
+        String sql = "SELECT forum.forum_id, forum.customer_id, forum.forum_title, forum.forum_content, forum.created_date, forum.update_date, users.username " +
+                "FROM forum " +
+                "JOIN customers ON forum.customer_id = customers.customer_id " +
+                "JOIN users ON customers.user_id = users.user_id";
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()){

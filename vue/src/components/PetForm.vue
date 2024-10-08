@@ -57,6 +57,7 @@
     </div>
   </div>
 </div>
+
 <div class="field vaccination">
   <div class="control">
     <label class="checkbox">
@@ -158,7 +159,9 @@ export default {
                 );
             }else{
                 petService.updatePet(this.newPet.id, this.newPet).then(
+                 
                     (response) => {
+                      
                         if(response.status === 200){
                             //redirect to pets page
                         this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });

@@ -14,16 +14,16 @@ export default {
     data() {
         return {
         eventObject:{
-          id: 0,
-          name: '',
-          date: '',
-          time: '',
-          duration: '',
-          location: '',
-          address: '',
-          maximumPets: 0,
-          description: '',
-          image: ''
+        //   id: 0,
+        //   name: '',
+        //   date: '',
+        //   time: '',
+        //   duration: '',
+        //   location: '',
+        //   address: '',
+        //   maximumPets: 0,
+        //   description: '',
+        //   image: ''
         },
         showEventForm: false
         // eventObject: {}

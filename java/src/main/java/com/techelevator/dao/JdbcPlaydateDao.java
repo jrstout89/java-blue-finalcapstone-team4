@@ -98,7 +98,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
     // Method to create a new playdate.
     @Override
     public Playdate createPlaydate(Playdate playdate) {
-        String sql = "INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image, playdate_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
 
             // Setting template update to "rowsAffected" to check for exceptions where no rows are inserted.

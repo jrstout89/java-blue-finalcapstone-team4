@@ -1,16 +1,17 @@
 <template>
     <form v-on:submit.prevent="submitForm" class="cardForm">
+        {{ newEvent }}
         <div class="field">
             <label class="label">Event title</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Text input" v-model="this.newEvent.eventTitle">
+                <input class="input" type="text" placeholder="Text input" v-model="newEvent.eventTitle">
             </div>
         </div>
 
         <div class="field">
             <label class="label">Location</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="this.newEvent.eventLocation">
+                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventLocation">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -23,7 +24,7 @@
         <div class="field">
             <label class="label">Address</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="this.newEvent.eventAddress">
+                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventAddress">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -36,7 +37,7 @@
         <div class="field">
             <label class="label">Maximum pets</label>
             <div class="control">
-                <input class="input is-success" type="number" placeholder="Number input" v-model="this.newEvent.maximumPets">
+                <input class="input is-success" type="number" placeholder="Number input" v-model="newEvent.maximumPets">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -51,7 +52,7 @@
         <div class="field">
             <label class="label">Event Date</label>
             <div class="control">
-                <input class="input is-danger" type="date" placeholder="Email input" v-model="this.newEvent.eventDate">
+                <input class="input is-danger" type="date" placeholder="Email input" v-model="newEvent.eventDate">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -64,7 +65,7 @@
         <div class="field">
             <label class="label">Event Time</label>
             <div class="control">
-                <input class="input is-danger" type="time" placeholder="Email input" v-model="this.newEvent.eventTime">
+                <input class="input is-danger" type="time" placeholder="Email input" v-model="newEvent.eventTime">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -77,7 +78,7 @@
         <div class="field">
             <label class="label">Duration</label>
             <div class="control">
-                <input class="input is-danger" type="number" placeholder="Email input" v-model="this.newEvent.eventDuration">
+                <input class="input is-danger" type="number" placeholder="Email input" v-model="newEvent.eventDuration">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -90,7 +91,7 @@
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Textarea" v-model="this.newEvent.eventDescription"></textarea>
+                <textarea class="textarea" placeholder="Textarea" v-model="newEvent.eventDescription"></textarea>
             </div>
         </div>
         <div class="file is-primary">
@@ -100,7 +101,7 @@
             <span class="file-icon">
                 <i class="fas fa-upload"></i>
             </span>
-            <span class="file-label"> Add your fur friend picture! </span>
+            <span class="file-label"> Add a picture! </span>
             </span>
         </label>
         </div>
@@ -148,7 +149,8 @@ export default {
     methods:{
         //submit form
       submitForm(){
-            if(this.newEvent.id === 0){
+            console.log('THE ID IS... ' + this.newEvent.id);
+            if(this.newEvent.id === 0 || this.newEvent.id === undefined){
                 eventService.addEvent(this.newEvent).then(
                     (response) => {
                         if(response.status === 201){

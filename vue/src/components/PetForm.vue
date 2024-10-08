@@ -91,17 +91,32 @@
     <textarea class="textarea" placeholder="Textarea" v-model="this.newPet.personality"></textarea>
   </div>
 </div>
-<div class="file is-primary">
-  <label class="file-label">
-    <input class="file-input" type="file" name="resume" />
-    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-upload"></i>
+
+<!-- upload image -->
+
+<div class="card">
+  <div class="top">
+    <p>Drag &drop image</p>
+  </div>
+  <div class="drag-area" @dragover.prevent="onDragOver" @dragleave="ondragleave" @drop.prevent="on-drop">
+    <span v-if="!isDragging">
+      Drag & Drop image here or 
+      <span class="img-select" role="button" @click="selectFiles">
+        choose file
       </span>
-      <span class="file-label"> Add your fur friend picture! </span>
     </span>
-  </label>
+    <div v-else class="img-select">Drop images here</div>
+    <input name="file" type="file" class="file" ref="fileInput" multiple @change="onFileSelect"/>
+  </div>
+  <div class="container">
+    <div class="image" v-for="(image, index) in images" :key="index">
+      <span class="delete">&times;</span>
+      <img :src="image.url"/>
+    </div>
+  </div>
+  <button type="button">Upload</button>
 </div>
+
 
 <div class="field is-grouped">
   <div class="control">
@@ -138,6 +153,9 @@ export default {
                 personality: this.pet.personality,
                 image: this.pet.image
             },
+          images: [],
+          isDragging: false,
+          
             
         }
     },
@@ -178,14 +196,147 @@ export default {
         cancelForm(){
             this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
         },
+        selectFiles(){
+          this.$refs.fileInput.click();
+        },
+        onFileSelect(e){
+         const files = e.target.files;
+         if(files.length ===0) return;
+         for(let i = 0; i < files.length; i++){
+           if(files[i].tyoe.split('/')[0] !== 'image'){
+             return alert(`${files[i].name} is not an image`);
+           }
+           if(!this.images.some((e) => e.name === files[i].name)){
+             this.images.push({name: files[i].name, url:URL.createObjectURL(files[i])});
+           }
+         }
+        },
+        deleteImage(index){
+          this.images.splice(index,1);
+        },
+        onDragOver(event){
+          event.preventDefault();
+          this.isDragging = true;
+          event.dataTransfer.dropEffect = 'copy';
+        },
+        ondragleave(event){
+          event.preventDefault();
+          this.isDragging = false;
+        },
+        onDrop(event){
+          event.preventDefault();
+          this.isDragging = false;
+          const files = event.dataTransfer.files;
+        }
 
-    },
-    created(){
-        this.newPet = this.pet;
-    }
+
+        
+    
+//upload image
+// uploading(e) {
+//   const file = e.target.files[0];
+//   const reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.onload = e => {
+//     this.previewImage = e.reader.result;
+//     this.newPet.image = e.reader.result;
+//     console.log(this.newPet.image);
+//   };
+// },
+},
+created(){
+    this.newPet = this.pet;
+  }
+ 
 }
 </script>
 
 <style>
-
+.card{
+  width:100%;
+  padding: 10px;
+  box-shadow: 0 0  5px #ffdfdf;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.card .top{
+text-align: center;
+}
+.card p{
+  font-weight: bold;
+  color:aquamarine
+}
+.card button{
+  outline:0;
+  border:0;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 400;
+  padding:8px 13px;
+  width:100%;
+  background: aquamarine;
+}
+.card .drag-area{
+height: 150px;
+border-radius: 5px;
+border: 2px dashed aquamarine;
+background: #f4f3f9;
+display: flex;
+justify-content: center;
+align-items: center;
+user-select: center;
+-webkit-user-select: none;
+margin-top: 10px;
+}
+.card .drag-area .visible{
+  font-size: 18px;
+}
+.card .img-select{
+ color:#5256ad;
+ margin-left: 5px;
+ cursor: pointer;
+ transition:0.4s;
+}
+.card .img-select:hover{
+  opacity: 0.6;
+}
+.card .container{
+ width: 100%;
+ height:auto;
+ display: flex;
+ justify-content: flex-start;
+ align-items: flex-start;
+ flex-wrap: wrap;
+ max-height: 200px;
+ position: relative;
+ margin-bottom: 8px;
+ }
+ .card .container .image{
+  width: 75px;
+  margin-right: 5px;
+  height:75px;
+  position:relative;
+  margin-bottom: 8px;
+ }
+ .card .container .image img{
+  width:100%;
+  height:100%;
+  border-radius:5px;
+ }
+ .card .container .image span{
+  position:absolute;
+  top:-2px;
+  right: 9px;
+  font-size: 20px;
+  cursor:pointer;
+ }
+ .card input,
+ .card .drag-area .on-drop,
+ .card .drag-area.dragover .visible{
+  display: none;
+ }
+ .delete{
+  z-index: 999;
+  color:chocolate
+ }
 </style>

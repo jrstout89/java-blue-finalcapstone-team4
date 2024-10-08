@@ -1,6 +1,6 @@
 <template>
     <h1>Add pet</h1>
-    <pet-form :pet="petObject"/>
+    <pet-form :pet="petObject" v-if="showPetForm"/>
 </template>
 
 <script>
@@ -13,20 +13,20 @@ export default {
     },
     data() {
     return {
-      // petObject:{
-      //   id: 0,
-      //   name: '',
-      //   breed: '',
-      //   dateOfBirth: '',
-      //   gender: '',
-      //   petSize: '',
-      //   vaccination: false,
-      //   isSpayNeuter:false,
-      //   energyLevel: "",
-      //   personality: '',
-      //   image: ''
-      // }
-      petObject: {}
+      petObject:{
+        id: 0,
+        name: '',
+        breed: '',
+        dateOfBirth: '',
+        gender: '',
+        petSize: '',
+        vaccination: false,
+        isSpayNeuter:false,
+        energyLevel: "",
+        personality: '',
+        image: ''
+      },
+      showPetForm: false
     };
   },
   methods:{
@@ -34,10 +34,15 @@ export default {
       petService.getPetById(this.$route.params.id).then(
         (response) => {
           this.petObject = response.data;
+          this.showPetForm = true;
         }
       ).catch(
         (error) => {
           console.log(error);
+        }
+      ).finally(
+        () => {
+        this.showPetForm = true;
         }
       );
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="petsDetails">
-        <button class="button is-success" @click="editPet()">Edit</button>
+        <button class="button is-success" @click="editPet()" >Edit</button>
         <button class="button is-warning" @click="deletePet()">Delete</button>
     
         <div class="pets">

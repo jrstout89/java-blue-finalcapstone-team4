@@ -104,7 +104,7 @@ public class Pets {
         return isSpayNeuter;
     }
 
-    public void setSpayNeuter(boolean spayNeuter) {
+    public void setIsSpayNeuter(boolean spayNeuter) {
         isSpayNeuter = spayNeuter;
     }
 

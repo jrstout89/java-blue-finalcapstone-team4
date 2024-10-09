@@ -58,7 +58,6 @@ export default {
             
             return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
         }
-  
     }
 };
 </script>

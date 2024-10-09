@@ -28,6 +28,7 @@
 <script>
 import eventService from '../services/eventService';
 import petService from '../services/petService';
+
 export default {
     data() {
         return {
@@ -59,7 +60,8 @@ export default {
                     console.log(error);
                 }
             );
-            },
+            
+        }
     },
     computed: {
         formattedDate() {

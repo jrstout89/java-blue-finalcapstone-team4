@@ -2,9 +2,10 @@
     <div class="content-container">
         <div class="left-column">
              <!-- Filter will go here -->
-             <p id="filter">Filter</p>
+             <!-- <p id="filter">Filter</p> -->
              <location id="location"></location>
         </div>
+        <h1 id="header">Current Events</h1>
         <current-events id="current-events"></current-events>
     </div>
     <!-- </div> -->
@@ -20,23 +21,32 @@ export default {
         CurrentEvents,
         location
     },
-    
 
 }
 </script>
 
-<style>
+<style scoped>
 .content-container {
     display: flex;
     flex-direction: column;
+    background-color: rgb(7, 250, 7);
 }
 
 .left-column {
     display: grid;
-    grid-template-columns: 40% 20%;
+    grid-template-columns: 1fr;
     grid-template-areas: 
-    "filter location"
-    "current-events current-events";
+    "location"
+    "current-events";
+}
+#header {
+    text-align: center;
+    font-size: 3em;
+    font-family: cursive;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 20px;
 }
 
 #location {
@@ -45,18 +55,10 @@ export default {
     height: 100vh;
     padding: 1em;
     box-sizing: border-box;
-    display: grid;
+    display: flex;
+    margin: 30px;
+    align-items: flex-end;
     grid-area: "location";
-}
-#filter {
-    width: 20%; 
-    float: left;
-    height: 100vh; /* This will make it take the full height of the viewport */
-    background-color: #f0f0f0;
-    padding: 1em;
-    box-sizing: border-box; /* This makes the padding included in the element's total width and height */
-    display: grid;
-    grid-area: "filter";
 }
 #current-events {
     display: grid;

@@ -124,7 +124,7 @@ const routes = [
     name: "eventDetails",
     component: EventDetails,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {

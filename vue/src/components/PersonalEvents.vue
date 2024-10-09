@@ -1,10 +1,7 @@
 <template>
     <div class="personal-events">
-        <h2>Your events</h2>
+        <h1>Your events</h1>
         <div class="events">
-            <router-link to="/events/add-event">
-                <button class="button is-info">Add Event</button>
-            </router-link>
             <div v-for="event in events" :key="event.id" class="event">
                 <h3>{{ event.eventTitle }}</h3>
                 <p><strong>Location: </strong> {{ event.eventLocation }}</p>
@@ -78,5 +75,9 @@ export default {
 </script>
 
 <style>
-
+.events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 </style>

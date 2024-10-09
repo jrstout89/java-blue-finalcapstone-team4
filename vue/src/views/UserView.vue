@@ -1,9 +1,6 @@
 <template>
     <div class="user-profile">
         <UserProfile/>
-        <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">
-            <button class="button is-info">Your Pets</button>
-        </router-link>
         <PersonalEvents/>
         <hr/>
         

@@ -1,4 +1,5 @@
 <template>
+    <div id="entire-page">
     <div id="content">
         <h1 class="event-title">{{ event.eventTitle }}</h1>
         <p>{{ event.eventLocation }}</p>
@@ -12,7 +13,7 @@
         <img :src="event.eventImage" alt="Event Image"> 
     </div>
     <!-- show all the pets of event -->
-    <div>
+    <div id="pet_content">
         <h2>Pets attending this event:</h2>
         <div v-for="pet in pets" v-bind:key="pet.id">
             <img :src="pet.image" alt="pet image" width="300" height="200">
@@ -21,13 +22,14 @@
         </div>
     <div>
     </div>
-
+    </div>
     </div>
 </template>
 
 <script>
 import eventService from '../services/eventService';
 import petService from '../services/petService';
+
 export default {
     data() {
         return {
@@ -59,7 +61,8 @@ export default {
                     console.log(error);
                 }
             );
-            },
+            
+        }
     },
     computed: {
         formattedDate() {
@@ -87,12 +90,38 @@ export default {
 </script>
 
 <style scoped>
+/* #entire-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "content pet_content";
+} */
 #content {
+    grid-area: content;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
     border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    color: black;
+}
+#pet_content {
+    grid-area: pet_content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    color: black;
 }
 .event-title {
     font-weight: bold;

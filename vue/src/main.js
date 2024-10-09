@@ -5,6 +5,7 @@ import router from './router'
 import axios from 'axios'
 import 'bulma/css/bulma.css'
 
+
 /* sets the base url for server API communication with axios */
 axios.defaults.baseURL = import.meta.env.VITE_REMOTE_API;
 

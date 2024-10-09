@@ -30,14 +30,15 @@ public class ForumController {
         forumDao.createForum(forum);
     }
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(path = "/update-forum", method = RequestMethod.PUT)
-    public void updateForum(@Valid @RequestBody Forum forum){
+    @RequestMapping(path = "/update-forum/{id}", method = RequestMethod.PUT)
+    public void updateForum(@PathVariable("id") int id, @Valid @RequestBody Forum forum) {
+        forum.setId(id);
         forumDao.updateForum(forum);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(path = "/forums/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id){
+    public void deleteForum(@PathVariable int id){
         forumDao.deleteForum(id);
     }
     @RequestMapping(path = "/forum/{id}", method = RequestMethod.GET)

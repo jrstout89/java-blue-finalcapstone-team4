@@ -4,21 +4,24 @@
             <h1>Welcome to the Pet Play Pals forum!!</h1>
             <p>This is a friendly space for pet lovers to share stories, ask questions, and connect with fellow enthusiasts. Whether you're seeking advice on pet care, looking to share your experiences, or just want to chat about your furry friends, you're in the right place! Join the conversation and help us create a vibrant community dedicated to all things pets.</p>
         </div>
-        <button @click="toggleAddForumButton">
-            {{ showAddForumForm ? 'Cancel' : 'Add Forum' }}
+        <button v-if="!showAddForumForm" class="button is-info" @click="toggleAddForumButton">
+            Add Forum
         </button>
-        <div v-if="showAddForumForm">
-            <input v-model="newForumTitle" placeholder="Forum Title" />
-            <textarea v-model="newForumContent" placeholder="Forum Content"></textarea>
-            <button @click="addForum">Submit</button>
+        <div v-if="showAddForumForm" class="forum-form">
+            <input v-model="newForumTitle" placeholder="Forum Title" class="form-field" />
+            <textarea v-model="newForumContent" placeholder="Forum Content" class="form-field"></textarea>
+            <div class="button-container">
+                <button class="button is-info" @click="addForum">Submit</button>
+                <button class="button is-warning" @click="toggleAddForumButton">Cancel</button>
+            </div>
         </div>
-        <ul>
-            <li v-for="forum in forums" :key="forum.id">
+        <ul class="forum-list">
+            <li class="forum-bubble" v-for="forum in forums" :key="forum.id">
                 <router-link :to="{ name: 'forumDetails', params: { id: forum.id } }">
                     <h2>{{ forum.forumTitle }}</h2>
                 </router-link>
                 <p style="display: inline;">Posted by: {{ forum.username }}</p>
-                <p style="display: inline; margin-left: 5px;">on {{ forum.createdDate }}</p>
+                <p style="display: inline; margin-left: 5px;">on {{ formatDate(forum.createdDate) }}</p>
             </li>
         </ul>
     </div>
@@ -65,12 +68,45 @@ export default {
                 console.error('Error adding forum', error);
                 console.log('Error adding forum:', error.response ? error.response.data : error.message);
             });
+        },
+        formatDate(date) {
+            const newDate = new Date(date);
+            const options = { month: '2-digit', day: '2-digit', year: 'numeric' };
+            return newDate.toLocaleDateString('en-US', options);
         }
     }
 }
 </script>
 
 <style scoped>
+.forum-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.forum-bubble {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    width: 95%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.forum-bubble h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.forum-bubble p {
+    margin: 5px 0;
+    color: #666;
+}
+
 .intro-bubble {
     background-color: #f9f9f9;
     border: 2px solid #ccc;
@@ -94,4 +130,24 @@ export default {
     color: #666;
 }
 
+.forum-form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.form-field {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
 </style>

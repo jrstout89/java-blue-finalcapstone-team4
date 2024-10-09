@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -58,7 +59,10 @@ public class CommentsController {
     @RequestMapping(path = "/comments/{commentId}", method = RequestMethod.PUT)
     public void updateComment(@PathVariable int commentId, @Valid @RequestBody Comments comment) {
         comment.setCommentId(commentId);
-        commentsDao.updateComment(comment);
+        boolean updated = commentsDao.updateComment(comment);
+        if (!updated) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found");
+        }
     }
 
     // Method to delete a comment.

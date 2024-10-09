@@ -36,7 +36,8 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setEventAddress(results.getString("event_address"));
         playdate.setEventDescription(results.getString("event_description"));
         playdate.setEventImage(results.getString("event_image"));
-//        playdate.setStatus(Playdate.PlaydateStatus.valueOf(results.getString("playdate_status")));
+        playdate.setLatitude(results.getFloat("event_latitude"));
+        playdate.setLongitude(results.getFloat("event_longitude"));
         return playdate;
     }
 
@@ -45,7 +46,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
     public List<Playdate> getAllPlaydates () {
         List<Playdate> playdates = new ArrayList<>();
         // switch * to whatever i need from playdate table/
-        String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
+        String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
                 while (results.next()) {
@@ -77,7 +78,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
     @Override
     public Playdate getPlaydateByUsername(String username) {
         Playdate playdate = null;
-        String sql = "select playdate.playdate_id,playdate.event_title,playdate.event_location, playdate.event_address, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image from playdate " +
+        String sql = "select playdate.playdate_id,playdate.event_title,playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image from playdate " +
                 "join customers ON playdate.event_host = customers.customer_id " +
                 "join users ON customers.user_id = users.user_id " +
                 "where username = ?";
@@ -98,11 +99,11 @@ public class JdbcPlaydateDao implements PlaydateDao {
     // Method to create a new playdate.
     @Override
     public Playdate createPlaydate(Playdate playdate) {
-        String sql = "INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
 
             // Setting template update to "rowsAffected" to check for exceptions where no rows are inserted.
-            int rowsAffected = jdbcTemplate.update(sql, playdate.getEventTitle(), playdate.getEventLocation(), playdate.getEventAddress(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(), playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(), playdate.getEventImage());
+            int rowsAffected = jdbcTemplate.update(sql, playdate.getEventTitle(), playdate.getEventLocation(), playdate.getEventAddress(), playdate.getLatitude(),playdate.getLongitude(),playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(), playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(), playdate.getEventImage());
 
             // This will handle cases where no rows were inserted.
             if (rowsAffected == 0) {
@@ -117,11 +118,12 @@ public class JdbcPlaydateDao implements PlaydateDao {
     @Override
     public boolean updatePlaydate(Playdate playdate) {
         String sqlUpdate = "UPDATE playdate SET event_title = ?, " +
-                "event_location = ?, event_address = ?," +
+                "event_location = ?, event_address = ?, " +
+                "event_latitude = ?, event_longitude = ?, " +
                 " maximum_pets = ?, event_host = ?," +
                 " event_date = ?, event_time = ?, " +
                 "event_duration = ?, event_description = ?," +
-                " event_image = ?  WHERE id = ?";
+                " event_image = ?  WHERE playdate_id = ?";
         int numberOfRows = 0;
         try{
          numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
@@ -140,7 +142,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         if(id<=0){
             throw new IllegalArgumentException("ID must be greater than zero.");
         }
-        String sql = "DELETE FROM playdate WHERE id = ?";
+        String sql = "DELETE FROM playdate WHERE playdate_id = ?";
         return jdbcTemplate.update(sql, id);
     }
 

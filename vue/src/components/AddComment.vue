@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <textarea v-model="commentContent" placeholder="Add a comment" :class="{ 'is-invalid': errorMessage }"></textarea>
-    <button @click="submitComment" :disabled="isLoading">
-        <span v-if="isLoading">Submitting...</span>
-        <span v-else>Submit Comment</span>
+  <div class="comment-container">
+    <textarea 
+        v-model="commentContent" 
+        placeholder="Add a comment" 
+        class="comment-textarea"
+        :class="{ 'is-invalid': errorMessage }">
+    </textarea>
+    <div class="submit-button">
+        <button class="button is-link" @click="submitComment" :disabled="isLoading">
+            <span v-if="isLoading">Submitting...</span>
+            <span v-else>Submit</span>
         </button>
-        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    </div>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -58,6 +65,22 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.comment-textarea {
+    width: 80%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
 
 </style>

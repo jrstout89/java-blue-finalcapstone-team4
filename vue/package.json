@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore src"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",

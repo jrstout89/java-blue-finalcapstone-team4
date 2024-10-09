@@ -17,8 +17,8 @@
                 <p> Event Description: {{ event.eventDescription }}</p>
                 <img :src="event.eventImage" alt="Event Image">
                 <br/>
-                <button class="button is-success" @click="editEvent()">Edit</button>
-                <button class="button is-warning" @click="deleteEvent()">Delete</button>
+                <button class="button is-success" @click="editEvent(event.id)">Edit</button>
+                <button class="button is-warning" @click="deleteEvent(event.id)">Delete</button>
             </div>
             <router-link to="/events/add-event">
                 <button class="button is-info">Add Event</button>
@@ -44,15 +44,15 @@ export default {
         );
     },
     methods: {
-        deleteEvent() {
+        deleteEvent(eventId) {
             if (confirm('Are you sure you want to delete this event?')) {
-                console.log(`Attempting to delete event with ID: ${this.events.id}`);
-                eventService.deleteEvent(this.events.id).then(
+                console.log(`Attempting to delete event with ID: ${eventId}`);
+                eventService.deleteEvent(eventId).then(
                 (response) => {
                     if (response.status === 204) {
                         console.log('Event deleted successfully. Redirecting...');
-                        //redirect to events page
-                        this.$router.push({ name: 'events', params: { customerId: this.$store.state.user.id } });
+                        //stay at same page
+                        this.events = this.events.filter(event => event.id !== eventId);
                     }
                 }
                 ).catch(
@@ -63,8 +63,8 @@ export default {
             }
         },
         //edit Event
-        editEvent(){
-            this.$router.push({name: 'updateEvent', params: {id: this.events.id}});
+        editEvent(eventId){
+            this.$router.push({name: 'updateEvent', params: {id: eventId}});
         }
     },
     computed: {

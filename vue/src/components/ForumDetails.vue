@@ -2,19 +2,80 @@
   <div class="forum-info">
     <h2>{{ forum.forumTitle }}</h2>
     <p style="display: inline">Posted by: {{ forum.username }}</p>
-    <p style="display: inline; margin-left: 5px;">on: {{ forum.createdDate }}</p>
+    <p style="display: inline; margin-left: 5px;">on: {{ formatDate(forum.createdDate) }}</p>
     <p>{{ forum.forumContent }}</p>
-    
+    <div>
+      <button class="button is-success" @click="editForum">Edit Forum</button>
+      <button class="button is-warning" @click="deleteForum">Delete Forum</button>
+    </div>
+    <div v-if="isEditing">
+      <input v-model="updatedForumTitle" placeholder="Forum Title" />
+      <textarea v-model="updatedForumContent" placeholder="Forum Content"></textarea>
+      <button class="button is-info" @click="updateForum">Save Changes</button>
+      <button class="button is-warning" @click="cancelEdit">Cancel</button>
+    </div>
   </div>
 </template>
 
 <script>
+import ForumService from '../services/ForumService';
+
 export default {
   name: 'ForumDetails',
   props: {
     forum: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      isEditing: false,
+      updatedForumTitle: this.forum.forumTitle,
+      updatedForumContent: this.forum.forumContent
+    }
+  },
+  methods: {
+    editForum() {
+      this.isEditing = true;
+    },
+    cancelEdit() {
+      this.isEditing = false;
+      this.updatedForumTitle = this.forum.forumTitle;
+      this.updatedForumContent = this.forum.forumContent;
+    },
+    async updateForum() {
+      console.log('Updating forum ID:', this.forum.id);
+      const updatedForum = {
+        customerId: this.forum.customerId,
+        forumTitle: this.updatedForumTitle,
+        forumContent: this.updatedForumContent,
+        updateDate: new Date().toISOString().split('T')[0]
+      };
+      try {
+        await ForumService.updateForum(this.forum.id, updatedForum);
+        this.$emit('forum-updated', {id: this.forum.id, updatedForum});
+        this.isEditing = false;
+      } catch (error) {
+        console.error('Error updating forum', error);
+      }
+    },
+    async deleteForum() {
+      const confirmDelete = confirm('Are you sure you want to delete this forum?');
+      if (confirmDelete) {
+        try {
+          await ForumService.deleteForum(this.forum.id);
+          this.$emit('forum-deleted', this.forum.id);
+          this.$router.push({ name: 'forum' });
+        } catch (error) {
+          console.error('Error deleting forum', error);
+        }
+      }
+    },
+    formatDate(date) {
+      const newDate = new Date(date);
+      const options = { month: '2-digit', day: '2-digit', year: 'numeric' };
+      return newDate.toLocaleDateString('en-US', options);
     }
   }
 }

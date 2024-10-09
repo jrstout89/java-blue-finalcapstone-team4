@@ -1,5 +1,4 @@
 package com.techelevator.model;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,6 +8,8 @@ public class Playdate {
     private String eventTitle;
     private String eventLocation;
     private String eventAddress;
+    private float latitude;
+    private float longitude;
     private int maximumPets;
     private int eventHost;
     private LocalDate eventDate;
@@ -16,11 +17,10 @@ public class Playdate {
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
-
     public Playdate() {
     }
 
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, int eventHost, LocalDate eventDate, LocalTime eventTime, int eventDuration, String eventDescription, String eventImage) {
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, int eventHost, LocalDate eventDate, LocalTime eventTime, int eventDuration, String eventDescription, String eventImage, float latitude, float longitude) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;
@@ -32,6 +32,8 @@ public class Playdate {
         this.eventDuration = eventDuration;
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -120,5 +122,21 @@ public class Playdate {
 
     public void setEventImage(String eventImage) {
         this.eventImage = eventImage;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 }

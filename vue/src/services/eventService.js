@@ -15,7 +15,7 @@ export default {
     addEvent(event) {
         return axios.post('/events', event);
     },
-    updateEvent(event) {
+    updateEvent(eventId, event) {
         return axios.put(`/update-event`, event);
     },
     deleteEvent(id) {

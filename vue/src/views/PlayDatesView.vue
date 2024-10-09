@@ -2,9 +2,10 @@
     <div class="content-container">
         <div class="left-column">
              <!-- Filter will go here -->
+             <p id="filter">Filter</p>
+             <location id="location"></location>
         </div>
-        <location></location>
-        <current-events></current-events>
+        <current-events id="current-events"></current-events>
     </div>
     <!-- </div> -->
 
@@ -27,14 +28,41 @@ export default {
 <style>
 .content-container {
     display: flex;
+    flex-direction: column;
 }
 
 .left-column {
+    display: grid;
+    grid-template-columns: 40% 20%;
+    grid-template-areas: 
+    "filter location"
+    "current-events current-events";
+}
+
+#location {
+    width: 40%;
+    float: left;
+    height: 100vh;
+    padding: 1em;
+    box-sizing: border-box;
+    display: grid;
+    grid-area: "location";
+}
+#filter {
     width: 20%; 
     float: left;
     height: 100vh; /* This will make it take the full height of the viewport */
     background-color: #f0f0f0;
     padding: 1em;
     box-sizing: border-box; /* This makes the padding included in the element's total width and height */
+    display: grid;
+    grid-area: "filter";
+}
+#current-events {
+    display: grid;
+    grid-area: "current-events";
+    display: flex;
+    justify-items: center;
+    
 }
 </style>

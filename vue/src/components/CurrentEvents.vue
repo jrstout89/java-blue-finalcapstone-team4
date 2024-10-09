@@ -2,8 +2,8 @@
     <div class="events">
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <router-link :to="{ name: 'eventDetails', params: { id: event.id } }">
-                <div>
-                    <img v-bind:src="event.eventImage" alt="event image" width="300" height="200">
+                <div id="content">
+                    <img id="image" v-bind:src="event.eventImage" alt="event image" width="300" height="200">
                     <h3><strong>{{ event.eventTitle }}</strong></h3>
                     <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
                     <p><strong>Address:</strong> {{ event.eventAddress }}</p>
@@ -60,6 +60,27 @@ export default{
 
 </script>
 <style>
+    .events{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    #content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+        width: auto;
+        flex-grow: 1;
+    }
+    .image{
+        width: 300px;
+        height: 200px;
+    }
     .playdates{
         display: flex;
         flex-direction: row; 

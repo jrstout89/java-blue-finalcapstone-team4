@@ -1,34 +1,24 @@
 <template>
-  <!-- <div class="home">
-    <div class="header-container">
-      <div id="header">
-         <router-link to="/">
-          <img id="pal" src="../img/petPlayPal.png" alt="welcome" />
-        </router-link>  -->
-      <!-- </div>
-      <div class="tabs">
-        <ul> -->
-          <!-- <router-link to="/"> <li><a>Home</a></li></router-link>
-          <router-link to="/playdates"><li><a>Events</a></li></router-link>
-          <router-link to="/forum"> <li><a>Forum</a></li></router-link>
-          <router-link to="/user"><li><a>Profile</a></li></router-link> 
-          <router-link to="/login"><li class="is-active"><a>Log in</a></li></router-link> -->
-        <!-- </ul>
-      </div>
-    </div> --> 
-
     <nav class="about">
       <div id="content">
         <img id="dog" src="../img/HappyDog.gif" alt="happy" />
         <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
       </div>
-        <p id="text">At Pet Play Pal, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
+        <p id="text">At Pet Play Pals, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
         </p>
         <!-- <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link> -->
-          <button>View Play Dates</button>
+        <button>View Play Dates</button>
+        <div class="slideshow">
+          <img src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
+          <div class="image-index">
+            {{ currentImageIndex + 1 }} / {{ images.length }}
+          </div>
+          <button @click="prevImage">Previous</button>
+          <button @click="nextImage">Next</button>
+        </div>
     </nav>
     <footer>
-      <p>&copy; 2024 Pet Play Pal. All rights reserved.</p>
+      <p>&copy; 2024 Pet Play Pals. All rights reserved.</p>
     </footer>
 </template>
 
@@ -37,18 +27,29 @@
 export default {
   data() {
     return {
-      isVisible: false,
+      images: [
+        'https://media.istockphoto.com/id/1341759749/photo/happy-and-energetic-golden-retriever-playing-chase-with-owner.jpg?s=612x612&w=0&k=20&c=dz2JoJpE96woGAvC76c1dsqAnbniVwMJVnqp4qJ-yMc=',
+        'https://www.animalbehaviorcollege.com/wp-content/uploads/2019/09/dog-park-1-768x513.jpg',
+      ],
+      currentImageIndex: 0,
+      isVisible: false
     };
   },
   methods: {
+    nextImage() {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    },
+    previousImage() {
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+    },
     toggleVisibility() {
       this.isVisible = !this.isVisible;
-    },
+    }
   },
 };
 </script>
 
-<style>
+<style scoped>
 .header-container {
     display: flex; 
     align-items: center;
@@ -95,6 +96,30 @@ export default {
   #text{
     font-size: 1.5em;
     font-family: cursive;
+  }
+
+  .slideshow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .slide {
+    width: 100%;
+    height: 600px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin: 5px;
+    padding: 10px;
+  }
+
+  .image-index {
+    margin: 10px 0;
+    font-size: 1.2rem;
   }
 
 </style>

@@ -4,6 +4,9 @@
 
       <!-- Google Maps will render map here -->
       <div id="map"></div>
+      <!-- <div id = "filter">
+        <input type="text" id="filter">
+      </div> -->
 
 
       <!-- <div id="input-area">
@@ -47,7 +50,7 @@ initMap() {
 
   this.map = new window.google.maps.Map(document.getElementById("map"), {
     center: this.mapCenter,
-    zoom: 14,
+    zoom: 13,
     maxZoom: 20,
     minZoom: 3,
     streetViewControl: true,
@@ -73,11 +76,15 @@ initMap() {
       lng: parseFloat(event.longitude)
       };
 
-  new window.google.maps.Marker({
+  let marker = new window.google.maps.Marker({
     position: coordinates,
     map: this.map,
     title:"Location: " + event.eventLocation + "\n" + "Event Name: " + event.eventTitle,
+    clickable: true
   });
+  marker.addListener("click", () => {
+  this.$router.push({ name: 'eventDetails', params: { id: event.id } });
+});
 });
 });
 },
@@ -175,30 +182,33 @@ this.initMap();
 };
 </script>
 
-<style>
+<style scoped>
 
-#grid-container {
+/* #grid-container {
 display: grid;
 grid-template-columns: 1fr 1fr;
 grid-template-areas: 
-"map inputs"
-"directions directions";
-}
+"map map";
+} */
 
 #map {
 grid-area: map;
-width: 650px;
-height: 400px;
+width: 1100px;
+height: 750px;
 padding: 25px;
-margin: 25px;
+display: flex;
+align-self: center;
 }
 
-#input-area {
-grid-area: inputs;
-}
-
-#panel {
-grid-area: directions;
+#filter {
+    width: 20%; 
+    float: left;
+    height: 100vh; /* This will make it take the full height of the viewport */
+    background-color: #f0f0f0;
+    padding: 1em;
+    box-sizing: border-box; /* This makes the padding included in the element's total width and height */
+    display: grid;
+    grid-area: "filter";
 }
 
 .current-inputs {

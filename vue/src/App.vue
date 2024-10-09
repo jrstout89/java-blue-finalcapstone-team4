@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-        <div class="header-container">
+        <header class="header-container">
             <div id="header">
                 <router-link to="/">
                 <img id="pal" src=".\img\logo.png" alt="welcome" />
@@ -18,7 +18,9 @@
                 </nav>
                 </ul>
             </div>
-        </div>
+        </header>
+        <main class="background">
+            <router-view />
+        </main>
     </div>
-    <router-view />
 </template>

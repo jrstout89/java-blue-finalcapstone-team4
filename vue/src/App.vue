@@ -25,7 +25,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 .home {
     display: flex;
     flex-direction: column;

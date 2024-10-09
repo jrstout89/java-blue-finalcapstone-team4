@@ -14,27 +14,88 @@
                     </div>
                 </div>
             </router-link>
-        </div>
+            <div>
+               
+                     <div v-if="userLoggedIn">
+                        <button class="button is-info" @click="togglePetSelection">Register your pet!</button>
+                        <h3>Select your pet:</h3>
+                            <ul>
+                                <li v-for="pet in pets" v-bind:key="pet.id" @click="selectPet(pet)">
+                                    {{ pet.name }}
+                                </li>
+                            </ul>
+                             </div>
+                             <div v-if="selectPet">
+                                <button @click="confirmSelection">Confirm</button>
+                             </div>
+                             <div v-else>
+                                <p>Please log in to register your pet.</p>
+                                <button @click="redirectToLogin">Log In</button>
+                            </div>
+                    </div>
+                    <div v-if="!userLoggedIn">
+                        <!--TODO: When button is cliked user is router.pushed to the login route-->
+                        <button class="button is-info" @click="togglePetSelection">Login First</button>
+                    </div>
+
+
+             </div>
     </div>
    
 </template>
 
 <script>
 import eventService from '../services/eventService';
+import petService from '../services/petService';
 export default{
+    computed: {
+
+        userLoggedIn() {
+                return !(this.$store.state.token == undefined || this.$store.state.token == "") ? true : false ;
+        }
+
+         
+    },
     data(){
         return{
-            events: []
+            events: [],
+            pets: [],
+            showPetSelection: false,
+            selectedPet: null,
+            isLoggedIn: false
         }
     },
     created(){
+
+        // if user is logged in, toggle showPetSelection to true
+        // this.showPetSelection = true;
+
+
         return eventService.getEvents().then(
             (response) => {
                 this.events = response.data;
             }
-        );
+        ),
+        //get all pets
+        this.loadPets();
+        //check if user is logged in
+        // this.isLoggedInStatus();
+
     },
     methods:{
+        //get all pets
+        loadPets(){
+        petService.getAllPetsByCustomerId(this.$route.params.customerId).then(
+            (response) => {
+                this.pets = response.data;
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+            }
+        );
+        },
+
         formattedDate(eventDate) {
             const parts = eventDate.split('-');
             const year = parseInt(parts[0], 10);
@@ -54,8 +115,31 @@ export default{
             hours = hours ? hours : 12; // the hour '0' should be '12'
       
             return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+        },
+        
+        //to show pet selection
+        togglePetSelection(){
+            // this.showPetSelection = !this.showPetSelection;
+        },
+        //to select pet
+        selectPet(pet){
+            this.selectedPet = pet;
+        },
+        //to confirm selection
+        confirmSelection(){
+            console.log(`Selected pet: ${this.selectedPet.name}`);
+        },
+        //redirect to login
+        redirectToLogin(){
+            this.$router.push({name: 'login'});
+        },
+        //check if user is logged in
+        checkLoginStatus(){
+           this.isLoggedIn = !!localStorage.getItem('token');
         }
-    }
+
+
+    },
 }
 
 </script>

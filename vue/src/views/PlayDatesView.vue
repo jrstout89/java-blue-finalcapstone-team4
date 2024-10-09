@@ -29,7 +29,6 @@ export default {
 .content-container {
     display: flex;
     flex-direction: column;
-    background-color: rgb(7, 250, 7);
 }
 
 .left-column {
@@ -51,7 +50,6 @@ export default {
 
 #location {
     width: 40%;
-    float: left;
     height: 100vh;
     padding: 1em;
     box-sizing: border-box;

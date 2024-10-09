@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="content">
         <h1 class="event-title">{{ event.eventTitle }}</h1>
         <p>{{ event.eventLocation }}</p>
         <p>{{ event.eventAddress }}</p>
@@ -86,7 +86,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid black;
+}
 .event-title {
     font-weight: bold;
     font-size: 1.5em; 

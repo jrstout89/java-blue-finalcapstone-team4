@@ -80,11 +80,11 @@ initMap() {
     position: coordinates,
     map: this.map,
     title:"Location: " + event.eventLocation + "\n" + "Event Name: " + event.eventTitle,
-    clickable: true,
+    clickable: true
   });
   marker.addListener("click", () => {
-   this.$router.push({ name: 'EventDetails', params: { id: event.id }});
-  });
+  this.$router.push({ name: 'eventDetails', params: { id: event.id } });
+});
 });
 });
 },

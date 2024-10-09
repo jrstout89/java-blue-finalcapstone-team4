@@ -9,6 +9,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,9 +28,9 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setId(results.getInt("playdate_id"));
         playdate.setEventLocation(results.getString("event_location"));
         playdate.setMaximumPets(results.getInt("maximum_pets"));
-        playdate.setEventHost(results.getString("event_host"));
-        playdate.setEventDate(String.valueOf(results.getDate("event_date")));
-        playdate.setEventTime(String.valueOf(results.getTime("event_time")));
+        playdate.setEventHost(Integer.parseInt(results.getString("event_host")));
+        playdate.setEventDate(LocalDate.parse(String.valueOf(results.getDate("event_date"))));
+        playdate.setEventTime(LocalTime.parse(String.valueOf(results.getTime("event_time"))));
         playdate.setEventDuration(results.getInt("event_duration"));
         playdate.setEventTitle(results.getString("event_title"));
         playdate.setEventAddress(results.getString("event_address"));
@@ -42,8 +44,8 @@ public class JdbcPlaydateDao implements PlaydateDao {
     @Override
     public List<Playdate> getAllPlaydates () {
         List<Playdate> playdates = new ArrayList<>();
-
-        String sql = "SELECT * FROM playdate";
+        // switch * to whatever i need from playdate table/
+        String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
                 while (results.next()) {
@@ -96,7 +98,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
     // Method to create a new playdate.
     @Override
     public Playdate createPlaydate(Playdate playdate) {
-        String sql = "INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image, playdate_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO playdate (event_title, event_location, event_address, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
 
             // Setting template update to "rowsAffected" to check for exceptions where no rows are inserted.
@@ -119,7 +121,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
                 " maximum_pets = ?, event_host = ?," +
                 " event_date = ?, event_time = ?, " +
                 "event_duration = ?, event_description = ?," +
-                " event_image = ?  WHERE id = ?";
+                " event_image = ?  WHERE playdate_id = ?";
         int numberOfRows = 0;
         try{
          numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
@@ -138,7 +140,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         if(id<=0){
             throw new IllegalArgumentException("ID must be greater than zero.");
         }
-        String sql = "DELETE FROM playdate WHERE id = ?";
+        String sql = "DELETE FROM playdate WHERE playdate_id = ?";
         return jdbcTemplate.update(sql, id);
     }
 

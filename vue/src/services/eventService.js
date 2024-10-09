@@ -7,20 +7,20 @@ const http = axios.create({
 
 export default {
     getEvents() {
-        return http.get('/events');
+        return axios.get('/events');
     },
     getEventById(id) {
-        return http.get(`/events/${id}`);
+        return axios.get(`/events/${id}`);
     },
-    // addEvent(event) {
-    //     return http.post('/events', event);
-    // },
-    // updateEvent(event) {
-    //     return http.put(`/events/${event.id}`, event);
-    // },
-    // deleteEvent(id) {
-    //     return http.delete(`/events/${id}`);
-    // },
+    addEvent(event) {
+        return axios.post('/events', event);
+    },
+    updateEvent(eventId, event) {
+        return axios.put(`/update-event`, event);
+    },
+    deleteEvent(id) {
+        return axios.delete(`/events/${id}`);
+    },
     getUser() {
         return http.get(`/user`, {
             headers: {

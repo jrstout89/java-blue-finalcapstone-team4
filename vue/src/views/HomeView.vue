@@ -2,14 +2,14 @@
     <nav class="about">
       <div id="content">
         <img id="dog" src="../img/HappyDog.gif" alt="happy" />
-        <h3 id="subtitle">Welcome to Pet Play Pal!</h3>
+        <h3 id="subtitle">Welcome to Pet Play Pals!</h3>
       </div>
         <p id="text">At Pet Play Pals, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
         </p>
         <!-- <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link> -->
         <button>View Play Dates</button>
         <div class="slideshow">
-          <img src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
+          <img :src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
           <div class="image-index">
             {{ currentImageIndex + 1 }} / {{ images.length }}
           </div>
@@ -30,6 +30,14 @@ export default {
       images: [
         'https://media.istockphoto.com/id/1341759749/photo/happy-and-energetic-golden-retriever-playing-chase-with-owner.jpg?s=612x612&w=0&k=20&c=dz2JoJpE96woGAvC76c1dsqAnbniVwMJVnqp4qJ-yMc=',
         'https://www.animalbehaviorcollege.com/wp-content/uploads/2019/09/dog-park-1-768x513.jpg',
+        'https://www.nappanee.in.gov/home/showpublishedimage/362/637907306438070000',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Tompkins_Square_Big_Dog_Run.JPG/1200px-Tompkins_Square_Big_Dog_Run.JPG',
+        'https://rootedinfun.com/ImageRepository/Document?documentID=134',
+        'https://library.playlsi.com/transform/620f85e4-f583-42b1-9df4-bc7d35c6d526/TX-Elyson-Commons-at-Bear-Creek-10?io=transform:extend,width:1920,height:1080,background:f9f9f9',
+        'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/newscms/2019_17/2836796/190426-dog-park-ew-251p.jpg',
+        'https://www.doodycalls.com/cms/thumbnails/24/1060x560/sub/71074/images/wheaton.0000000000000.jpg',
+        'https://s3-us-west-2.amazonaws.com/akccontentimages/AKC_Training_Microsite/101723373_sealyham_terrier_golden_retriever.jpg',
+        'https://www.dundeeanimalhospital.com/images/blogs/ezgif.com-gif-maker.19).jpg',
       ],
       currentImageIndex: 0,
       isVisible: false
@@ -71,7 +79,7 @@ export default {
     flex-direction: column;
     align-items: center; 
     justify-content: center;
-    background-image: url('../img/running.jpg' );
+    /* background-image: url('../img/running.jpg' ); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

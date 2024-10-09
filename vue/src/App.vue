@@ -8,14 +8,14 @@
             </div>
             <div class="tabs">
                 <ul>
-                <router-link to="/"> <li><a>Home</a></li></router-link>
-                <router-link to="/playdates"><li><a>Events</a></li></router-link>
-                <router-link to="/forum"> <li><a>Forum</a></li></router-link>
-                <router-link to="/user"><li><a>Profile</a></li></router-link> 
-                 <nav>
-                <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
-                <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-                </nav>
+                    <router-link to="/"> <li><a>Home</a></li></router-link>
+                    <router-link to="/playdates"><li><a>Events</a></li></router-link>
+                    <router-link to="/forum"> <li><a>Forum</a></li></router-link>
+                    <router-link to="/user"><li><a>Profile</a></li></router-link> 
+                    <nav>
+                        <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
+                        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+                    </nav>
                 </ul>
             </div>
         </header>

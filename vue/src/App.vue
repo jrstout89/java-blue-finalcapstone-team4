@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-        <div class="header-container">
+        <header class="header-container">
             <div id="header">
                 <router-link to="/">
                 <img id="pal" src=".\img\logo.png" alt="welcome" />
@@ -18,7 +18,35 @@
                 </nav>
                 </ul>
             </div>
-        </div>
+        </header>
+        <main class="background">
+            <router-view />
+        </main>
     </div>
-    <router-view />
 </template>
+
+<style>
+.home {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.background {
+  background-image: url(https://img.freepik.com/premium-vector/pets-paw-pattern-bones-flying-saucer-animal-footsteps-seamless-texture-pet-store-background_657999-3041.jpg?w=740);
+  background-size: cover;
+  background-position: center;
+  flex-grow: 1;
+  min-height: 100vh;
+  padding: 20px;
+}
+</style>

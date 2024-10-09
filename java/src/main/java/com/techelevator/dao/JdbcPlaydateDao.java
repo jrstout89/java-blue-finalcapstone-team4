@@ -127,7 +127,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         int numberOfRows = 0;
         try{
          numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
-                playdate.getEventAddress(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(),
+                playdate.getEventAddress(), playdate.getLatitude(), playdate.getLongitude(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(),
                 playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(),playdate.getEventImage(),
                 playdate.getId());
         } catch (CannotGetJdbcConnectionException e) {

@@ -9,17 +9,30 @@
             <p>&nbsp;|&nbsp;{{ event.eventDuration }} mins</p>
         </div>
         <p>{{ event.eventDescription }}</p>
-        <img :src="event.eventImage" alt="Event Image">
-        
+        <img :src="event.eventImage" alt="Event Image"> 
+    </div>
+    <!-- show all the pets of event -->
+    <div>
+        <h2>Pets attending this event:</h2>
+        <div v-for="pet in pets" v-bind:key="pet.id">
+            <img :src="pet.image" alt="pet image" width="300" height="200">
+            <h3><strong>{{ pet.name }}</strong></h3>
+            <p>{{ pet.personality }}</p>
+        </div>
+    <div>
+    </div>
+
     </div>
 </template>
 
 <script>
 import eventService from '../services/eventService';
+import petService from '../services/petService';
 export default {
     data() {
         return {
             event: {},
+            pets: []
         };
     },
     props: {
@@ -35,7 +48,18 @@ export default {
     methods: {
         getEventById(id) {
             return eventService.getEventById(id);
-        }
+        },
+        loadPets() {
+            petService.getPetsByPlaydateId(this.event.id).then(
+                (response) => {
+                    this.pets = response.data;
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            );
+            },
     },
     computed: {
         formattedDate() {

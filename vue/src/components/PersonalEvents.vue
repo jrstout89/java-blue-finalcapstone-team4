@@ -49,12 +49,12 @@ export default {
                 console.log(`Attempting to delete event with ID: ${eventId}`);
                 eventService.deleteEvent(eventId).then(
                 (response) => {
-                    if (response.status === 204) {
+                    if (response.status === 200 || response.status === 204) {
                         console.log('Event deleted successfully. Redirecting...');
                         //stay at same page
                         this.events = this.events.filter(event => event.id !== eventId);
                         // reload the page from cache, put true to reload from server
-                        window.location.reload(true); 
+                        this.$router.push({ name: 'users' });
                     }
                 }
                 

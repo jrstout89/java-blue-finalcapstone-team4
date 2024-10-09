@@ -50,5 +50,12 @@ export default {
 </script>
 
 <style>
+.pets {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+
+}
 
 </style>

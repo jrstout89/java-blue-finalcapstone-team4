@@ -76,10 +76,14 @@ initMap() {
       lng: parseFloat(event.longitude)
       };
 
-  new window.google.maps.Marker({
+  let marker = new window.google.maps.Marker({
     position: coordinates,
     map: this.map,
     title:"Location: " + event.eventLocation + "\n" + "Event Name: " + event.eventTitle,
+    clickable: true,
+  });
+  marker.addListener("click", () => {
+   this.$router.push({ name: 'EventDetails', params: { id: event.id }});
   });
 });
 });

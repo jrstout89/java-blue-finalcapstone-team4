@@ -34,7 +34,8 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setEventAddress(results.getString("event_address"));
         playdate.setEventDescription(results.getString("event_description"));
         playdate.setEventImage(results.getString("event_image"));
-//        playdate.setStatus(Playdate.PlaydateStatus.valueOf(results.getString("playdate_status")));
+        playdate.setLatitude(results.getFloat("event_latitude"));
+        playdate.setLongitude(results.getFloat("event_longitude"));
         return playdate;
     }
 

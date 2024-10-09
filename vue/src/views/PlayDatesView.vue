@@ -3,6 +3,7 @@
         <div class="left-column">
              <!-- Filter will go here -->
         </div>
+        <location></location>
         <current-events></current-events>
     </div>
     <!-- </div> -->
@@ -11,10 +12,12 @@
 
 <script>
 import CurrentEvents from '../components/CurrentEvents.vue'
+import location from '../components/Location.vue';
 
 export default {
     components:{
-        CurrentEvents
+        CurrentEvents,
+        location
     },
     
 

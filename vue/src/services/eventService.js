@@ -7,10 +7,10 @@ const http = axios.create({
 
 export default {
     getEvents() {
-        return http.get('/events');
+        return axios.get('/events');
     },
     getEventById(id) {
-        return http.get(`/events/${id}`);
+        return axios.get(`/events/${id}`);
     },
     // addEvent(event) {
     //     return http.post('/events', event);

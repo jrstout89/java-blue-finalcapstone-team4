@@ -6,6 +6,8 @@ public class Playdate {
     private String eventTitle;
     private String eventLocation;
     private String eventAddress;
+    private float latitude;
+    private float longitude;
     private int maximumPets;
     private String eventHost;
     private String eventDate;
@@ -14,7 +16,7 @@ public class Playdate {
     private String eventDescription;
     private String eventImage;
     public Playdate(){}
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage) {
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage, float latitude, float longitude) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;
@@ -26,6 +28,8 @@ public class Playdate {
         this.eventDuration = eventDuration;
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -114,5 +118,21 @@ public class Playdate {
 
     public void setEventDuration(int eventDuration) {
         this.eventDuration = eventDuration;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 }

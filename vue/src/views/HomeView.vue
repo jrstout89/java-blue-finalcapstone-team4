@@ -33,15 +33,8 @@
 </template>
 
 <script>
-// import PlayDatesView from './PlayDatesView.vue';
-import { RouterView } from 'vue-router';
-import router from '../router';
-
 
 export default {
-  // components:{
-  //   PlayDatesView
-  // },
   data() {
     return {
       isVisible: false,

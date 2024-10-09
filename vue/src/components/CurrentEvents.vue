@@ -169,14 +169,14 @@ export default{
         display: flex;
         flex-direction: row; 
     }
-    .event{
+    /* .event{
         border: 1px solid black;
         margin: 10px;
         padding: 10px;
         width: auto;
         flex-grow: 1;
         margin-left: 20px;
-    }
+    } */
     .event h3{
         margin: 0;
         font-family: cursive;

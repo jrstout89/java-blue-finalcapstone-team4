@@ -6,7 +6,10 @@
     @forum-updated="updateForum"
     @forum-deleted="deleteForum"
     />
-    <CommentsList :comments="comments" />
+    <CommentsList 
+    :comments="comments"
+    @comment-deleted="fetchComments"
+    @comment-updated="fetchComments" />
     <AddComment v-if="forum.id" :forumId="forum.id" @commentAdded="fetchComments" />
     <div v-if="error">{{ error }}</div>
     <div v-if="loading">Loading...</div>

@@ -5,14 +5,14 @@
     <p style="display: inline; margin-left: 5px;">on: {{ formatDate(forum.createdDate) }}</p>
     <p>{{ forum.forumContent }}</p>
     <div>
-      <button @click="editForum">Edit Forum</button>
-      <button @click="deleteForum">Delete Forum</button>
+      <button class="button is-success" @click="editForum">Edit Forum</button>
+      <button class="button is-warning" @click="deleteForum">Delete Forum</button>
     </div>
     <div v-if="isEditing">
       <input v-model="updatedForumTitle" placeholder="Forum Title" />
       <textarea v-model="updatedForumContent" placeholder="Forum Content"></textarea>
-      <button @click="updateForum">Save Changes</button>
-      <button @click="cancelEdit">Cancel</button>
+      <button class="button is-info" @click="updateForum">Save Changes</button>
+      <button class="button is-warning" @click="cancelEdit">Cancel</button>
     </div>
   </div>
 </template>

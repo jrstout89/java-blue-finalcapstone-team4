@@ -5,7 +5,16 @@
             <li class="comments" v-for="comment in comments" :key="comment.id">
                 <div class="comment-content">
                     <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
-                    <div class="comment-text"> {{ comment.commentContent }} </div>
+                    <div v-if="isEditingComment && editingCommentId === comment.commentId">
+                        <input v-model="updatedCommentContent" placeholder="Edit your comment" />
+                        <button class="button is-info" @click="saveComment(comment.commentId)">Save</button>
+                        <button class="button is-warning" @click="cancelEdit">Cancel</button>
+                    </div>
+                    <div v-else>
+                        <div class="comment-text"> {{ comment.commentContent }} </div>
+                        <button class="button is-success" @click="editComment(comment)">Edit</button>
+                        <button class="button is-warning" @click="deleteComment(comment.commentId)">Delete</button>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -13,12 +22,68 @@
 </template>
 
 <script>
+import ForumService from '../services/ForumService';
+
 export default {
     name: 'CommentsList',
     props: {
         comments: {
             type: Array,
             required: true
+        }
+    },
+    data() {
+        return {
+            isEditingComment: false,
+            editingCommentId: null,
+            updatedCommentContent: ''
+        }
+    },
+    methods: {
+        editComment(comment) {
+            console.log('Editing comment:', comment);
+            this.isEditingComment = true;
+            this.editingCommentId = comment.commentId;
+            this.updatedCommentContent = comment.commentContent;
+        },
+        cancelEdit() {
+            this.isEditingComment = false;
+            this.editingCommentId = null;
+            this.updatedCommentContent = '';
+        },
+        async saveComment(commentId) {
+            const commentToUpdate = this.comments.find(comment => comment.commentId === commentId);
+
+            if (!commentToUpdate) {
+                console.error('Comment not found!');
+                return;
+            }
+
+            const updatedComment = {
+                commentId: commentId,
+                forumId: commentToUpdate.forumId,
+                customerId: commentToUpdate.customerId,
+                commentContent: this.updatedCommentContent,
+            };
+            
+            try {
+                await ForumService.updateComment(commentId, updatedComment);
+                this.$emit('comment-updated', updatedComment);
+                this.cancelEdit();
+            } catch (error) {
+                console.error('Error updating comment', error);
+            }
+        },
+        async deleteComment(commentId) {
+            const confirmDelete = confirm('Are you sure you want to delete this comment?');
+            if (confirmDelete) {
+                try {
+                    await ForumService.deleteComment(commentId);
+                    this.$emit('comment-deleted', commentId);
+                } catch (error) {
+                    console.error('Error deleting comment', error);
+                }
+            }
         }
     }
 }

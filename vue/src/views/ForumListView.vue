@@ -4,13 +4,16 @@
             <h1>Welcome to the Pet Play Pals forum!!</h1>
             <p>This is a friendly space for pet lovers to share stories, ask questions, and connect with fellow enthusiasts. Whether you're seeking advice on pet care, looking to share your experiences, or just want to chat about your furry friends, you're in the right place! Join the conversation and help us create a vibrant community dedicated to all things pets.</p>
         </div>
-        <button class="button is-info" @click="toggleAddForumButton">
-            {{ showAddForumForm ? 'Cancel' : 'Add Forum' }}
+        <button v-if="!showAddForumForm" class="button is-info" @click="toggleAddForumButton">
+            Add Forum
         </button>
-        <div v-if="showAddForumForm">
-            <input v-model="newForumTitle" placeholder="Forum Title" />
-            <textarea v-model="newForumContent" placeholder="Forum Content"></textarea>
-            <button class="button is-info" @click="addForum">Submit</button>
+        <div v-if="showAddForumForm" class="forum-form">
+            <input v-model="newForumTitle" placeholder="Forum Title" class="form-field" />
+            <textarea v-model="newForumContent" placeholder="Forum Content" class="form-field"></textarea>
+            <div class="button-container">
+                <button class="button is-info" @click="addForum">Submit</button>
+                <button class="button is-warning" @click="toggleAddForumButton">Cancel</button>
+            </div>
         </div>
         <ul class="forum-list">
             <li class="forum-bubble" v-for="forum in forums" :key="forum.id">
@@ -127,4 +130,24 @@ export default {
     color: #666;
 }
 
+.forum-form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.form-field {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
 </style>

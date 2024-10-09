@@ -1,9 +1,10 @@
 <template>
     <div class="user-profile">
         <UserProfile/>
+        <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link>
         <PersonalEvents/>
         <hr/>
-        <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link>
+        
 
     </div>
 </template>

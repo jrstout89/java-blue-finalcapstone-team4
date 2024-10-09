@@ -1,6 +1,6 @@
 <template>
     <form v-on:submit.prevent="submitForm" class="cardForm">
-        {{ newEvent }}
+        <!-- {{ newEvent }} -->
         <div class="field">
             <label class="label">Event title</label>
             <div class="control">

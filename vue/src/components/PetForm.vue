@@ -196,6 +196,7 @@ export default {
         cancelForm(){
             this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
         },
+//drag and drop image
         selectFiles(){
           this.$refs.fileInput.click();
         },
@@ -229,20 +230,6 @@ export default {
           const files = event.dataTransfer.files;
         }
 
-
-        
-    
-//upload image
-// uploading(e) {
-//   const file = e.target.files[0];
-//   const reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onload = e => {
-//     this.previewImage = e.reader.result;
-//     this.newPet.image = e.reader.result;
-//     console.log(this.newPet.image);
-//   };
-// },
 },
 created(){
     this.newPet = this.pet;

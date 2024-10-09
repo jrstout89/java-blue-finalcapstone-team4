@@ -26,8 +26,9 @@ export default {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
-    updatePet(pet) {
-        return http.put(`/update-pet/${pet.id}`, pet, {
+    updatePet(petId, pet) {
+       console.log(pet.id);
+        return http.put(`/update-pet/${petId}`, pet, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },

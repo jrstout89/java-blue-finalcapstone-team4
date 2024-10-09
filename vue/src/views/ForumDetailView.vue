@@ -1,7 +1,15 @@
 <template>
   <div>
-    <ForumDetails :forum="forum" v-if="forum.id" />
-    <CommentsList :comments="comments" />
+    <ForumDetails 
+    :forum="forum" 
+    v-if="forum.id"
+    @forum-updated="updateForum"
+    @forum-deleted="deleteForum"
+    />
+    <CommentsList 
+    :comments="comments"
+    @comment-deleted="fetchComments"
+    @comment-updated="fetchComments" />
     <AddComment v-if="forum.id" :forumId="forum.id" @commentAdded="fetchComments" />
     <div v-if="error">{{ error }}</div>
     <div v-if="loading">Loading...</div>
@@ -31,10 +39,6 @@ export default {
   },
   created() {
     this.getForumDetails();
-    // this.forumId = this.$route.params.id;
-    // console.log('Forum ID from route: ', this.forumId);
-    // this.getForumDetails();
-    // this.getComments();
   },
   watch: {
     '$route.params.id': async function() {
@@ -43,31 +47,6 @@ export default {
     }
   },
   methods: {
-    // async getForumDetails() {
-    //   this.forumId = this.$route.params.id;
-    //   console.log('Forum ID from route: ', this.forumId);
-    //   try {
-    //     const response = await ForumService.getForumById(this.forumId);
-    //     this.forum = response.data;
-    //     console.log('Forum ID before getting comments: ', this.forumId);
-    //     await this.getComments();
-    //   } catch (error) {
-    //     console.error('Error getting forum details', error);
-    //     // console.log('Forum ID: ', this.forum.id);
-    //     // console.log('Auth Token: ', localStorage.getItem('token'));
-    //   }
-    // },
-    // async getComments() {
-    //   try {
-    //     const response = await ForumService.getCommentsForForum(this.forum.id);
-    //     console.log('Comments Response: ', response.data);
-    //     this.comments = response.data;
-    //   } catch (error) {
-    //   console.error('Error getting comments: ', error.response ? error.response.data : error.message);
-    //   // console.log('Forum ID: ', this.forum.id);
-    //   // console.log('Auth Token: ', localStorage.getItem('token'));
-    //   }
-    // },
     async getForumDetails() {
       this.loading = true;
       this.error = null;
@@ -87,7 +66,7 @@ export default {
       if (!this.forum.id) return;
       try {
         const response = await ForumService.getCommentsForForum(this.forum.id);
-        this.comments = response.data;
+        this.comments = response.data.reverse();
       } catch (error) {
         console.error('Error getting comments', error);
         this.error = 'Error getting comments: ' + (error.response ? error.response.data : error.message);
@@ -95,6 +74,25 @@ export default {
     },
     fetchComments() {
       this.getComments();
+    },
+    async updateForum({ id, updatedForum }) {
+      try {
+        await ForumService.updateForum(id, updatedForum);
+        this.forum.forumTitle = updatedForum.forumTitle;
+        this.forum.forumContent = updatedForum.forumContent;
+      } catch (error) {
+        console.error('Error updating forum', error);
+        this.error = 'Error updating forum: ' + (error.response ? error.response.data : error.message);
+      }
+    },
+    async deleteForum(id) {
+      try {
+        await ForumService.deleteForum(id);
+        this.$router.push({ name: 'forumList' });
+      } catch (error) {
+        console.error('Error deleting forum', error);
+        this.error = 'Error deleting forum: ' + (error.response ? error.response.data : error.message);
+      }
     }
   }
 }

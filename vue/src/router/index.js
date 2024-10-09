@@ -14,6 +14,7 @@ import ForumListView from '../views/ForumListView.vue';
 import ForumDetailView from '../views/ForumDetailView.vue';
 import PetDetails from '../views/PetDetailsView.vue';
 import EventDetails from '../components/EventDetails.vue';
+import AddEventView from '../views/AddEventView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -125,7 +126,20 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  {
+    path: "/events/add-event/",
+    name: "addEvent",
+    component: AddEventView,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/events/update-event/:id",
+    name: "updateEvent",
+    component: AddEventView,
+    meta: { requiresAuth: true }
   }
+
 ];
 
 // Create the router

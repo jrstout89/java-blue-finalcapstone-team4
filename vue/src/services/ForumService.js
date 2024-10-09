@@ -33,6 +33,22 @@ export default {
     addForum(forum) {
         return http.post('/add-forum', forum, {
             headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    },
+
+    // Update a forum.
+    updateForum(forumId, forum) {
+        return http.put(`/update-forum/${forumId}`, forum, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    },
+
+    // Delete a forum.
+    deleteForum(forumId) {
+        return http.delete(`/forums/${forumId}`, {
+            headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
 
@@ -44,12 +60,13 @@ export default {
     },
 
     // Update a comment.
-    updateComment(comment) {
-        return http.put(`/comments/${comment.id}`, comment, {
+    updateComment(commentId, comment) {
+        return http.put(`/comments/${commentId}`, comment, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
 
+    
     // Delete a comment.
     deleteComment(commentId) {
         return http.delete(`/comments/${commentId}`, {

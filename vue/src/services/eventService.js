@@ -11,16 +11,19 @@ export default {
     },
     getEventById(id) {
         return axios.get(`/events/${id}`);
+<<<<<<< HEAD
+=======
     },
-    // addEvent(event) {
-    //     return http.post('/events', event);
-    // },
-    // updateEvent(event) {
-    //     return http.put(`/events/${event.id}`, event);
-    // },
-    // deleteEvent(id) {
-    //     return http.delete(`/events/${id}`);
-    // },
+    addEvent(event) {
+        return axios.post('/events', event);
+    },
+    updateEvent(eventId, event) {
+        return axios.put(`/update-event`, event);
+    },
+    deleteEvent(id) {
+        return axios.delete(`/events/${id}`);
+>>>>>>> 31685c430c0192541417cd3f6cff2acb975ceccd
+    },
     getUser() {
         return http.get(`/user`, {
             headers: {

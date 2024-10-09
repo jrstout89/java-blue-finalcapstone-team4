@@ -28,6 +28,7 @@ public class JdbcCommentsDao implements CommentsDao {
         comments.setForumId(results.getInt("forum_id"));
         comments.setCustomerId(results.getInt("customer_id"));
         comments.setCommentContent(results.getString("comment_content"));
+        comments.setUsername(results.getString("username"));
 
         Date createdDate = results.getDate("created_date");
         if (createdDate != null) {
@@ -55,7 +56,11 @@ public class JdbcCommentsDao implements CommentsDao {
     @Override
     public List<Comments> getCommentsForForum(int forumId) {
         List<Comments> comments = new ArrayList<>();
-        String sql = "SELECT * FROM comments WHERE forum_id = ?";
+//        String sql = "SELECT * FROM comments WHERE forum_id = ?";
+        String sql = "SELECT comments.comment_id, comments.forum_id, comments.customer_id, comments.comment_content, comments.created_date, users.username " +
+                "FROM comments " +
+                "JOIN users ON comments.customer_id = users.user_id " +
+                "WHERE comments.forum_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, forumId);
             while (results.next()) {

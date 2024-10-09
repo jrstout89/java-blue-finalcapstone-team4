@@ -12,17 +12,20 @@ public class Comments {
     private String commentContent;
     // References the date/time the comment was made.
     private String createdDate;
+    // Connecting the username in the sql statements
+    private String username;
 
     public Comments() {
     }
 
     // Just a constructor.
-    public Comments(int commentId, int forumId, int customerId, String commentContent, String createdDate) {
+    public Comments(int commentId, int forumId, int customerId, String commentContent, String createdDate, String username) {
         this.commentId = commentId;
         this.forumId = forumId;
         this.customerId = customerId;
         this.commentContent = commentContent;
         this.createdDate = createdDate;
+        this.username = username;
     }
 
     // Just all of the getters/setters.
@@ -64,5 +67,13 @@ public class Comments {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

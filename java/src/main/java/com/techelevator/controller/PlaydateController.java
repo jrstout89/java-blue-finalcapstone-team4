@@ -1,8 +1,11 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PlaydateDao;
+import com.techelevator.dao.UserDao;
+import com.techelevator.model.Customers;
 import com.techelevator.model.Playdate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,8 @@ public class PlaydateController {
 
     @Autowired
     private PlaydateDao playdateDao;
+    @Autowired
+    private UserDao userDao;
 
     // Get all playdates.
     @PreAuthorize("permitAll")
@@ -39,7 +44,10 @@ public class PlaydateController {
     // Create a new playdate.
     @PreAuthorize("permitAll")
     @RequestMapping(path = "/events", method = RequestMethod.POST)
-    public Playdate createPlaydate(@RequestBody Playdate playdate) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Playdate createPlaydate(@RequestBody Playdate playdate, Principal principal) {
+        Customers customers=userDao.getCustomer(principal.getName());
+        playdate.setEventHost(customers.getId());
         return playdateDao.createPlaydate(playdate);
     }
 

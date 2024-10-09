@@ -1,4 +1,6 @@
 package com.techelevator.model;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Playdate {
 
@@ -9,14 +11,16 @@ public class Playdate {
     private float latitude;
     private float longitude;
     private int maximumPets;
-    private String eventHost;
-    private String eventDate;
-    private String eventTime;
+    private int eventHost;
+    private LocalDate eventDate;
+    private LocalTime eventTime;
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
-    public Playdate(){}
-    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, String eventHost, String eventDate, String eventTime, int eventDuration, String eventDescription, String eventImage, float latitude, float longitude) {
+    public Playdate() {
+    }
+
+    public Playdate(int id, String eventTitle, String eventLocation, String eventAddress, int maximumPets, int eventHost, LocalDate eventDate, LocalTime eventTime, int eventDuration, String eventDescription, String eventImage, float latitude, float longitude) {
         this.id = id;
         this.eventTitle = eventTitle;
         this.eventLocation = eventLocation;
@@ -40,12 +44,28 @@ public class Playdate {
         this.id = id;
     }
 
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public void setEventTitle(String eventTitle) {
+        this.eventTitle = eventTitle;
+    }
+
     public String getEventLocation() {
         return eventLocation;
     }
 
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getEventAddress() {
+        return eventAddress;
+    }
+
+    public void setEventAddress(String eventAddress) {
+        this.eventAddress = eventAddress;
     }
 
     public int getMaximumPets() {
@@ -56,27 +76,27 @@ public class Playdate {
         this.maximumPets = maximumPets;
     }
 
-    public String getEventHost() {
+    public int getEventHost() {
         return eventHost;
     }
 
-    public void setEventHost(String eventHost) {
+    public void setEventHost(int eventHost) {
         this.eventHost = eventHost;
     }
 
-    public String getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(String eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 
-    public String getEventTime() {
+    public LocalTime getEventTime() {
         return eventTime;
     }
 
-    public void setEventTime(String eventTime) {
+    public void setEventTime(LocalTime eventTime) {
         this.eventTime = eventTime;
     }
 
@@ -84,20 +104,8 @@ public class Playdate {
         return eventDuration;
     }
 
-    public String getEventTitle() {
-        return eventTitle;
-    }
-
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
-    }
-
-    public String getEventAddress() {
-        return eventAddress;
-    }
-
-    public void setEventAddress(String eventAddress) {
-        this.eventAddress = eventAddress;
+    public void setEventDuration(int eventDuration) {
+        this.eventDuration = eventDuration;
     }
 
     public String getEventDescription() {
@@ -114,10 +122,6 @@ public class Playdate {
 
     public void setEventImage(String eventImage) {
         this.eventImage = eventImage;
-    }
-
-    public void setEventDuration(int eventDuration) {
-        this.eventDuration = eventDuration;
     }
 
     public float getLatitude() {

@@ -11,8 +11,6 @@ export default {
     },
     getEventById(id) {
         return axios.get(`/events/${id}`);
-<<<<<<< HEAD
-=======
     },
     addEvent(event) {
         return axios.post('/events', event);
@@ -22,7 +20,6 @@ export default {
     },
     deleteEvent(id) {
         return axios.delete(`/events/${id}`);
->>>>>>> 31685c430c0192541417cd3f6cff2acb975ceccd
     },
     getUser() {
         return http.get(`/user`, {

@@ -149,7 +149,7 @@ export default {
     methods:{
         //submit form
       submitForm(){
-            console.log('THE ID IS... ' + this.newEvent.id);
+            // console.log('THE ID IS... ' + this.newEvent.id);
             if(this.newEvent.id === 0 || this.newEvent.id === undefined){
                 eventService.addEvent(this.newEvent).then(
                     (response) => {

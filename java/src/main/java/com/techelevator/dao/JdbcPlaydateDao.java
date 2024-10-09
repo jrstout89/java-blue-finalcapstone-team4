@@ -121,7 +121,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
                 " maximum_pets = ?, event_host = ?," +
                 " event_date = ?, event_time = ?, " +
                 "event_duration = ?, event_description = ?," +
-                " event_image = ?  WHERE id = ?";
+                " event_image = ?  WHERE playdate_id = ?";
         int numberOfRows = 0;
         try{
          numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
@@ -140,7 +140,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         if(id<=0){
             throw new IllegalArgumentException("ID must be greater than zero.");
         }
-        String sql = "DELETE FROM playdate WHERE id = ?";
+        String sql = "DELETE FROM playdate WHERE playdate_id = ?";
         return jdbcTemplate.update(sql, id);
     }
 

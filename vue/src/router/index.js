@@ -128,7 +128,7 @@ const routes = [
     }
   },
   {
-    path: "/events/add-event",
+    path: "/events/add-event/",
     name: "addEvent",
     component: AddEventView,
     meta: {requiresAuth: true}

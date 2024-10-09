@@ -6,14 +6,18 @@
                 <div class="comment-content">
                     <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
                     <div v-if="isEditingComment && editingCommentId === comment.commentId">
-                        <input v-model="updatedCommentContent" placeholder="Edit your comment" />
-                        <button class="button is-info" @click="saveComment(comment.commentId)">Save</button>
-                        <button class="button is-warning" @click="cancelEdit">Cancel</button>
+                        <input v-model="updatedCommentContent" placeholder="Edit your comment" class="comment-input" />
+                        <div class="button-container">
+                            <button class="button is-info" @click="saveComment(comment.commentId)">Save</button>
+                            <button class="button is-warning" @click="cancelEdit">Cancel</button>
+                        </div>
                     </div>
                     <div v-else>
                         <div class="comment-text"> {{ comment.commentContent }} </div>
-                        <button class="button is-success" @click="editComment(comment)">Edit</button>
-                        <button class="button is-warning" @click="deleteComment(comment.commentId)">Delete</button>
+                        <div class="button-container">
+                            <button class="button is-success" @click="editComment(comment)">Edit</button>
+                            <button class="button is-warning" @click="deleteComment(comment.commentId)">Delete</button>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -138,4 +142,22 @@ strong {
     white-space: pre-wrap;
     margin-left: 5px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.comment-input {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+
 </style>

@@ -4,15 +4,17 @@
     <p style="display: inline">Posted by: {{ forum.username }}</p>
     <p style="display: inline; margin-left: 5px;">on: {{ formatDate(forum.createdDate) }}</p>
     <p>{{ forum.forumContent }}</p>
-    <div>
+    <div class="button-container">
       <button class="button is-success" @click="editForum">Edit Forum</button>
       <button class="button is-warning" @click="deleteForum">Delete Forum</button>
     </div>
-    <div v-if="isEditing">
-      <input v-model="updatedForumTitle" placeholder="Forum Title" />
-      <textarea v-model="updatedForumContent" placeholder="Forum Content"></textarea>
-      <button class="button is-info" @click="updateForum">Save Changes</button>
-      <button class="button is-warning" @click="cancelEdit">Cancel</button>
+    <div v-if="isEditing" class="edit-container">
+      <input v-model="updatedForumTitle" placeholder="Forum Title" class="input-field" />
+      <textarea v-model="updatedForumContent" placeholder="Forum Content" class="textarea-field"></textarea>
+      <div class="button-container">
+        <button class="button is-info" @click="updateForum">Save Changes</button>
+        <button class="button is-warning" @click="cancelEdit">Cancel</button>
+      </div>
     </div>
   </div>
 </template>
@@ -97,5 +99,24 @@ export default {
     margin-bottom: 10px;
     color: #333;
   }
+
+.edit-container {
+  margin-top: 20px;
+}
+
+.input-field, .textarea-field {
+  width: 85%;
+  margin-bottom: 10px;
+}
+
+.textarea-field {
+  height: 100px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
 </style>

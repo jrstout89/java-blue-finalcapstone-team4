@@ -12,7 +12,7 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     getPetByUser() {
-        return http.get('/pets/user', {
+        return http.get('/by-customer', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
             },
@@ -45,8 +45,12 @@ export default {
             }
         });
     },
-    registerEvent(event) {
-        return http.post('/register-playdate', event, {
+    registerEvent(eventId, petId) {
+      let  petEvent = {
+            playdateId : eventId,
+            petId : petId
+        }
+        return http.post('/register-playdate', petEvent, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },

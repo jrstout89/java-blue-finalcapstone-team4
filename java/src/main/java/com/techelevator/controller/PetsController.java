@@ -35,6 +35,11 @@ public class PetsController {
         }
         return petDao.getPetsByCustomerId(customerId);
     }
+    @RequestMapping(path="/by-customer", method = RequestMethod.GET)
+    public List<Pets> getPetsByCustomerId(Principal principal){
+        Customers customers = userDao.getCustomer(principal.getName());
+        return petDao.getPetsByCustomerId(customers.getId());
+    }
     @RequestMapping(path="/pet/{id}", method = RequestMethod.GET)
     public Pets getPetById(@PathVariable int id){
         return petDao.getPetById(id);

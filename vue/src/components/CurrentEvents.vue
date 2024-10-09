@@ -18,6 +18,7 @@
                
                      <div v-if="userLoggedIn">
                         <button class="button is-info" @click="togglePetSelection">Register your pet!</button>
+
                         <h3>Select your pet:</h3>
                             <ul>
                                 <li v-for="pet in pets" v-bind:key="pet.id" @click="selectPet(pet)">
@@ -26,7 +27,7 @@
                             </ul>
                              </div>
                              <div v-if="selectPet">
-                                <button @click="confirmSelection">Confirm</button>
+                                <button @click="confirmSelection(event.id, selectedPet.id)">Confirm</button>
                              </div>
                              <div v-else>
                                 <p>Please log in to register your pet.</p>
@@ -85,7 +86,7 @@ export default{
     methods:{
         //get all pets
         loadPets(){
-        petService.getAllPetsByCustomerId(this.$route.params.customerId).then(
+        petService.getPetByUser().then(
             (response) => {
                 this.pets = response.data;
             }
@@ -119,15 +120,22 @@ export default{
         
         //to show pet selection
         togglePetSelection(){
-            // this.showPetSelection = !this.showPetSelection;
+            this.showPetSelection = !this.showPetSelection;
         },
         //to select pet
         selectPet(pet){
             this.selectedPet = pet;
+            console.log(`Selected pet: ${this.selectedPet.name}`);
         },
         //to confirm selection
-        confirmSelection(){
-            console.log(`Selected pet: ${this.selectedPet.name}`);
+        confirmSelection(eventId, petId){
+            console.log(eventId, petId);
+            petService.registerEvent(eventId, petId).then(
+                (response) => {
+                    this.$router.push({name: 'playDates'});
+                }
+            )
+           
         },
         //redirect to login
         redirectToLogin(){

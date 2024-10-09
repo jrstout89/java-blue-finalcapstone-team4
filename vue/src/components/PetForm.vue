@@ -239,6 +239,14 @@ created(){
 </script>
 
 <style>
+.cardForm{
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: 0 0  5px #ffdfdf;
+  border-radius: 5px;
+  overflow: hidden;
+}
 .card{
   width:100%;
   padding: 10px;

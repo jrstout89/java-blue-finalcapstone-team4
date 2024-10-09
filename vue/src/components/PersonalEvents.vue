@@ -54,7 +54,7 @@ export default {
                         //stay at same page
                         this.events = this.events.filter(event => event.id !== eventId);
                         // reload the page from cache, put true to reload from server
-                        window.location.reload();
+                        window.location.reload(true); 
                     }
                 }
                 

@@ -44,5 +44,17 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
-    }
+    },
+    registerEvent(event) {
+        return http.post('/register-playdate', event, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    },
+    getPetsByPlaydateId(playdateId) {
+        return http.get('/${playdateId}/pet', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            },
+
+    
 }

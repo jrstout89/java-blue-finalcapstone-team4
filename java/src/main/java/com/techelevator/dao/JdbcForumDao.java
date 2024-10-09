@@ -79,11 +79,10 @@ public class JdbcForumDao implements ForumDao {
 
     @Override
     public void updateForum(Forum forum) {
-        String sql = "UPDATE forum SET customer_id = ?, forum_title = ?, update_date = ?" +
+        String sql = "UPDATE forum SET customer_id = ?, forum_title = ?, forum_content = ?, update_date = ?" +
                 "WHERE forum_id = ?";
         try {
-            int rowsAffected = jdbcTemplate.update(sql, forum.getCustomerId(), forum.getForumTitle(),
-                    java.sql.Date.valueOf(forum.getUpdateDate()), forum.getId());
+            int rowsAffected = jdbcTemplate.update(sql, forum.getCustomerId(), forum.getForumTitle(), forum.getForumContent(), java.sql.Date.valueOf(forum.getUpdateDate()), forum.getId());
             if (rowsAffected == 0) {
                 throw new DaoException("No forum found with ID: " + forum.getId());
             }
@@ -99,7 +98,7 @@ public class JdbcForumDao implements ForumDao {
         if(id <= 0){
             throw new IllegalArgumentException("ID must be greater than zero.");
         }
-        String sql = "DELETE FROM forum WHERE id = ?";
+        String sql = "DELETE FROM forum WHERE forum_id = ?";
         try {
             jdbcTemplate.update(sql, id);
         }catch (CannotGetJdbcConnectionException e) {

@@ -76,7 +76,7 @@ initMap() {
   new window.google.maps.Marker({
     position: coordinates,
     map: this.map,
-    title: coordinates.lat + ", " + coordinates.lng,
+    title:"Location: " + event.eventLocation + "\n" + "Event Name: " + event.eventTitle,
   });
 });
 });

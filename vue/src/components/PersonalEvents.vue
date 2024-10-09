@@ -66,8 +66,29 @@ export default {
         editEvent(eventId){
             this.$router.push({name: 'updateEvent', params: {id: eventId}});
         }
-
     },
+    computed: {
+        formattedDate() {
+            const parts = this.events.eventDate.split('-');
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // months are zero-based in JavaScript
+            const day = parseInt(parts[2], 10);
+
+            const date = new Date(year, month, day);
+            return `${month + 1}-${day}-${year}`; // add 1 to month to convert it back to 1-based
+        },
+        formattedTime() {
+            const parts = this.events.eventTime.split(':');
+            let hours = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+        }
+    }
 
 }
 </script>

@@ -10,13 +10,17 @@
             <p>&nbsp;|&nbsp;{{ event.eventDuration }} mins</p>
         </div>
         <p>{{ event.eventDescription }}</p>
+        <figure class="image is-400x350">
         <img :src="event.eventImage" alt="Event Image"> 
+    </figure>
     </div>
     <!-- show all the pets of event -->
     <div id="pet_content">
         <h1 class="pet-title">Pets attending this event:</h1>
         <div class="pet-card" v-for="pet in pets" v-bind:key="pet.id">
-            <img :src="pet.image" alt="pet image" width="300" height="200">
+            <figure class="image is-400x350">
+            <img :src="pet.image" alt="pet image">
+            </figure>
             <h3><strong>{{ pet.name }}</strong></h3>
             <p>{{ pet.personality }}</p>
         </div>
@@ -105,11 +109,6 @@ export default {
 </script>
 
 <style scoped>
-/* #entire-page {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "content pet_content";
-} */
 #content {
     grid-area: content;
     display: flex;
@@ -168,5 +167,4 @@ export default {
     justify-content: center;
 
 }
-
 </style>

@@ -105,24 +105,4 @@ CREATE TABLE comments (
     CONSTRAINT FK_comment_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
-INSERT INTO users (username, password_hash, role) VALUES ('seth', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
-INSERT INTO users (username, password_hash, role) VALUES ('pupu', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_USER');
-INSERT INTO users (username, password_hash, role) VALUES ('jon', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_USER');
-INSERT INTO users (username, password_hash, role) VALUES ('athena', '$2a$10$gMyKw907TYUR/SdeCPYLgu3j9ZwVe2SZH8xfHNWd8sgHv6ALd3Ivq', 'ROLE_ADMIN');
-
-INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9999', 'someemail@gmail.com', 'Seth', 'Jacobs', '1');
-INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9998', 'anotheremail@yahoo.com', 'You Yuan', 'Gao', '2');
-INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9997', 'randomemail@bing.com', 'Jonathon', 'Stout', '3');
-INSERT INTO customers (phone_number, email, first_name, last_name, user_id) VALUES ('999-999-9996', 'noemailhere@outlook.com', 'Claudia', 'Carmona', '4');
-
-INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Dog Day Afternoon','South Boston Dog Park', '1280 Columbia Rd, Boston, MA 02127', '42.33039' , '-71.04784', '10', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh5.googleusercontent.com/p/AF1QipNA6GjALmYtD0IEiHTvLh1_NtJLgByLEFlyfpzj=w114-h114-n-k-no');
-INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Paw & Pals', 'East 1st Dog Park', '768-764 E 1st St, Boston, MA 02127', '42.33822', '-71.0319', '15', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipN9zSRPTCrP7qTc958e8gULxw-oXZJjOcBpqBat=s680-w680-h510');
-INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Puppy Friends', 'Carleton Court Dog Park', 'SW Corridor Path, Boston, MA 02116', '42.34913', '-71.07363', '10', '1', '10-02-2024', '1800', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipOGaRlO3MMBjwCySCns2_PU152nZ0E8IUDv3cbv=s680-w680-h510');
-INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Wag the Dog', 'Mansfield Street Dog Park', '488-556 Lincoln St, Boston, MA 02134', '42.35754', '-71.12943', '20', '1', '10-02-2024', '1700', '120', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipNXVNEDCcLnnzLXyX1_LlfjtA-tAlREipOqZ9oD=s680-w680-h510');
-INSERT INTO playdate (event_title, event_location, event_address, event_latitude, event_longitude, maximum_pets, event_host, event_date, event_time, event_duration, event_description, event_image) VALUES ('Furry Friday', 'RUFF North End Dog Park', 'BOST-0301936000, Boston, MA 02113', '42.36549', '-71.05297', '15', '1', '10-02-2024', '1600', '60', 'this is a description', 'https://lh3.googleusercontent.com/p/AF1QipPnl-LD1JHvbNJ_KcQ_6CkjFELvN1JS5Q9Eu_IE=s680-w680-h510');
-
-INSERT INTO forum (customer_id, forum_title, forum_content, created_date, update_date) values ('1', 'Favorite Famous Pets', 'How about we talk about our favorite famous pets!! I will get us started with Lassie. Who is yours?', NOW(), NOW());
-
-INSERT INTO comments (forum_id, customer_id, comment_content, created_date) VALUES ('1', '1', 'I love Milo from Milo and Otis.', NOW());
-
 COMMIT TRANSACTION;

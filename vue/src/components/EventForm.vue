@@ -1,12 +1,10 @@
 <template>
     <form v-on:submit.prevent="submitForm" class="cardForm">
         <!-- {{ newEvent }} -->
-        <!--upload image-->
-    <div>
-      <div class="button is-info" v-on:click="upload">Upload the event picture!</div><br>
-      <img v-bind:src="newEvent.eventImage" alt="event image" width="300" height="200" v-if="event.eventImage">
-      
-     </div>
+        <div>
+            <div class="button is-info" v-on:click="upload">Upload your event picture!</div><br>
+            <img v-bind:src="newEvent.eventImage" alt="pet image" width="300" height="200" v-if="Event.eventImage">
+        </div>
 
         <div class="field">
             <label class="label">Event title</label>
@@ -101,6 +99,17 @@
                 <textarea class="textarea" placeholder="Textarea" v-model="newEvent.eventDescription"></textarea>
             </div>
         </div>
+        <!-- <div class="file is-primary">
+        <label class="file-label">
+            <input class="file-input" type="file" name="resume" />
+            <span class="file-cta">
+            <span class="file-icon">
+                <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label"> Add a picture! </span>
+            </span>
+        </label>
+        </div> -->
 
         <div class="field is-grouped">
         <div class="control">
@@ -133,6 +142,8 @@ export default {
                 eventTitle: this.Event.eventTitle,
                 eventLocation: this.Event.eventLocation,
                 eventAddress: this.Event.eventAddress,
+                // latitude: this.Event.latitude,
+                // longitude: this.Event.longitude,
                 maximumPets: this.Event.maximumPets,
                 eventDate: this.Event.eventDate,
                 eventTime: this.Event.eventTime,
@@ -140,6 +151,7 @@ export default {
                 eventDescription: this.Event.eventDescription,
                 eventImage: this.Event.eventImage
             },
+            myWidget: {}
             
         };
     },
@@ -179,9 +191,9 @@ export default {
         cancelForm(){
             this.$router.push( {name: 'user'});
         },
-        upload(){
+        upload() {
             this.myWidget.open();
-        }
+        },
 
     },
     created(){
@@ -203,7 +215,6 @@ export default {
 
     );
   }
-
 };
 </script>
 

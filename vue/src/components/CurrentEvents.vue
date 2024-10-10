@@ -43,7 +43,7 @@
                         
             </div>
                     <div v-if="!userLoggedIn">
-                        <button class="button is-info" @click="togglePetSelection">Login to register the event!</button>
+                        <button class="button is-info" @click="redirectToLogin">Login to register the event!</button>
                     </div>
 
 
@@ -124,9 +124,6 @@ export default{
         //to show pet selection
         togglePetSelection(){
             this.showPetSelection = !this.showPetSelection;
-
-
-
         },
         //to select pet
         selectPet(event, pet){

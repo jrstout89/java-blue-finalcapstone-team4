@@ -76,6 +76,7 @@ export default {
                     return petService.getPetsByPlaydateId(this.event.id);
                 })
                 .then((response) => {
+                    console.log("Pets attending this event:", response.data);
                     this.pets = response.data;
                 })
                 .catch((error) => {
@@ -85,7 +86,7 @@ export default {
     },
     computed: {
         formattedDate() {
-            const parts = this.event.eventDate.split('-');
+            const parts = this.event.eventDate.toString().split('-');
             const year = parseInt(parts[0], 10);
             const month = parseInt(parts[1], 10) - 1; // months are zero-based in JavaScript
             const day = parseInt(parts[2], 10);

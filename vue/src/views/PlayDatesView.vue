@@ -1,11 +1,9 @@
 <template>
     <div class="content-container">
         <div class="left-column">
-             <!-- Filter will go here -->
-             <!-- <p id="filter">Filter</p> -->
+            <h1 id="header">Current Events</h1>
              <location id="location"></location>
         </div>
-        <h1 id="header">Current Events</h1>
         <current-events id="current-events"></current-events>
     </div>
     <!-- </div> -->
@@ -31,13 +29,6 @@ export default {
     flex-direction: column;
 }
 
-.left-column {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas: 
-    "location"
-    "current-events";
-}
 #header {
     text-align: center;
     font-size: 3em;
@@ -49,14 +40,10 @@ export default {
 }
 
 #location {
-    width: 40%;
-    height: 100vh;
     padding: 1em;
-    box-sizing: border-box;
     display: flex;
-    margin: 30px;
-    align-items: flex-end;
-    grid-area: "location";
+    align-items: center;
+    justify-content: center;
 }
 #current-events {
     display: grid;

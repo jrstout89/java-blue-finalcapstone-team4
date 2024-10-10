@@ -26,7 +26,9 @@ public class PlaydateController {
     @PreAuthorize("permitAll")
     @RequestMapping(path = "/events", method = RequestMethod.GET)
     public List<Playdate> getAllPlaydates(Principal principal) {
-
+        if(principal==null){
+            return playdateDao.getAllPlaydates();
+        }
         Customers customers=userDao.getCustomer(principal.getName());
 
         return playdateDao.getAllPlaydates(customers.getId());

@@ -8,6 +8,10 @@ public interface PlaydateDao {
 
     List<Playdate> getAllPlaydates(int custId);
 
+    // Method to view all available playdates.
+
+    List<Playdate> getAllPlaydates();
+
     Playdate getPlaydateById(int id);
     //Get playdates by user's username
     Playdate getPlaydateByUsername(String username);

@@ -3,7 +3,9 @@
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <router-link :to="{ name: 'eventDetails', params: { id: event.id } }">
                 <div id="content">
-                    <img id="image" v-bind:src="event.eventImage" alt="event image" width="300" height="200">
+                    <figure class="image is-square">
+                    <img id="image" v-bind:src="event.eventImage" alt="event image">
+                    </figure>
                     <h3><strong>{{ event.eventTitle }}</strong></h3>
                     <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
                     <p><strong>Address:</strong> {{ event.eventAddress }}</p>
@@ -17,26 +19,31 @@
             <div>
                
                      <div v-if="userLoggedIn">
-                        <button class="button is-info" @click="togglePetSelection">Register your pet!</button>
-
+                        <button class="button is-info" @click="togglePetSelection()">Register your pet!</button>
+                    <div v-if="showPetSelection">
                         <h3>Select your pet:</h3>
-                            <ul>
-                                <li v-for="pet in pets" v-bind:key="pet.id" @click="selectPet(pet)">
-                                    {{ pet.name }}
+                            <ul class="pet-selection">
+                                <li v-for="pet in event.petCandidates" v-bind:key="pet.id" @click="selectPet($event, pet)" class="pet-item">
+                                    <img v-bind:src="pet.image" alt="pet image" width="100" height="100"/>
+                                   <p class="pet-name"> {{ pet.name }}</p>
+                                   <span v-if="pet.isSelected" class="checkmark">✔</span>
+                                
                                 </li>
                             </ul>
-                             </div>
+                             
                              <div v-if="selectPet">
-                                <button @click="confirmSelection(event.id, selectedPet.id)">Confirm</button>
+                                <span role="button" class="button is-success" @click="confirmSelection(event.id, selectedPet.id )">Confirm</span>
                              </div>
                              <div v-else>
                                 <p>Please log in to register your pet.</p>
                                 <button @click="redirectToLogin">Log In</button>
                             </div>
                     </div>
+                    </div>
+                        
+            </div>
                     <div v-if="!userLoggedIn">
-                        <!--TODO: When button is cliked user is router.pushed to the login route-->
-                        <button class="button is-info" @click="togglePetSelection">Login First</button>
+                        <button class="button is-info" @click="togglePetSelection">Login to register the event!</button>
                     </div>
 
 
@@ -63,15 +70,11 @@ export default{
             pets: [],
             showPetSelection: false,
             selectedPet: null,
+            isSelected: false,
             isLoggedIn: false
         }
     },
     created(){
-
-        // if user is logged in, toggle showPetSelection to true
-        // this.showPetSelection = true;
-
-
         return eventService.getEvents().then(
             (response) => {
                 this.events = response.data;
@@ -121,18 +124,23 @@ export default{
         //to show pet selection
         togglePetSelection(){
             this.showPetSelection = !this.showPetSelection;
+
+
+
         },
         //to select pet
-        selectPet(pet){
+        selectPet(event, pet){
             this.selectedPet = pet;
-            console.log(`Selected pet: ${this.selectedPet.name}`);
+            pet.isSelected = !pet.isSelected;
+
+            console.log(event.target)
         },
         //to confirm selection
         confirmSelection(eventId, petId){
-            console.log(eventId, petId);
+        
             petService.registerEvent(eventId, petId).then(
                 (response) => {
-                    this.$router.push({name: 'playDates'});
+                    this.$router.push({name: 'eventDetails', params: {id: eventId}});
                 }
             )
            
@@ -145,8 +153,6 @@ export default{
         checkLoginStatus(){
            this.isLoggedIn = !!localStorage.getItem('token');
         }
-
-
     },
 }
 
@@ -165,14 +171,17 @@ export default{
         align-items: center;
         justify-content: center;
         border: 1px solid black;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 5px 5px 5px #888888;
         margin: 10px;
-        padding: 10px;
         width: auto;
         flex-grow: 1;
     }
     .image{
-        width: 300px;
-        height: 200px;
+        width: 450px;
+        height: 300px;
     }
     .playdates{
         display: flex;
@@ -185,5 +194,25 @@ export default{
     .event p{
         margin: 0;
     }
+    .pet-selection{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+    .pet-item {
+    position: relative;
+    cursor: pointer;
+    }
+    .checkmark {
+    position: absolute;
+    top: 5px;
+    color: green; 
+    font-size: 20px; 
+    right: 10px;
+}
+   
 
 </style>

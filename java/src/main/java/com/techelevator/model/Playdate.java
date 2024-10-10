@@ -1,6 +1,7 @@
 package com.techelevator.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Playdate {
 
@@ -17,6 +18,17 @@ public class Playdate {
     private int eventDuration;
     private String eventDescription;
     private String eventImage;
+
+    private List<Pets> petCandidates;
+
+    public List<Pets> getPetCandidates() {
+        return petCandidates;
+    }
+
+    public void setPetCandidates(List<Pets> petCandidates) {
+        this.petCandidates = petCandidates;
+    }
+
     public Playdate() {
     }
 

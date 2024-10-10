@@ -1,5 +1,4 @@
 <template>
-  <h1>Pet Details</h1>
   <PetsDetailsVue/>
 </template>
 
@@ -15,5 +14,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

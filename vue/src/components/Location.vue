@@ -1,30 +1,10 @@
 <template>
   <div>  
     <div id="grid-container">
-
       <!-- Google Maps will render map here -->
       <div id="map"></div>
-      <!-- <div id = "filter">
-        <input type="text" id="filter">
-      </div> -->
-
-
-      <!-- <div id="input-area">
-
-          <p>For best results the address should have this format: <em>2934 Russell St, Detroit, MI, 48207</em></p>
-
-          Location to Add: <input v-model="currentInput" type="input"/>
-          <button v-on:click="addToList">Add to Route</button>
-          
-          <p>Current Locations:</p>
-          <button v-on:click="generateRoute">Generate Route</button><br><br>
-          <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
-              <input class="current-inputs" v-model="locations[index]"/> <button v-on:click="removeFromList(index)">Remove</button>
-          </div> -->
-      </div>
-      <!--Google Maps will render directions here-->
-      <div id="panel"></div>
     </div>
+  </div>
   </template>
 
 <script>
@@ -88,94 +68,7 @@ initMap() {
 });
 });
 },
-
-// This function is called to add a new location
-addToList() {
-
-    if(this.currentInput.trim().length === 0) {
-        window.alert("Location cannot be empty");
-        return;
-    }
-    this.locations.push(this.currentInput);
-    this.currentInput = "";
 },
-
-// This function is called to remove a location
-removeFromList(index) {
-
-    if(this.locations.length == 2) {
-      window.alert("A start and end location must be present");
-      return;
-    }
-
-    this.locations.splice(index, 1);
-},
-
-// This function calls the Google Maps API, renders the route
-// and retrieves the directions
-generateRoute() {
-
-  for(let i=0; i < this.locations.length; i++) {
-
-    if (this.locations[i].trim().length === 0) {
-      window.alert("Location cannot be empty");
-      return;
-    }
-  }
-
-
-  const panel = document.getElementById("panel");
-  panel.innerHTML = '';
-  this.initMap();
-
-   this.routeService = new window.google.maps.DirectionsService();
-   this.routeRendererService = new window.google.maps.DirectionsRenderer();
-   
-   this.routeRendererService.setMap(this.map);
-   this.routeRendererService.setPanel(panel);
-
-  let myWaypoints = [];
-  
-  /*
-    The API expects a single waypoint to be an object like this:
-    
-    {
-      location: "123 somewhere St...",
-      stopover: true
-    }
-  */
-
-  for(let i=1; i < this.locations.length -1; i++) {
-    myWaypoints.push( 
-      {
-        location: this.locations[i],
-        stopover: true
-      }
-    );
-  }
-
-   this.routeService.route(
-    {
-      origin: this.locations[0],
-      destination: this.locations[this.locations.length-1],
-      waypoints: myWaypoints,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-      avoidTolls: true,
-      optimizeWaypoints: true
-    }
-   ).then(
-      (result) => {
-        this.routeRendererService.setDirections(result);
-      }
-   ). catch(
-      (error) => {
-        console.log(error + "Could not generate route");
-      }
-   );
-
-}
-},
-
 mounted() {
 this.initMap();
 },
@@ -190,28 +83,26 @@ grid-template-columns: 1fr 1fr;
 grid-template-areas: 
 "map map";
 } */
+#grid-container {
+display: flex;
+justify-content: center;
+align-items: center;
+}
 
 #map {
 grid-area: map;
-width: 1100px;
+width: 500px;
 height: 750px;
 padding: 25px;
-display: flex;
-align-self: center;
 }
 
-#filter {
+/* #filter {
     width: 20%; 
     float: left;
     height: 100vh; /* This will make it take the full height of the viewport */
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0;
     padding: 1em;
     box-sizing: border-box; /* This makes the padding included in the element's total width and height */
-    display: grid;
-    grid-area: "filter";
-}
-
-.current-inputs {
-width: 350px;
-}
+    /* display: grid;
+    grid-area: "filter"; */
 </style>

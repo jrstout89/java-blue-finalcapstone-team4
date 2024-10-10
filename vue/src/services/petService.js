@@ -55,10 +55,11 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     getPetsByPlaydateId(playdateId) {
-        return http.get('/${playdateId}/pet', {
+        return http.get(`/${playdateId}/pet`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
             },
+            
 
     
 }

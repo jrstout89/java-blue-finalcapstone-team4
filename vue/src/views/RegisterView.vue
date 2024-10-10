@@ -1,7 +1,8 @@
 <template>
   <div id="register" class="text-center">
     <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
+      <h1 id="header">Create Account</h1>
+      <br>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -33,7 +34,7 @@
         <label for="phoneNumber">Phone Number</label>
         <input type="text" id="phoneNumber" v-model="user.phoneNumber"/>
       </div>
-      <button type="submit">Create Account</button>
+      <button type="submit" class="button is-primary is-light">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
@@ -97,9 +98,29 @@ export default {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
+  color: teal;
+  font-size: 1.2em;
   
 }
 label {
   margin-right: 0.5rem;
+}
+#register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh; 
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 5px 5px 5px #888888;
+}
+#header {
+  font-size: 3em;
+  color: rgb(130, 215, 4);
+  font-family:cursive;
+  font-weight: bold;
 }
 </style>

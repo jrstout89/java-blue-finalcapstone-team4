@@ -25,8 +25,11 @@ public class PlaydateController {
     // Get all playdates.
     @PreAuthorize("permitAll")
     @RequestMapping(path = "/events", method = RequestMethod.GET)
-    public List<Playdate> getAllPlaydates() {
-        return playdateDao.getAllPlaydates();
+    public List<Playdate> getAllPlaydates(Principal principal) {
+
+        Customers customers=userDao.getCustomer(principal.getName());
+
+        return playdateDao.getAllPlaydates(customers.getId());
     }
 
     // Get a playdate by ID.
@@ -60,6 +63,15 @@ public class PlaydateController {
     public void deletePlaydate(@PathVariable int id){
         playdateDao.deletePlaydateById(id);
     }
+    @RequestMapping(path="/playdates/{petId}", method = RequestMethod.GET)
+    public List<Playdate> getPlaydatesByPetId(@PathVariable int petId){
+        return playdateDao.getPlaydateByPetId(petId);
+    }
+    @RequestMapping(path = "/{playdateId}/pets/{petId}", method = RequestMethod.DELETE)
+    public void removePet(@PathVariable int playdateId, @PathVariable int petId){
+        playdateDao.removePetFromPlaydate(playdateId, petId);
+    }
+
 
 
 

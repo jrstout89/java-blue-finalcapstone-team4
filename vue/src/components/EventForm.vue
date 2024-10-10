@@ -1,6 +1,11 @@
 <template>
     <form v-on:submit.prevent="submitForm" class="cardForm">
         <!-- {{ newEvent }} -->
+        <div>
+            <div class="button is-info" v-on:click="upload">Upload your event picture!</div><br>
+            <img v-bind:src="newEvent.eventImage" alt="pet image" width="300" height="200" v-if="Event.eventImage">
+        </div>
+
         <div class="field">
             <label class="label">Event title</label>
             <div class="control">
@@ -94,7 +99,7 @@
                 <textarea class="textarea" placeholder="Textarea" v-model="newEvent.eventDescription"></textarea>
             </div>
         </div>
-        <div class="file is-primary">
+        <!-- <div class="file is-primary">
         <label class="file-label">
             <input class="file-input" type="file" name="resume" />
             <span class="file-cta">
@@ -104,7 +109,7 @@
             <span class="file-label"> Add a picture! </span>
             </span>
         </label>
-        </div>
+        </div> -->
 
         <div class="field is-grouped">
         <div class="control">
@@ -123,6 +128,7 @@
 import eventService from '../services/eventService';
 
 export default {
+    name: 'CloudinaryComp',
     props: {
         Event: {
             type: Object,
@@ -136,6 +142,8 @@ export default {
                 eventTitle: this.Event.eventTitle,
                 eventLocation: this.Event.eventLocation,
                 eventAddress: this.Event.eventAddress,
+                // latitude: this.Event.latitude,
+                // longitude: this.Event.longitude,
                 maximumPets: this.Event.maximumPets,
                 eventDate: this.Event.eventDate,
                 eventTime: this.Event.eventTime,
@@ -143,6 +151,7 @@ export default {
                 eventDescription: this.Event.eventDescription,
                 eventImage: this.Event.eventImage
             },
+            myWidget: {}
             
         };
     },
@@ -182,11 +191,30 @@ export default {
         cancelForm(){
             this.$router.push( {name: 'user'});
         },
+        upload() {
+            this.myWidget.open();
+        },
 
     },
     created(){
         this.newEvent = this.Event;
-    }
+    },
+    mounted() {
+    this.myWidget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'dzksumgzr',
+        uploadPreset: 'pdswxfwn'
+      },
+      (error, result) => { 
+        if (!error && result && result.event === "success") {
+          console.log('Done! Here is the image info: ', result.info);
+          console.log("Image URL: " + result.info.url);
+          this.newEvent.eventImage = result.info.url;
+        }
+      }
+
+    );
+  }
 };
 </script>
 

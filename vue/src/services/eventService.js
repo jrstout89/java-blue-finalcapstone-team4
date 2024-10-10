@@ -31,5 +31,16 @@ export default {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
+    getEventByPetId(petId) {
+        return http.get(`/playdates/${petId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    },
+    removePet(playdateId, petId){
+        return http.delete(`/${playdateId}/pets/${petId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    }
+   
 
 }

@@ -1,7 +1,9 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Pets;
 import com.techelevator.model.Playdate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,10 +15,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class JdbcPlaydateDao implements PlaydateDao {
+
+    @Autowired
+    private PetDao petDao;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -28,7 +32,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setId(results.getInt("playdate_id"));
         playdate.setEventLocation(results.getString("event_location"));
         playdate.setMaximumPets(results.getInt("maximum_pets"));
-        playdate.setEventHost(Integer.parseInt(results.getString("event_host")));
+        playdate.setEventHost(results.getInt("event_host"));
         playdate.setEventDate(LocalDate.parse(String.valueOf(results.getDate("event_date"))));
         playdate.setEventTime(LocalTime.parse(String.valueOf(results.getTime("event_time"))));
         playdate.setEventDuration(results.getInt("event_duration"));
@@ -43,7 +47,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
 
     // Method to view all available playdates.
     @Override
-    public List<Playdate> getAllPlaydates () {
+    public List<Playdate> getAllPlaydates (int custId) {
         List<Playdate> playdates = new ArrayList<>();
         // switch * to whatever i need from playdate table/
         String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
@@ -55,6 +59,12 @@ public class JdbcPlaydateDao implements PlaydateDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
+
+        for(Playdate playdate : playdates) {
+            List<Pets> pets = petDao.getPetsByCustomerId(custId);
+            playdate.setPetCandidates(pets);
+        }
+
         return playdates;
     }
 
@@ -144,6 +154,38 @@ public class JdbcPlaydateDao implements PlaydateDao {
         }
         String sql = "DELETE FROM playdate WHERE playdate_id = ?";
         return jdbcTemplate.update(sql, id);
+    }
+
+    //get playdates by pet id
+    @Override
+    public List<Playdate> getPlaydateByPetId(int petId){
+        List<Playdate> playdates = new ArrayList<>();
+        String sql = "SELECT * FROM playdate pd JOIN playdate_pets pp ON pd.playdate_id = pp.playdate_id " +
+                "WHERE pp.pet_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId);
+            while(results.next()){
+                playdates.add(mapRowToPlaydate(results));
+            }
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return playdates;
+    }
+    //remove pet from playdate
+    @Override
+    public void removePetFromPlaydate(int playdateId, int petId) {
+        String sql = "DELETE FROM playdate_pets WHERE playdate_id = ? AND pet_id = ?";
+
+        try {
+            jdbcTemplate.update(sql, playdateId, petId);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Unable to remove pet from playdate due to data integrity violation.", e);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
     }
 
     // Method to accept a playdate request.

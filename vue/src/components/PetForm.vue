@@ -98,10 +98,6 @@
   </div>
 </div>
 
-<!-- upload image -->
-
-
-
 <div class="field is-grouped">
   <div class="control">
     <button class="button is-link">Submit</button>
@@ -209,5 +205,14 @@ created(){
 </script>
 
 <style>
-
+.cardForm{
+    margin: 0 auto;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: #ccc 2px 2px 2  ;
+}
 </style>

@@ -15,15 +15,17 @@ export default {
         return {
         eventObject:{
             id: 0,
-            name: '',
-            date: '',
-            time: '',
-            duration: '',
-            location: '',
-            address: '',
+            eventTitle: '',
+            eventLocation: '',
+            eventAddress: '',
+            // latitude:"",
+            // longitude:"",
             maximumPets: 0,
-            description: '',
-            image: ''
+            eventDate: "",
+            eventTime: "",
+            eventDuration: "",
+            eventDescription: "",
+            eventImage: ""
         },
         showEventForm: false
         // eventObject: {}

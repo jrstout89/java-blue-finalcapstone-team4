@@ -37,6 +37,7 @@ initMap() {
     mapTypeControl: true,
     fullscreenControl: true,
     zoomControl: true,
+    position: "static",
   });
   let noPOIStyle = [
     {
@@ -83,17 +84,20 @@ grid-template-columns: 1fr 1fr;
 grid-template-areas: 
 "map map";
 } */
-#grid-container {
+/* #grid-container {
 display: flex;
 justify-content: center;
 align-items: center;
-}
+} */
 
 #map {
-grid-area: map;
-width: 500px;
-height: 750px;
+position: static;  
+width: 75vw;
+height: 75vh;
 padding: 25px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 /* #filter {

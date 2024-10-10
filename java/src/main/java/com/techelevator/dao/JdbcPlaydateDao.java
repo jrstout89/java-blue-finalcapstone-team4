@@ -1,7 +1,9 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Pets;
 import com.techelevator.model.Playdate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +19,9 @@ import java.util.List;
 @Component
 public class JdbcPlaydateDao implements PlaydateDao {
 
+    @Autowired
+    private PetDao petDao;
+
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcPlaydateDao (DataSource ds) {
@@ -27,7 +32,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         playdate.setId(results.getInt("playdate_id"));
         playdate.setEventLocation(results.getString("event_location"));
         playdate.setMaximumPets(results.getInt("maximum_pets"));
-        playdate.setEventHost(Integer.parseInt(results.getString("event_host")));
+        playdate.setEventHost(results.getInt("event_host"));
         playdate.setEventDate(LocalDate.parse(String.valueOf(results.getDate("event_date"))));
         playdate.setEventTime(LocalTime.parse(String.valueOf(results.getTime("event_time"))));
         playdate.setEventDuration(results.getInt("event_duration"));
@@ -42,7 +47,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
 
     // Method to view all available playdates.
     @Override
-    public List<Playdate> getAllPlaydates () {
+    public List<Playdate> getAllPlaydates (int custId) {
         List<Playdate> playdates = new ArrayList<>();
         // switch * to whatever i need from playdate table/
         String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
@@ -54,6 +59,12 @@ public class JdbcPlaydateDao implements PlaydateDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
+
+        for(Playdate playdate : playdates) {
+            List<Pets> pets = petDao.getPetsByCustomerId(custId);
+            playdate.setPetCandidates(pets);
+        }
+
         return playdates;
     }
 

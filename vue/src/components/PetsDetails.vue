@@ -5,7 +5,6 @@
         <div class="pets">
             <img v-bind:src="pets.image" alt="pet image" width="300" height="200">
             <h3><strong>{{pets.name}}</strong></h3>
-            <p>{{pets.personality}}</p>
              <p><strong>Breed: </strong>{{pets.breed}}</p>
             <p><strong>Date of Birth: </strong>{{pets.dateOfBirth}}</p>
             <p><strong>Gender: </strong>{{pets.gender}}</p>
@@ -13,6 +12,8 @@
             <p><strong>Vaccination: </strong>{{pets.vaccination}}</p>
             <p><strong>Spay or Neuter: </strong>{{pets.isSpayNeuter}}</p>
             <p><strong>Energy Level: </strong>{{pets.energyLevel}}</p>
+            <p><strong>Personality: </strong>
+             {{pets.personality}}</p>
             <div class="buttons">
         <button class="button is-success" @click="editPet()" >Edit</button>
         <button class="button is-warning" @click="deletePet()">Delete</button>
@@ -20,11 +21,14 @@
       </div> 
         </div>
       </div>
-      <h1>Registered Event Details</h1>
+      
       
   <div class="event-content">
+
+     <div v-if="events.length">
+      <h1 class="event-title">Registered Event Details</h1>
     
-    <div class="event" v-for="event in events" v-bind:key="event.id">
+      <div class="event" v-for="event in events" v-bind:key="event.id"> 
         <img :src="event.eventImage" alt="event image" width="300" height="200">
         <h3><strong>{{ event.eventTitle }}</strong></h3>
         <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
@@ -34,7 +38,14 @@
             <p>&nbsp;|&nbsp;{{ formattedTime }} </p> -->
             <p><strong>Duration:</strong> {{ event.eventDuration }} mins</p>
         </div>
-        <button class="button is-warning" @click="removePetFromEvent(this.event.id, this.pets.id)">Remove pet from this event</button>
+        <button class="button is-warning" @click="removePetFromEvent(event.id, pets.id)">Remove pet from this event</button>
+      </div>
+    </div>
+    <div v-else>
+        <h1 class="event-title">No Registered Events</h1>
+        <p>
+          <router-link to="/playdates"><a>Check all available events </a></router-link>
+        </p>
     </div>
   </div>
 </div>
@@ -49,7 +60,7 @@ export default {
     data(){
         return{
             pets:{},
-            events:{}
+            events:[]
         }
     },
     created(){
@@ -98,18 +109,26 @@ export default {
     },
     //remove pet from event
     removePetFromEvent(eventId, petId){
+      if (!eventId || !petId) {
+        console.error('Event ID or Pet ID is not defined.');
+        return;
+    }
       if (confirm('Are you sure you want to remove this pet from the event?')) {
-        eventService.removePetFromEvent(eventId, petId).then(
+        eventService.removePet(eventId, petId).then(
             (response) => {
-                if(response.status === 204){
+              console.log('Response:', response);
+                if(response.status === 200){
                     console.log('Pet removed from event successfully. Redirecting...');
                     //redirect to pets page
-                    this.$router.push({ name: 'petDetails', params: { id: this.pets.id} });
+                    // this.$router.push({ name: 'petDetails', params: { id: petId} });
+                    location.reload();
+                }else{
+                  console.error('Failed to remove pet:', response);
                 }
             }
         ).catch(
             (error) => {
-                console.log(error);
+              console.error('Error occurred while removing pet:', error.response ? error.response.data : error.message);
             }
         );
          }
@@ -148,8 +167,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 20px;
+    width: auto;
 }
 .event-content{
     display: flex;
@@ -157,7 +177,35 @@ export default {
     align-items: center;
     flex-direction: row;
     margin-top: 20px;
+  
 }
 
+.pets{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: #ccc 2px 2px 2px;
+    width: auto;
+}
+.event{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: #ccc 2px 2px 2px;
+    width: auto;
+}
+.event-title {
+    font-weight: bold;
+    font-size: 1.5em; 
+}
 
 </style>

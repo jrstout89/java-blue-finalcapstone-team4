@@ -37,7 +37,7 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
     removePet(playdateId, petId){
-        return http.delete(`/playdates/${playdateId}/pets/${petId}`, {
+        return http.delete(`/${playdateId}/pets/${petId}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     }

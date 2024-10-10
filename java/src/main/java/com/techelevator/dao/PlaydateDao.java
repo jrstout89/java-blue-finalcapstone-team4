@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PlaydateDao {
 
-    List<Playdate> getAllPlaydates();
+    List<Playdate> getAllPlaydates(int custId);
 
     Playdate getPlaydateById(int id);
     //Get playdates by user's username

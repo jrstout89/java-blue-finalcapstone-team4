@@ -60,7 +60,8 @@ public class JdbcCommentsDao implements CommentsDao {
         String sql = "SELECT comments.comment_id, comments.forum_id, comments.customer_id, comments.comment_content, comments.created_date, users.username " +
                 "FROM comments " +
                 "JOIN users ON comments.customer_id = users.user_id " +
-                "WHERE comments.forum_id = ?";
+                "WHERE comments.forum_id = ? " +
+                "ORDER BY comments.created_date ASC";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, forumId);
             while (results.next()) {

@@ -1,10 +1,14 @@
 <template>
     <div>
         <h3 class="comments-bubble">Comments</h3>
+        <div v-if="comments.length === 0">No comments yet</div>
         <ul class="comments-list">
-            <li class="comments" v-for="comment in comments" :key="comment.id">
+            <li class="comments" v-for="comment in comments" :key="comment.commentId">
                 <div class="comment-content">
-                    <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
+                    <div class="comment-header">
+                        <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
+                        <small class="comment-date">on: {{ formattedDate(comment.createdDate) }}</small>
+                    </div>
                     <div v-if="isEditingComment && editingCommentId === comment.commentId">
                         <input v-model="updatedCommentContent" placeholder="Edit your comment" class="comment-input" />
                         <div class="button-container">
@@ -88,6 +92,17 @@ export default {
                     console.error('Error deleting comment', error);
                 }
             }
+        },
+        formattedDate(dateString) {
+            if (!dateString) return 'Invalid date';
+            try {
+                // Use 'T' to indicate the start of the time portion for ISO 8601
+                const formattedDate = dateString.replace(' ', 'T');
+                return new Date(formattedDate).toLocaleString();
+            } catch (error) {
+                console.error('Date parsing error:', error);
+                return 'Invalid date';
+            }
         }
     }
 }
@@ -98,6 +113,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .comments {
@@ -147,6 +163,7 @@ strong {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    margin: 7px;
 }
 
 .comment-input {
@@ -158,6 +175,20 @@ strong {
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-date {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: #666;
+    padding-right: 10px;
 }
 
 </style>

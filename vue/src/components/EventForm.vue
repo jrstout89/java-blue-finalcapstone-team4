@@ -9,14 +9,14 @@
         <div class="field">
             <label class="label">Event title</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Text input" v-model="newEvent.eventTitle">
+                <input class="input" type="text" placeholder="Type event title" v-model="newEvent.eventTitle">
             </div>
         </div>
 
         <div class="field">
             <label class="label">Location</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventLocation">
+                <input class="input is-success" type="text" placeholder="Type event location" v-model="newEvent.eventLocation">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -29,7 +29,7 @@
         <div class="field">
             <label class="label">Address</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventAddress">
+                <input class="input is-success" type="text" placeholder="Type event address" v-model="newEvent.eventAddress">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -57,7 +57,7 @@
         <div class="field">
             <label class="label">Event Date</label>
             <div class="control">
-                <input class="input is-danger" type="date" placeholder="Email input" v-model="newEvent.eventDate">
+                <input class="input is-danger" type="date" placeholder="Event date" v-model="newEvent.eventDate">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -70,7 +70,7 @@
         <div class="field">
             <label class="label">Event Time</label>
             <div class="control">
-                <input class="input is-danger" type="time" placeholder="Email input" v-model="newEvent.eventTime">
+                <input class="input is-danger" type="time" placeholder="Event time" v-model="newEvent.eventTime">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -83,7 +83,7 @@
         <div class="field">
             <label class="label">Duration</label>
             <div class="control">
-                <input class="input is-danger" type="number" placeholder="Email input" v-model="newEvent.eventDuration">
+                <input class="input is-danger" type="number" placeholder="Type event duration in minutes" v-model="newEvent.eventDuration">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -96,7 +96,7 @@
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Textarea" v-model="newEvent.eventDescription"></textarea>
+                <textarea class="textarea" placeholder="Type event description" v-model="newEvent.eventDescription"></textarea>
             </div>
         </div>
         <!-- <div class="file is-primary">

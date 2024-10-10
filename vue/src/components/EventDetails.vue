@@ -14,14 +14,13 @@
     </div>
     <!-- show all the pets of event -->
     <div id="pet_content">
-        <h2>Pets attending this event:</h2>
-        <div v-for="pet in pets" v-bind:key="pet.id">
+        <h1 class="pet-title">Pets attending this event:</h1>
+        <div class="pet-card" v-for="pet in pets" v-bind:key="pet.id">
             <img :src="pet.image" alt="pet image" width="300" height="200">
             <h3><strong>{{ pet.name }}</strong></h3>
             <p>{{ pet.personality }}</p>
         </div>
-    <div>
-    </div>
+
     </div>
     </div>
 </template>
@@ -41,28 +40,44 @@ export default {
         
     },
     created() {
-        return eventService.getEventById(this.$route.params.id).then(
-            (response) => {
-                this.event = response.data;
-            }
-        );
+        // return eventService.getEventById(this.$route.params.id).then(
+        //     (response) => {
+        //         this.event = response.data;
+        //     }
+        // );
+        this.loadEventAndPets();
     },
     methods: {
-        getEventById(id) {
-            return eventService.getEventById(id);
-        },
-        loadPets() {
-            petService.getPetsByPlaydateId(this.event.id).then(
-                (response) => {
-                    this.pets = response.data;
-                }
-            ).catch(
-                (error) => {
-                    console.log(error);
-                }
-            );
+        // getEventById(id) {
+        //     return eventService.getEventById(id);
+        // },
+        // loadPets() {
+        //     petService.getPetsByPlaydateId(this.event.id).then(
+        //         (response) => {
+        //             this.pets = response.data;
+        //         }
+        //     ).catch(
+        //         (error) => {
+        //             console.log(error);
+        //         }
+        //     );
             
-        }
+        // }
+        loadEventAndPets() {
+            const eventId = this.$route.params.id;
+            eventService.getEventById(eventId)
+                .then((response) => {
+                    this.event = response.data;
+                    console.log("Event ID for pets:", this.event.id);
+                    return petService.getPetsByPlaydateId(this.event.id);
+                })
+                .then((response) => {
+                    this.pets = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
     },
     computed: {
         formattedDate() {
@@ -127,8 +142,31 @@ export default {
     font-weight: bold;
     font-size: 1.5em; 
 }
+.pet-title{
+    font-weight: bold;
+    font-size: 1.5em;
+}
 .event-time{
     display: flex;
     flex-direction: row;
 }
+.pet-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    color: black;
+}
+#entire-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
 </style>

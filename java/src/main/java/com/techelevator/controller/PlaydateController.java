@@ -60,6 +60,15 @@ public class PlaydateController {
     public void deletePlaydate(@PathVariable int id){
         playdateDao.deletePlaydateById(id);
     }
+    @RequestMapping(path="/playdates/{petId}", method = RequestMethod.GET)
+    public List<Playdate> getPlaydatesByPetId(@PathVariable int petId){
+        return playdateDao.getPlaydateByPetId(petId);
+    }
+    @RequestMapping(path = "//{playdateId}/pets/{petId}", method = RequestMethod.DELETE)
+    public void removePet(@PathVariable int playdateId, @PathVariable int petId){
+        playdateDao.removePetFromPlaydate(playdateId, petId);
+    }
+
 
 
 

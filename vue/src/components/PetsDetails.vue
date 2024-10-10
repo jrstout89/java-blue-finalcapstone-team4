@@ -1,8 +1,7 @@
 <template>
     <div class="petsDetails">
-        <button class="button is-success" @click="editPet()" >Edit</button>
-        <button class="button is-warning" @click="deletePet()">Delete</button>
-    
+      <div class="pet-content">
+ 
         <div class="pets">
             <img v-bind:src="pets.image" alt="pet image" width="300" height="200">
             <h3><strong>{{pets.name}}</strong></h3>
@@ -14,22 +13,58 @@
             <p><strong>Vaccination: </strong>{{pets.vaccination}}</p>
             <p><strong>Spay or Neuter: </strong>{{pets.isSpayNeuter}}</p>
             <p><strong>Energy Level: </strong>{{pets.energyLevel}}</p>
+            <div class="buttons">
+        <button class="button is-success" @click="editPet()" >Edit</button>
+        <button class="button is-warning" @click="deletePet()">Delete</button>
+        <button class="button is-info" @click="this.$router.push({ name: 'pets', params: { customerId: this.$store.state.user.id } })">Back</button>
+      </div> 
         </div>
+      </div>
+      <h1>Registered Event Details</h1>
+      
+  <div class="event-content">
+    
+    <div class="event" v-for="event in events" v-bind:key="event.id">
+        <img :src="event.eventImage" alt="event image" width="300" height="200">
+        <h3><strong>{{ event.eventTitle }}</strong></h3>
+        <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
+        <p><strong>Address:</strong> {{ event.eventAddress }}</p>
+        <div class="event-time">
+          <!-- <p>{{ formattedDate }}</p>
+            <p>&nbsp;|&nbsp;{{ formattedTime }} </p> -->
+            <p><strong>Duration:</strong> {{ event.eventDuration }} mins</p>
+        </div>
+        <button class="button is-warning" @click="removePetFromEvent(this.event.id, this.pets.id)">Remove pet from this event</button>
+    </div>
+  </div>
 </div>
+
+
 </template>
 
 <script>
 import petService from '../services/petService'
+import eventService from '../services/eventService'
 export default {
     data(){
         return{
-            pets:{}
+            pets:{},
+            events:{}
         }
     },
     created(){
         petService.getPetById(this.$route.params.id).then(
             (response) => {
                 this.pets = response.data;
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+            }
+        );
+        eventService.getEventByPetId(this.$route.params.id).then(
+            (response) => {
+                this.events = response.data;
             }
         ).catch(
             (error) => {
@@ -60,14 +95,69 @@ export default {
     //edit pet
     editPet(){
         this.$router.push({name: 'updatePet', params: {id: this.pets.id}});
-    }
+    },
+    //remove pet from event
+    removePetFromEvent(eventId, petId){
+      if (confirm('Are you sure you want to remove this pet from the event?')) {
+        eventService.removePetFromEvent(eventId, petId).then(
+            (response) => {
+                if(response.status === 204){
+                    console.log('Pet removed from event successfully. Redirecting...');
+                    //redirect to pets page
+                    this.$router.push({ name: 'petDetails', params: { id: this.pets.id} });
+                }
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+            }
+        );
+         }
 
  
     }
+  }
+    // computed:{
+    //   formattedDate() {
+    //         const parts = this.events.eventDate.split('-');
+    //         const year = parseInt(parts[0], 10);
+    //         const month = parseInt(parts[1], 10) - 1; // months are zero-based in JavaScript
+    //         const day = parseInt(parts[2], 10);
+
+    //         const date = new Date(year, month, day);
+    //         return `${month + 1}-${day}-${year}`; // add 1 to month to convert it back to 1-based
+    //     },
+    //     formattedTime() {
+    //         const parts = this.events.eventTime.split(':');
+    //         let hours = parseInt(parts[0], 10);
+    //         const minutes = parseInt(parts[1], 10);
+
+    //         const ampm = hours >= 12 ? 'PM' : 'AM';
+    //         hours = hours % 12;
+    //         hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+    //         return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    //     }
+    // }
 
 }
 </script>
 
 <style>
+.petsDetails{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.event-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <h1>Add pet</h1>
+    <h1 class="label">Add your fur friend</h1>
     <pet-form :pet="petObject" v-if="showPetForm"/>
 </template>
 
@@ -56,5 +56,11 @@ export default {
 </script>
 
 <style>
-
+h1{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 60px;
+    color: hsl(323, 57%, 27%);
+    font-family: cursive;
+}
 </style>

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class JdbcPlaydateDao implements PlaydateDao {
@@ -144,6 +143,38 @@ public class JdbcPlaydateDao implements PlaydateDao {
         }
         String sql = "DELETE FROM playdate WHERE playdate_id = ?";
         return jdbcTemplate.update(sql, id);
+    }
+
+    //get playdates by pet id
+    @Override
+    public List<Playdate> getPlaydateByPetId(int petId){
+        List<Playdate> playdates = new ArrayList<>();
+        String sql = "SELECT * FROM playdate pd JOIN playdate_pets pp ON pd.playdate_id = pp.playdate_id " +
+                "WHERE pp.pet_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId);
+            while(results.next()){
+                playdates.add(mapRowToPlaydate(results));
+            }
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return playdates;
+    }
+    //remove pet from playdate
+    @Override
+    public void removePetFromPlaydate(int playdateId, int petId) {
+        String sql = "DELETE FROM playdate_pets WHERE playdate_id = ? AND pet_id = ?";
+
+        try {
+            jdbcTemplate.update(sql, playdateId, petId);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Unable to remove pet from playdate due to data integrity violation.", e);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
     }
 
     // Method to accept a playdate request.

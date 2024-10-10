@@ -18,7 +18,7 @@
                
                      <div v-if="userLoggedIn">
                         <button class="button is-info" @click="togglePetSelection">Register your pet!</button>
-
+                    <div v-if="showPetSelection">
                         <h3>Select your pet:</h3>
                             <ul>
                                 <li v-for="pet in pets" v-bind:key="pet.id" @click="selectPet(pet)">
@@ -27,16 +27,17 @@
                             </ul>
                              </div>
                              <div v-if="selectPet">
-                                <button @click="confirmSelection(event.id, selectedPet.id)">Confirm</button>
+                                <span role="button" @click="confirmSelection(event.id, selectedPet.id)">Confirm</span>
                              </div>
                              <div v-else>
                                 <p>Please log in to register your pet.</p>
                                 <button @click="redirectToLogin">Log In</button>
                             </div>
                     </div>
+                        
+            </div>
                     <div v-if="!userLoggedIn">
-                        <!--TODO: When button is cliked user is router.pushed to the login route-->
-                        <button class="button is-info" @click="togglePetSelection">Login First</button>
+                        <button class="button is-info" @click="togglePetSelection">Login to register the event!</button>
                     </div>
 
 

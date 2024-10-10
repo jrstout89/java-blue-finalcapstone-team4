@@ -3,7 +3,9 @@
         <div class="event" v-for="event in events" v-bind:key="event.id">
             <router-link :to="{ name: 'eventDetails', params: { id: event.id } }">
                 <div id="content">
-                    <img id="image" v-bind:src="event.eventImage" alt="event image" width="300" height="200">
+                    <figure class="image is-square">
+                    <img id="image" v-bind:src="event.eventImage" alt="event image">
+                    </figure>
                     <h3><strong>{{ event.eventTitle }}</strong></h3>
                     <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
                     <p><strong>Address:</strong> {{ event.eventAddress }}</p>
@@ -148,8 +150,6 @@ export default{
         checkLoginStatus(){
            this.isLoggedIn = !!localStorage.getItem('token');
         }
-
-
     },
 }
 
@@ -168,14 +168,17 @@ export default{
         align-items: center;
         justify-content: center;
         border: 1px solid black;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 5px 5px 5px #888888;
         margin: 10px;
-        padding: 10px;
         width: auto;
         flex-grow: 1;
     }
     .image{
-        width: 300px;
-        height: 200px;
+        width: 450px;
+        height: 300px;
     }
     .playdates{
         display: flex;

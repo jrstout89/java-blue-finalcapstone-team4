@@ -1,7 +1,8 @@
 <template>
   <div id="login">
     <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
+      <h1 id="header" >Please Sign In</h1>
+      <br>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -16,7 +17,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <button type="submit">Sign in</button>
+      <button type="submit" class="button is-primary is-light">Sign in</button>
       <p>
       <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
@@ -61,8 +62,19 @@ export default {
 </script>
 
 <style scoped>
+#header{
+  font-size: 3em;
+  color: rgb(130, 215, 4);
+  font-family:cursive;
+  font-weight: bold;
+}
+
 .form-input-group {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  color: teal;
+  font-size: 1.2em;
 }
 label {
   margin-right: 0.5rem;
@@ -74,6 +86,9 @@ label {
   height: 50vh; 
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 5px 5px 5px #888888;
 }
 </style>

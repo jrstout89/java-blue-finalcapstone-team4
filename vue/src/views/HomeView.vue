@@ -1,20 +1,24 @@
 <template>
     <nav class="about">
-      <div id="content">
-        <img id="dog" src="../img/HappyDog.gif" alt="happy" />
-        <h3 id="subtitle">Welcome to Pet Play Pals!</h3>
-      </div>
+      <div class="info-bubble">
+        <div id="content">
+          <img id="dog" src="../img/HappyDog.gif" alt="happy" />
+          <h3 id="subtitle">Welcome to Pet Play Pals!</h3>
+        </div>
         <p id="text">At Pet Play Pals, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
         </p>
+      </div>
         <!-- <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link> -->
-        <button>View Play Dates</button>
+        <button class="button is-info">View Play Dates</button>
         <div class="slideshow">
-          <img :src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
-          <div class="image-index">
-            {{ currentImageIndex + 1 }} / {{ images.length }}
+          <div class="image-container">
+            <img :src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
           </div>
-          <button @click="prevImage">Previous</button>
-          <button @click="nextImage">Next</button>
+          <!-- <div class="image-index">
+            {{ currentImageIndex + 1 }} / {{ images.length }}
+          </div> -->
+          <!-- <button @click="prevImage">Previous</button>
+          <button @click="nextImage">Next</button> -->
         </div>
     </nav>
     <footer>
@@ -40,7 +44,8 @@ export default {
         'https://www.dundeeanimalhospital.com/images/blogs/ezgif.com-gif-maker.19).jpg',
       ],
       currentImageIndex: 0,
-      isVisible: false
+      isVisible: false,
+      slideshowInterval: null,
     };
   },
   methods: {
@@ -50,9 +55,21 @@ export default {
     previousImage() {
       this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
     },
+    startSlideshow() {
+      this.slideshowInterval = setInterval(this.nextImage, 4000);
+    },
+    stopSlideshow() {
+      clearInterval(this.slideshowInterval);
+    },
     toggleVisibility() {
       this.isVisible = !this.isVisible;
     }
+  },
+  mounted() {
+    this.startSlideshow();
+  },
+  beforeUnmount() {
+    this.stopSlideshow();
   },
 };
 </script>
@@ -114,15 +131,32 @@ export default {
     margin-top: 20px;
   }
 
+  .image-container {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 2px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
   .slide {
     width: 100%;
-    height: 600px;
-    margin-bottom: 10px;
+    height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    margin: 0;
   }
 
   button {
     margin: 5px;
     padding: 10px;
+    margin-bottom: -10px;
   }
 
   .image-index {
@@ -130,7 +164,13 @@ export default {
     font-size: 1.2rem;
   }
 
+  .info-bubble {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: -70px auto 10px;
+    width: 1800px;
+  }
+  
 </style>
-    
-    
-

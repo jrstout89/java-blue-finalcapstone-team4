@@ -28,7 +28,7 @@ public class JdbcPetDao implements PetDao{
         pets.setCustomerId(results.getInt("customer_id"));
         pets.setPetSize(results.getString("pet_size"));
         pets.setVaccination(results.getBoolean("vaccination"));
-        pets.setIsSpayNeuter(results.getBoolean("is_spay_neuter"));
+        pets.setSpayNeuter(results.getBoolean("is_spay_neuter"));
         pets.setEnergyLevel(results.getString("energy_level"));
         pets.setPersonality(results.getString("personality"));
         pets.setImage(results.getString("image"));

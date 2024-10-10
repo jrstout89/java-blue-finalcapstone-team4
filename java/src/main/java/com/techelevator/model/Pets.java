@@ -12,7 +12,7 @@ public class Pets {
     private int customerId;
     private String petSize;
     private boolean vaccination;
-    private boolean isSpayNeuter;
+    private boolean SpayNeuter;
     private String energyLevel;
     private String personality;
     private String image;
@@ -20,7 +20,7 @@ public class Pets {
     public Pets() {
     }
 
-    public Pets(int id, String name, String breed, LocalDate dateOfBirth, String gender, int customerId, String petSize, boolean vaccination, boolean isSpayNeuter, String energyLevel, String personality, String image) {
+    public Pets(int id, String name, String breed, LocalDate dateOfBirth, String gender, int customerId, String petSize, boolean vaccination, boolean spayNeuter, String energyLevel, String personality, String image) {
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -29,7 +29,7 @@ public class Pets {
         this.customerId = customerId;
         this.petSize = petSize;
         this.vaccination = vaccination;
-        this.isSpayNeuter = isSpayNeuter;
+        SpayNeuter = spayNeuter;
         this.energyLevel = energyLevel;
         this.personality = personality;
         this.image = image;
@@ -101,11 +101,11 @@ public class Pets {
     }
 
     public boolean isSpayNeuter() {
-        return isSpayNeuter;
+        return SpayNeuter;
     }
 
-    public void setIsSpayNeuter(boolean spayNeuter) {
-        isSpayNeuter = spayNeuter;
+    public void setSpayNeuter(boolean spayNeuter) {
+        SpayNeuter = spayNeuter;
     }
 
     public String getEnergyLevel() {

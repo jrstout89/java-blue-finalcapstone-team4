@@ -3,8 +3,6 @@
         <UserProfile/>
         <PersonalEvents/>
         <hr/>
-        
-
     </div>
 </template>
 
@@ -19,8 +17,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-
-</style>

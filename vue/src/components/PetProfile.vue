@@ -1,21 +1,23 @@
 <template>
   <div class="allPets">
-    <h1>All Pets</h1>
+    <h1 id="header">ALL PETS</h1>
     <div class="buttons">
         <router-link to="/pets/add-pet">
              <button class="button is-info">Add</button>
-        </router-link>
-        
+        </router-link>        
           <router-link to="/user">
             <button class="button is-info">Previous Page</button>
           </router-link>
        </div>
    </div>
     <div class="pets" v-for="pet in pets" v-bind:key="pet.id">
-      <router-link :to="{name: 'petDetails', params:{id:pet.id}}">
-        <img v-bind:src="pet.image" alt="pet image"/>
-        <h3><strong>{{pet.name}}</strong></h3>
+      <h3><router-link :to="{name: 'petDetails', params:{id:pet.id}}">
+        <strong>{{pet.name}}</strong></router-link></h3>
         <p>{{pet.personality}}</p>
+      <router-link :to="{name: 'petDetails', params:{id:pet.id}}">
+        <figure class="image is-400x350">
+        <img v-bind:src="pet.image" alt="pet image"/>
+      </figure>
       </router-link>
     </div>
   
@@ -51,10 +53,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .pets {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
@@ -64,19 +68,38 @@ export default {
   background-color: #f9f9f9;
   box-shadow: 2px 2px 2px #ccc;
   flex-wrap: wrap;
-  width: 300px;
-  height: auto;
 }
 .allPets {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 2px #ccc;
+  flex-wrap: wrap;
 }
-h1{
-  font-size: 1.5em;
-  color: #333;
+#header {
+  font-size: 3em;
+  color: green;
   font-family: cursive;
+  font-weight: bold;
 }
-
+strong {
+  font-size: 2em;
+  font-family: cursive;
+  font-weight: bold;
+}
+p {
+  font-size: 1.25em;
+  font-family: cursive;
+  font-weight: bold;
+  color: hotpink;
+}
 
 </style>

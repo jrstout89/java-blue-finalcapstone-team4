@@ -1,25 +1,33 @@
 <template>
     <div class="personal-events">
-        <h1>Your events</h1>
+        <h1><span>YOUR EVENTS:</span></h1>
         <div class="events">
             <div v-for="event in events" :key="event.id" class="event">
-                <h3>{{ event.eventTitle }}</h3>
-                <p><strong>Location: </strong> {{ event.eventLocation }}</p>
-                <p><strong>Address: </strong> {{ event.eventAddress }}</p>
-                <p> Maximum Pets: {{ event.maximumPets }}</p>
-                <p> Event Host: {{ event.eventHost }}</p>
-                <p> Event Date: {{ event.eventDate }}</p>
-                <p> Event Time: {{ event.eventTime }}</p>
-                <p> Event Duration: {{ event.eventDuration }}</p>
-                <p> Event Description: {{ event.eventDescription }}</p>
-                <img :src="event.eventImage" alt="Event Image">
-                <br/>
+            <nav id="button">
                 <button class="button is-success" @click="editEvent(event.id)">Edit</button>
+                &nbsp; &nbsp;
                 <button class="button is-warning" @click="deleteEvent(event.id)">Delete</button>
+            </nav>
+                <br>
+                <h2 id="header"> <router-link v-bind:to="{ name: 'eventDetails', params: { id: event.id } }">
+                {{ event.eventTitle }} </router-link> </h2>
+                <p><strong>Location: &nbsp;&nbsp; </strong> {{ event.eventLocation }}</p>
+                <p><strong>Address: &nbsp;&nbsp; </strong> {{ event.eventAddress }}</p>
+                <p> <strong> Maximum Pets: &nbsp;&nbsp; </strong> {{ event.maximumPets }} </p>
+                <p> <strong> Event Host: &nbsp;&nbsp; </strong> {{ event.eventHost }} </p>
+                <p> <strong> Event Date: &nbsp;&nbsp; </strong> {{ event.eventDate }} </p>
+                <p>  <strong> Event Time: &nbsp;&nbsp; </strong> {{ event.eventTime }} </p>
+                <p> <strong> Event Duration: &nbsp;&nbsp; </strong> {{ event.eventDuration }} </p>
+                <figure class="image is-square">
+                <img :src="event.eventImage" alt="Event Image" class="img">
+                </figure>
+                <br/>
+            <nav id="button">
+                <button class="button is-success" @click="editEvent(event.id)">Edit</button>
+                &nbsp; &nbsp;
+                <button class="button is-warning" @click="deleteEvent(event.id)">Delete</button>
+            </nav>
             </div>
-            <router-link to="/events/add-event">
-                <button class="button is-info">Add Event</button>
-            </router-link>
         </div>  
     </div>
 </template>
@@ -34,8 +42,9 @@ export default {
         }
     },
     created(){
-        return eventService.getEvents().then(
+        eventService.getUserEvents().then(
             (response) => {
+                console.log(response);
                 this.events = response.data;
             }
         );
@@ -74,10 +83,63 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .events {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    margin-left: 25%;
+    color: black;
+}
+#header {
+    font-size: 1.5em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+#button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+p {
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+h1 {
+    font-size: 2.0em;
+    font-family: cursive;
+    font-style: oblique;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: hotpink;
+    border-radius: 10px;
+    height: 50px;
+    text-shadow: 50px 50px 50px black;
+}
+span {
+    background-color: white;
+}
+
+strong {
+    font-size: 1.2em;
+    color: rgb(135, 200, 39);
 }
 </style>

@@ -6,8 +6,6 @@
         </div>
         <current-events id="current-events"></current-events>
     </div>
-    <!-- </div> -->
-
 </template>
 
 <script>
@@ -35,8 +33,9 @@ export default {
     font-family: cursive;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
-    text-decoration: underline;
     margin-bottom: 20px;
+    font-style: oblique;
+    color: rgb(21, 165, 21);
 }
 
 #location {

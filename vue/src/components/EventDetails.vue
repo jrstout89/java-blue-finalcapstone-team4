@@ -44,29 +44,9 @@ export default {
         
     },
     created() {
-        // return eventService.getEventById(this.$route.params.id).then(
-        //     (response) => {
-        //         this.event = response.data;
-        //     }
-        // );
         this.loadEventAndPets();
     },
     methods: {
-        // getEventById(id) {
-        //     return eventService.getEventById(id);
-        // },
-        // loadPets() {
-        //     petService.getPetsByPlaydateId(this.event.id).then(
-        //         (response) => {
-        //             this.pets = response.data;
-        //         }
-        //     ).catch(
-        //         (error) => {
-        //             console.log(error);
-        //         }
-        //     );
-            
-        // }
         loadEventAndPets() {
             const eventId = this.$route.params.id;
             eventService.getEventById(eventId)

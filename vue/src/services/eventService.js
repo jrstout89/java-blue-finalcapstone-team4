@@ -26,10 +26,8 @@ export default {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`}});
     },
-    getUserEvents(customerId) {
-        return http.get(`/personal-events/`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`}});
+    getUserEvents() {
+        return axios.get(`/personal-events/`);
     },
     getEventByPetId(petId) {
         return http.get(`/playdates/${petId}`, {

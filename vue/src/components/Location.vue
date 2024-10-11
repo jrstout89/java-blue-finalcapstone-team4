@@ -78,18 +78,6 @@ this.initMap();
 
 <style scoped>
 
-/* #grid-container {
-display: grid;
-grid-template-columns: 1fr 1fr;
-grid-template-areas: 
-"map map";
-} */
-/* #grid-container {
-display: flex;
-justify-content: center;
-align-items: center;
-} */
-
 #map {
 position: static;  
 width: 75vw;
@@ -99,14 +87,4 @@ display: flex;
 justify-content: center;
 align-items: center;
 }
-
-/* #filter {
-    width: 20%; 
-    float: left;
-    height: 100vh; /* This will make it take the full height of the viewport */
-    /* background-color: #f0f0f0;
-    padding: 1em;
-    box-sizing: border-box; /* This makes the padding included in the element's total width and height */
-    /* display: grid;
-    grid-area: "filter"; */
 </style>

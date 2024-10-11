@@ -3,7 +3,11 @@
       <div class="pet-content">
  
         <div class="pets">
-            <img v-bind:src="pets.image" alt="pet image" width="300" height="200">
+          <h1 class="pet-title">Your Pet Details</h1>
+          <br>
+          <figure class="image is-400x350">
+            <img v-bind:src="pets.image" alt="pet image">
+          </figure>
             <h3><strong>{{pets.name}}</strong></h3>
              <p><strong>Breed: </strong>{{pets.breed}}</p>
             <p><strong>Date of Birth: </strong>{{pets.dateOfBirth}}</p>
@@ -27,18 +31,20 @@
 
      <div v-if="events.length">
       <h1 class="event-title">Registered Event Details</h1>
-    
+      <br>
       <div class="event" v-for="event in events" v-bind:key="event.id"> 
+        <figure class="image is-400x350">
         <img :src="event.eventImage" alt="event image" width="300" height="200">
+        </figure>
         <h3><strong>{{ event.eventTitle }}</strong></h3>
         <p><strong>Location:</strong>  {{ event.eventLocation }}</p>
         <p><strong>Address:</strong> {{ event.eventAddress }}</p>
         <div class="event-time">
-          <!-- <p>{{ formattedDate }}</p>
-            <p>&nbsp;|&nbsp;{{ formattedTime }} </p> -->
             <p><strong>Duration:</strong> {{ event.eventDuration }} mins</p>
         </div>
+        <div class="buttons">
         <button class="button is-warning" @click="removePetFromEvent(event.id, pets.id)">Remove pet from this event</button>
+      </div>
       </div>
     </div>
     <div v-else>
@@ -118,9 +124,6 @@ export default {
             (response) => {
               console.log('Response:', response);
                 if(response.status === 200){
-                    console.log('Pet removed from event successfully. Redirecting...');
-                    //redirect to pets page
-                    // this.$router.push({ name: 'petDetails', params: { id: petId} });
                     location.reload();
                 }else{
                   console.error('Failed to remove pet:', response);
@@ -132,37 +135,13 @@ export default {
             }
         );
          }
-
- 
     }
   }
-    // computed:{
-    //   formattedDate() {
-    //         const parts = this.events.eventDate.split('-');
-    //         const year = parseInt(parts[0], 10);
-    //         const month = parseInt(parts[1], 10) - 1; // months are zero-based in JavaScript
-    //         const day = parseInt(parts[2], 10);
-
-    //         const date = new Date(year, month, day);
-    //         return `${month + 1}-${day}-${year}`; // add 1 to month to convert it back to 1-based
-    //     },
-    //     formattedTime() {
-    //         const parts = this.events.eventTime.split(':');
-    //         let hours = parseInt(parts[0], 10);
-    //         const minutes = parseInt(parts[1], 10);
-
-    //         const ampm = hours >= 12 ? 'PM' : 'AM';
-    //         hours = hours % 12;
-    //         hours = hours ? hours : 12; // the hour '0' should be '12'
-            
-    //         return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
-    //     }
-    // }
 
 }
 </script>
 
-<style>
+<style scoped>
 .petsDetails{
     display: flex;
     justify-content: center;
@@ -172,40 +151,55 @@ export default {
     width: auto;
 }
 .event-content{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    color: black;
+}
+.buttons{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     margin-top: 20px;
-  
+    width: auto;
 }
-
-.pets{
+.pet-title {
+    font-weight: bold;
+    font-size: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: #ccc 2px 2px 2px;
-    width: auto;
+    color: green; 
 }
-.event{
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: #ccc 2px 2px 2px;
-    width: auto;
-}
+
 .event-title {
     font-weight: bold;
-    font-size: 1.5em; 
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: green; 
 }
+.pet-content{ 
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+    width: 50%;
+    color: black;
+  }
 
 </style>

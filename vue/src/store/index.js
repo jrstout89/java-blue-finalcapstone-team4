@@ -12,8 +12,6 @@ export function createStore(currentToken, currentUser) {
         state.token = token;
         localStorage.setItem('token', token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        // might not have to use below
-        // this.$store.commit('setIsLoggedIn', true);
       },
       SET_USER(state, user) {
         state.user = user;
@@ -25,8 +23,6 @@ export function createStore(currentToken, currentUser) {
         state.token = '';
         state.user = {};
         axios.defaults.headers.common = {};
-        // might not have to use below
-        // this.$store.commit('setIsLoggedIn', false);
       }
     },
   });

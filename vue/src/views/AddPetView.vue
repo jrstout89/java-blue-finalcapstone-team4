@@ -55,12 +55,13 @@ export default {
 }
 </script>
 
-<style>
-h1{
+<style scoped>
+.label{
     text-align: center;
     margin-top: 20px;
     font-size: 60px;
-    color: hsl(323, 57%, 27%);
+    color: hsl(323, 65%, 37%);
     font-family: cursive;
+    font-style: oblique;
 }
 </style>

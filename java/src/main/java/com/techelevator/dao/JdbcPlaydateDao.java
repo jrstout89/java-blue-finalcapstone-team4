@@ -24,10 +24,11 @@ public class JdbcPlaydateDao implements PlaydateDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcPlaydateDao (DataSource ds) {
+    public JdbcPlaydateDao(DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
     }
-    private Playdate mapRowToPlaydate (SqlRowSet results) {
+
+    private Playdate mapRowToPlaydate(SqlRowSet results) {
         Playdate playdate = new Playdate();
         playdate.setId(results.getInt("playdate_id"));
         playdate.setEventLocation(results.getString("event_location"));
@@ -47,28 +48,29 @@ public class JdbcPlaydateDao implements PlaydateDao {
 
     // Method to view all available playdates.
     @Override
-    public List<Playdate> getAllPlaydates (int custId) {
+    public List<Playdate> getAllPlaydates(int custId) {
         List<Playdate> playdates = new ArrayList<>();
         // switch * to whatever i need from playdate table/
         String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-                while (results.next()) {
-                    playdates.add(mapRowToPlaydate(results));
-                }
+            while (results.next()) {
+                playdates.add(mapRowToPlaydate(results));
+            }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
 
-        for(Playdate playdate : playdates) {
+        for (Playdate playdate : playdates) {
             List<Pets> pets = petDao.getPetsByCustomerId(custId);
             playdate.setPetCandidates(pets);
         }
 
         return playdates;
     }
+
     @Override
-    public List<Playdate> getAllPlaydates () {
+    public List<Playdate> getAllPlaydates() {
         List<Playdate> playdates = new ArrayList<>();
         // switch * to whatever i need from playdate table/
         String sql = "SELECT playdate.playdate_id, playdate.event_title, playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image, users.username FROM playdate join customers on playdate.event_host = customers.customer_id join users on customers.customer_id = users.user_id";
@@ -101,9 +103,10 @@ public class JdbcPlaydateDao implements PlaydateDao {
             throw new DaoException("Unable to connect to the database.", e);
         }
     }
+
     @Override
-    public Playdate getPlaydateByUsername(String username) {
-        Playdate playdate = null;
+    public List<Playdate> getPlaydateByUsername(String username) {
+        List<Playdate> playdate = new ArrayList<>();
         String sql = "select playdate.playdate_id,playdate.event_title,playdate.event_location, playdate.event_address, playdate.event_latitude,playdate.event_longitude, playdate.maximum_pets, playdate.event_host, playdate.event_date, playdate.event_time, playdate.event_duration, playdate.event_description, playdate.event_image from playdate " +
                 "join customers ON playdate.event_host = customers.customer_id " +
                 "join users ON customers.user_id = users.user_id " +
@@ -111,7 +114,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
             if (results.next()) {
-                return mapRowToPlaydate(results);
+               playdate.add(mapRowToPlaydate(results));
             } else {
 
                 // Handles invalid IDs.
@@ -120,6 +123,7 @@ public class JdbcPlaydateDao implements PlaydateDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to the database.", e);
         }
+        return playdate;
     }
 
     // Method to create a new playdate.
@@ -152,10 +156,10 @@ public class JdbcPlaydateDao implements PlaydateDao {
                 " event_image = ?  WHERE playdate_id = ?";
         int numberOfRows = 0;
         try{
-         numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
-                playdate.getEventAddress(), playdate.getLatitude(), playdate.getLongitude(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(),
-                playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(),playdate.getEventImage(),
-                playdate.getId());
+            numberOfRows=jdbcTemplate.update(sqlUpdate, playdate.getEventTitle(), playdate.getEventLocation(),
+                    playdate.getEventAddress(), playdate.getLatitude(), playdate.getLongitude(), playdate.getMaximumPets(), playdate.getEventHost(), playdate.getEventDate(),
+                    playdate.getEventTime(), playdate.getEventDuration(), playdate.getEventDescription(),playdate.getEventImage(),
+                    playdate.getId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -203,43 +207,11 @@ public class JdbcPlaydateDao implements PlaydateDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
     }
-
-    // Method to accept a playdate request.
-//    @Override
-//    public Playdate acceptPlaydate(int id) {
-//        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
-//        try {
-//
-//            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been accepted. Using the same term to maintain naming conventions.
-//            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.ACCEPTED, id);
-//
-//            // This will handle cases where the playdate can't be found or already has the accepted status.
-//            if (rowsAffected == 0) {
-//                throw new DaoException("Playdate not found or has already been accepted.");
-//            }
-//            return getPlaydateById(id);
-//        } catch (CannotGetJdbcConnectionException e) {
-//            throw new DaoException("Unable to connect to the database.", e);
-//        }
-//
-//    }
-
-    // Method to decline a playdate request.
-//    @Override
-//    public Playdate declinePlaydate(int id) {
-//        String sql = "UPDATE playdate SET playdate_status = ? WHERE playdate_id = ?";
-//        try {
-//
-//            // Setting template update to "rowsAffected" to check for instances where the playdate isn't found or has already been declined. Using the same term to maintain naming conventions.
-//            int rowsAffected = jdbcTemplate.update(sql, Playdate.PlaydateStatus.DECLINED, id);
-//
-//            // This will handle cases where the playdate can't be found or already has the declined status.
-//            if (rowsAffected == 0) {
-//                throw new DaoException("Playdate not found or has already been declined.");
-//            }
-//            return getPlaydateById(id);
-//        } catch (CannotGetJdbcConnectionException e) {
-//            throw new DaoException("Unable to connect to the database.", e);
-//        }
-//    }
 }
+
+
+
+
+
+
+

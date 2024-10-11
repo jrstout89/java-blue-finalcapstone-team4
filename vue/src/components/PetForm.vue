@@ -1,22 +1,19 @@
 <template>
     <form v-on:submit.prevent="submitForm" class="cardForm">
       <div>
-      <div class="button is-info" v-on:click="upload">Upload your fur friend picture!</div><br>
-      <img v-bind:src="newPet.image" alt="pet image" width="300" height="200" v-if="pet.image">
-      
+      <div id="button" class="button is-info" v-on:click="upload">Upload your fur friend picture!</div><br>
+      <img v-bind:src="newPet.image" alt="pet image" width="300" height="200" v-if="pet.image">      
   </div>
-
   <div class="field">
   <label class="label">Name</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input" v-model="this.newPet.name">
+    <input class="input" type="text" v-model="this.newPet.name">
   </div>
 </div>
-
 <div class="field">
   <label class="label">Breed</label>
   <div class="control">
-    <input class="input is-success" type="text" placeholder="Text input" v-model="this.newPet.breed">
+    <input class="input is-success" type="text"  v-model="this.newPet.breed">
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -25,11 +22,10 @@
     </span>
   </div>
 </div>
-
 <div class="field">
   <label class="label">Date of Birth</label>
   <div class="control">
-    <input class="input is-danger" type="date" placeholder="Email input" v-model="this.newPet.dateOfBirth">
+    <input class="input is-danger" type="date" v-model="this.newPet.dateOfBirth">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -38,7 +34,6 @@
     </span>
   </div>
 </div>
-
 <div class="field gender">
   <label class="label">Gender</label>
   <div class="control">
@@ -94,10 +89,9 @@
 <div class="field">
   <label class="label">Personality</label>
   <div class="control">
-    <textarea class="textarea" placeholder="Textarea" v-model="this.newPet.personality"></textarea>
+    <textarea class="textarea" placeholder="Describe your pet's personality" v-model="this.newPet.personality"></textarea>
   </div>
 </div>
-
 <div class="field is-grouped">
   <div class="control">
     <button class="button is-link">Submit</button>
@@ -108,7 +102,6 @@
 </div>
 </form>
 </template>
-
 <script>
 import petService from '../services/petService';
 export default {
@@ -157,9 +150,7 @@ export default {
                 );
             }else{
                 petService.updatePet(this.newPet.id, this.newPet).then(
-                 
                     (response) => {
-                      
                         if(response.status === 200){
                             //redirect to pets page
                         this.$router.push( {name: 'pets', params: { customerId: this.$store.state.user.id  } });
@@ -204,7 +195,7 @@ created(){
 }
 </script>
 
-<style>
+<style scoped>
 .cardForm{
     margin: 0 auto;
     width: 50%;
@@ -213,6 +204,12 @@ created(){
     border-radius: 5px;
     padding: 10px;
     margin-top: 20px;
-    box-shadow: #ccc 2px 2px 2  ;
+    box-shadow: #ccc 2px 2px 2;
+    background-color: white;
+}
+#button{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <h1>Add event</h1>
+  <h1 id="header">Add New Event</h1>
   <event-form :Event="eventObject" v-if="showEventForm"/>
 </template>
 
@@ -18,8 +18,6 @@ export default {
             eventTitle: '',
             eventLocation: '',
             eventAddress: '',
-            // latitude:"",
-            // longitude:"",
             maximumPets: 0,
             eventDate: "",
             eventTime: "",
@@ -28,7 +26,6 @@ export default {
             eventImage: ""
         },
         showEventForm: false
-        // eventObject: {}
         };
     },
     methods:{
@@ -55,6 +52,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#header{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 60px;
+    color: hsl(323, 65%, 37%);
+    font-family: cursive;
+    font-style: oblique;
+}
 </style>

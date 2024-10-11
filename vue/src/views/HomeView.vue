@@ -8,17 +8,11 @@
         <p id="text">At Pet Play Pals, we provide a secure and enjoyable space where pets can interact and form friendships. Our dedicated team focuses on enriching activities designed to meet each pet’s unique needs. Join us in cultivating a joyful community for all furry companions!
         </p>
       </div>
-        <!-- <router-link :to="{ name: 'pets', params: { customerId: $store.state.user.id } }">Pets</router-link> -->
         <button class="button is-info">View Play Dates</button>
         <div class="slideshow">
           <div class="image-container">
             <img :src="images[currentImageIndex]" alt="Slideshow Image" class="slide" />
           </div>
-          <!-- <div class="image-index">
-            {{ currentImageIndex + 1 }} / {{ images.length }}
-          </div> -->
-          <!-- <button @click="prevImage">Previous</button>
-          <button @click="nextImage">Next</button> -->
         </div>
     </nav>
     <footer>
@@ -96,7 +90,6 @@ export default {
     flex-direction: column;
     align-items: center; 
     justify-content: center;
-    /* background-image: url('../img/running.jpg' ); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

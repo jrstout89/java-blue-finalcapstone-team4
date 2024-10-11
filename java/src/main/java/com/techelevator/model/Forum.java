@@ -28,7 +28,6 @@ public class Forum {
         this.forumContent = forumContent;
         this.createdDate = LocalDate.parse(createdDate);
         this.updateDate = LocalDate.parse(updateDate);
-//        this.comments = comments;
         this.username = username;
     }
 
@@ -72,14 +71,6 @@ public class Forum {
         this.updateDate = LocalDate.parse(updateDate);
     }
 
-//    public String getComment() {
-//        return comment;
-//    }
-//
-//    public void setComments(String comment) {
-//        this.comment = comment;
-//    }
-
     // Added getters and setters for forumContent and comments list.
     public String getForumContent() {
         return forumContent;
@@ -88,14 +79,6 @@ public class Forum {
     public void setForumContent(String forumContent) {
         this.forumContent = forumContent;
     }
-
-//    public List<Comments> getComments() {
-//        return comments;
-//    }
-
-//    public void setComments(List<Comments> comments) {
-//        this.comments = comments;
-//    }
 
     public String getUsername() {
         return username;

@@ -2,21 +2,21 @@
     <form v-on:submit.prevent="submitForm" class="cardForm">
         <!-- {{ newEvent }} -->
         <div>
-            <div class="button is-info" v-on:click="upload">Upload your event picture!</div><br>
+            <div id="button" class="button is-info" v-on:click="upload">Upload your event picture!</div><br>
             <img v-bind:src="newEvent.eventImage" alt="pet image" width="300" height="200" v-if="Event.eventImage">
         </div>
 
         <div class="field">
             <label class="label">Event title</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Text input" v-model="newEvent.eventTitle">
+                <input class="input" type="text" v-model="newEvent.eventTitle">
             </div>
         </div>
 
         <div class="field">
             <label class="label">Location</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventLocation">
+                <input class="input is-success" type="text" v-model="newEvent.eventLocation">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -29,7 +29,7 @@
         <div class="field">
             <label class="label">Address</label>
             <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" v-model="newEvent.eventAddress">
+                <input class="input is-success" type="text" v-model="newEvent.eventAddress">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -42,7 +42,7 @@
         <div class="field">
             <label class="label">Maximum pets</label>
             <div class="control">
-                <input class="input is-success" type="number" placeholder="Number input" v-model="newEvent.maximumPets">
+                <input class="input is-success" type="number" v-model="newEvent.maximumPets">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -57,7 +57,7 @@
         <div class="field">
             <label class="label">Event Date</label>
             <div class="control">
-                <input class="input is-danger" type="date" placeholder="Email input" v-model="newEvent.eventDate">
+                <input class="input is-danger" type="date" v-model="newEvent.eventDate">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -70,7 +70,7 @@
         <div class="field">
             <label class="label">Event Time</label>
             <div class="control">
-                <input class="input is-danger" type="time" placeholder="Email input" v-model="newEvent.eventTime">
+                <input class="input is-danger" type="time" v-model="newEvent.eventTime">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -81,9 +81,9 @@
         </div>
 
         <div class="field">
-            <label class="label">Duration</label>
+            <label class="label">Duration (in minutes)</label>
             <div class="control">
-                <input class="input is-danger" type="number" placeholder="Email input" v-model="newEvent.eventDuration">
+                <input class="input is-danger" type="number" placeholder="60" v-model="newEvent.eventDuration">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -96,21 +96,9 @@
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Textarea" v-model="newEvent.eventDescription"></textarea>
+                <textarea class="textarea" placeholder="Describe your event..." v-model="newEvent.eventDescription"></textarea>
             </div>
-        </div>
-        <!-- <div class="file is-primary">
-        <label class="file-label">
-            <input class="file-input" type="file" name="resume" />
-            <span class="file-cta">
-            <span class="file-icon">
-                <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label"> Add a picture! </span>
-            </span>
-        </label>
-        </div> -->
-
+        </div>>
         <div class="field is-grouped">
         <div class="control">
             <button class="button is-link">Submit</button>
@@ -142,8 +130,6 @@ export default {
                 eventTitle: this.Event.eventTitle,
                 eventLocation: this.Event.eventLocation,
                 eventAddress: this.Event.eventAddress,
-                // latitude: this.Event.latitude,
-                // longitude: this.Event.longitude,
                 maximumPets: this.Event.maximumPets,
                 eventDate: this.Event.eventDate,
                 eventTime: this.Event.eventTime,
@@ -218,6 +204,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.cardForm{
+    margin: 0 auto;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: #ccc 2px 2px 2;
+    background-color: white;
+}
+#button{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
 
 </style>

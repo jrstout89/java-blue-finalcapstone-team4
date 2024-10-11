@@ -210,6 +210,4 @@ export default{
     font-size: 20px; 
     right: 10px;
 }
-   
-
 </style>

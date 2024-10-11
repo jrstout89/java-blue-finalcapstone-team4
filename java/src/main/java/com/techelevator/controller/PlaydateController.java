@@ -42,7 +42,7 @@ public class PlaydateController {
     }
 
     @GetMapping(path =  "/personal-events")
-    public Playdate getPlayDateByUsername(Principal user) {
+    public List<Playdate> getPlayDateByUsername(Principal user) {
         String username = user.getName();
         return playdateDao.getPlaydateByUsername(username);
     }
@@ -73,26 +73,4 @@ public class PlaydateController {
     public void removePet(@PathVariable int playdateId, @PathVariable int petId){
         playdateDao.removePetFromPlaydate(playdateId, petId);
     }
-
-
-
-
-
-
-
-
-
-    // Accept a playdate by ID.
-//    @PreAuthorize("isAuthenticated()")
-//    @RequestMapping(path = "/events/{id}/accept", method = RequestMethod.PUT)
-//    public Playdate acceptPlaydate(@PathVariable int id) {
-//        return playdateDao.acceptPlaydate(id);
-//    }
-
-    // Decline a playdate by ID.
-//    @PreAuthorize("isAuthenticated()")
-//    @RequestMapping(path = "/events/{id}/decline", method = RequestMethod.PUT)
-//    public Playdate declinePlaydate(@PathVariable int id) {
-//        return playdateDao.declinePlaydate(id);
-//    }
 }

@@ -14,7 +14,7 @@
             <p><strong>Gender: </strong>{{pets.gender}}</p>
             <p><strong>Size: </strong>{{pets.petSize}}</p>
             <p><strong>Vaccination: </strong>{{pets.vaccination}}</p>
-            <p><strong>Spay or Neuter: </strong>{{pets.isSpayNeuter}}</p>
+            <p><strong>Spay or Neuter: </strong>{{pets.spayNeuter}}</p>
             <p><strong>Energy Level: </strong>{{pets.energyLevel}}</p>
             <p><strong>Personality: </strong>
              {{pets.personality}}</p>

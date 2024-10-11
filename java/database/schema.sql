@@ -99,7 +99,7 @@ CREATE TABLE comments (
     forum_id int NOT NULL,
     customer_id int NOT NULL,
     comment_content varchar NOT NULL,
-    created_date TIMESTAMP NOT NULL,
+    created_date TIMESTAMP WITH TIME ZONE NOT NULL,
     CONSTRAINT PK_comment_id PRIMARY KEY (comment_id),
     CONSTRAINT FK_comment_forum FOREIGN KEY (forum_id) REFERENCES forum(forum_id),
     CONSTRAINT FK_comment_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)

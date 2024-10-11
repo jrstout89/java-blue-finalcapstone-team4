@@ -1,10 +1,14 @@
 <template>
     <div>
-        <h3 class="comments-bubble">Comments</h3>
+        <!-- <h3 class="comments-bubble">Comments</h3> -->
+        <div v-if="comments.length === 0">No comments yet</div>
         <ul class="comments-list">
-            <li class="comments" v-for="comment in comments" :key="comment.id">
+            <li class="comments" v-for="comment in comments" :key="comment.commentId">
                 <div class="comment-content">
-                    <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
+                    <div class="comment-header">
+                        <strong>&nbsp;&nbsp;{{ comment.username }} replied: </strong>
+                        <small class="comment-date">on: {{ formattedDate(comment.createdDate) }}</small>
+                    </div>
                     <div v-if="isEditingComment && editingCommentId === comment.commentId">
                         <input v-model="updatedCommentContent" placeholder="Edit your comment" class="comment-input" />
                         <div class="button-container">
@@ -88,6 +92,29 @@ export default {
                     console.error('Error deleting comment', error);
                 }
             }
+        },
+        formattedDate(dateString) {
+            console.log('Original Date String:', dateString);
+            if (!dateString) return 'Invalid date';
+
+            try {
+                // Create a date object using the date string
+                const date = new Date(dateString);
+
+                // Check if the date is valid
+                if (isNaN(date.getTime())) {
+                    throw new Error('Invalid date');
+                }
+
+                // Log the parsed date
+                console.log('Parsed Date:', date);
+
+                // Format the date to the desired locale and time zone
+                return date.toLocaleString('en-US', { timeZone: 'America/New_York' });
+            } catch (error) {
+                console.error('Date parsing error:', error);
+                return 'Invalid date';
+            }
         }
     }
 }
@@ -98,6 +125,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .comments {
@@ -107,11 +135,11 @@ export default {
     text-align: left;
 }
 
-.comments-bubble {
+/* .comments-bubble {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-}
+} */
 
 li {
     background-color: #f1f1f1;
@@ -147,6 +175,7 @@ strong {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    margin: 7px;
 }
 
 .comment-input {
@@ -158,6 +187,20 @@ strong {
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-date {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: #666;
+    padding-right: 10px;
 }
 
 </style>

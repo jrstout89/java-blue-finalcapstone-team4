@@ -83,7 +83,7 @@
         <div class="field">
             <label class="label">Duration (in minutes)</label>
             <div class="control">
-                <input class="input is-danger" type="number" placeholder="60" v-model="newEvent.eventDuration">
+                <input class="input is-danger" type="number" placeholder="Type event duration in minutes" v-model="newEvent.eventDuration">
                 <span class="icon is-small is-left">
                  <i class="fas fa-envelope"></i>
                 </span>
@@ -96,7 +96,7 @@
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Describe your event..." v-model="newEvent.eventDescription"></textarea>
+                <textarea class="textarea" placeholder="Type event description" v-model="newEvent.eventDescription"></textarea>
             </div>
         </div>>
         <div class="field is-grouped">

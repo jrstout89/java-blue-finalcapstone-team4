@@ -21,7 +21,7 @@ export default {
         gender: '',
         petSize: '',
         vaccination: false,
-        isSpayNeuter:false,
+        spayNeuter:false,
         energyLevel: "",
         personality: '',
         image: ''

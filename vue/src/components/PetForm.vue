@@ -69,7 +69,7 @@
 <div class="field spay_neuter">
   <div class="control">
     <label class="checkbox">
-     Is Spayed or Neuter <input type="checkbox" v-model="this.newPet.isSpayNeuter">
+     Is Spayed or Neuter <input type="checkbox" v-model="this.newPet.spayNeuter">
     </label>
   </div>
 </div>
@@ -122,7 +122,7 @@ export default {
                 gender: this.pet.gender,
                 petSize: this.pet.petSize,
                 vaccination: this.pet.vaccination,
-                isSpayNeuter: this.pet.isSpayNeuter,
+                spayNeuter: this.pet.spayNeuter,
                 energyLevel: this.pet.energyLevel,
                 personality: this.pet.personality,
                 image: this.pet.image

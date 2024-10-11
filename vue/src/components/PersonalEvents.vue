@@ -3,11 +3,11 @@
         <h1><span>YOUR EVENTS:</span></h1>
         <div class="events">
             <div v-for="event in events" :key="event.id" class="event">
-            <nav id="button">
+            <!-- <nav id="button">
                 <button class="button is-success" @click="editEvent(event.id)">Edit</button>
                 &nbsp; &nbsp;
                 <button class="button is-warning" @click="deleteEvent(event.id)">Delete</button>
-            </nav>
+            </nav> -->
                 <br>
                 <h2 id="header"> <router-link v-bind:to="{ name: 'eventDetails', params: { id: event.id } }">
                 {{ event.eventTitle }} </router-link> </h2>

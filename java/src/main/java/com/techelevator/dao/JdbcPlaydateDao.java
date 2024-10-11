@@ -113,12 +113,8 @@ public class JdbcPlaydateDao implements PlaydateDao {
                 "where username = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-            if (results.next()) {
-               playdate.add(mapRowToPlaydate(results));
-            } else {
-
-                // Handles invalid IDs.
-                throw new DaoException("Playdate not found.");
+            while (results.next()) {
+                playdate.add(mapRowToPlaydate(results));
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to the database.", e);

@@ -27,6 +27,7 @@
                 &nbsp; &nbsp;
                 <button class="button is-warning" @click="deleteEvent(event.id)">Delete</button>
             </nav>
+            <br id="line">
             </div>
         </div>  
     </div>
@@ -96,7 +97,9 @@ export default {
     background-color: white;
     box-shadow: 5px 5px 5px #888888;
     width: 50%;
+    height: 50%;
     margin-left: 25%;
+    border-radius: 10%;
     color: black;
 }
 #header {
@@ -134,6 +137,7 @@ h1 {
     height: 50px;
     text-shadow: 50px 50px 50px black;
 }
+
 span {
     background-color: white;
 }

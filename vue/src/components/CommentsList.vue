@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="comments-bubble">Comments</h3>
+        <!-- <h3 class="comments-bubble">Comments</h3> -->
         <div v-if="comments.length === 0">No comments yet</div>
         <ul class="comments-list">
             <li class="comments" v-for="comment in comments" :key="comment.commentId">
@@ -94,11 +94,23 @@ export default {
             }
         },
         formattedDate(dateString) {
+            console.log('Original Date String:', dateString);
             if (!dateString) return 'Invalid date';
+
             try {
-                // Use 'T' to indicate the start of the time portion for ISO 8601
-                const formattedDate = dateString.replace(' ', 'T');
-                return new Date(formattedDate).toLocaleString();
+                // Create a date object using the date string
+                const date = new Date(dateString);
+
+                // Check if the date is valid
+                if (isNaN(date.getTime())) {
+                    throw new Error('Invalid date');
+                }
+
+                // Log the parsed date
+                console.log('Parsed Date:', date);
+
+                // Format the date to the desired locale and time zone
+                return date.toLocaleString('en-US', { timeZone: 'America/New_York' });
             } catch (error) {
                 console.error('Date parsing error:', error);
                 return 'Invalid date';
@@ -123,11 +135,11 @@ export default {
     text-align: left;
 }
 
-.comments-bubble {
+/* .comments-bubble {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-}
+} */
 
 li {
     background-color: #f1f1f1;

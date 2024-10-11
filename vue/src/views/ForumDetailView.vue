@@ -6,11 +6,12 @@
     @forum-updated="updateForum"
     @forum-deleted="deleteForum"
     />
+    <AddComment v-if="forum.id" :forumId="forum.id" @commentAdded="fetchComments" />
     <CommentsList 
     :comments="comments"
     @comment-deleted="fetchComments"
-    @comment-updated="fetchComments" />
-    <AddComment v-if="forum.id" :forumId="forum.id" @commentAdded="fetchComments" />
+    @comment-updated="fetchComments"
+    class="comments-list" />
     <div v-if="error">{{ error }}</div>
     <div v-if="loading">Loading...</div>
   </div>
@@ -67,6 +68,7 @@ export default {
       try {
         const response = await ForumService.getCommentsForForum(this.forum.id);
         this.comments = response.data;
+        console.log(this.comments);
       } catch (error) {
         console.error('Error getting comments', error);
         this.error = 'Error getting comments: ' + (error.response ? error.response.data : error.message);
@@ -99,12 +101,8 @@ export default {
 </script>
 
 <style>
-.forum-container {
-  background-image: url(https://img.freepik.com/premium-vector/pets-paw-pattern-bones-flying-saucer-animal-footsteps-seamless-texture-pet-store-background_657999-3041.jpg?w=740);
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  padding: 20px;
+.comments-list {
+  margin-top: 5px;
 }
 
 </style>

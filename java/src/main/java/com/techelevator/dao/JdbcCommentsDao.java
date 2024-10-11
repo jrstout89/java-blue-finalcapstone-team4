@@ -9,7 +9,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,23 @@ public class JdbcCommentsDao implements CommentsDao {
         comments.setCommentContent(results.getString("comment_content"));
         comments.setUsername(results.getString("username"));
 
-        Date createdDate = results.getDate("created_date");
+        //TODO: Comments class, the date property needs tobe LocalDateTime
+        //TODO: underneath, createdDate = results.getDate("created_date").toLocalDateTime()
+//        Date createdDate = results.getDate("created_date");
+
+        Timestamp createdDate = results.getTimestamp("created_date");
         if (createdDate != null) {
-            comments.setCreatedDate(createdDate.toLocalDate().toString());
+            // Convert Timestamp to Instant and then to ZonedDateTime
+            ZonedDateTime utcZonedDateTime = createdDate.toInstant().atZone(ZoneId.of("UTC"));
+            ZonedDateTime easternZonedDateTime = utcZonedDateTime.withZoneSameInstant(ZoneId.of("America/New_York"));
+
+            // Log the conversion
+            System.out.println("ZonedDateTime (UTC): " + utcZonedDateTime);
+            System.out.println("ZonedDateTime (Converted to Eastern): " + easternZonedDateTime);
+
+            // Format the date string for the frontend
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            comments.setCreatedDate(easternZonedDateTime.format(formatter)); // Set formatted string
         }
         return comments;
     }

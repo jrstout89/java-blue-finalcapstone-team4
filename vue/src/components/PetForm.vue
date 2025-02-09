@@ -1,107 +1,119 @@
 <template>
-    <form v-on:submit.prevent="submitForm" class="cardForm">
-      <div>
+  <form v-on:submit.prevent="submitForm" class="cardForm">
+    
+    <div>
       <div id="button" class="button is-info" v-on:click="upload">Upload your fur friend picture!</div><br>
-      <img v-bind:src="newPet.image" alt="pet image" width="300" height="200" v-if="pet.image">      
-  </div>
-  <div class="field">
-  <label class="label">Name</label>
-  <div class="control">
-    <input class="input" type="text" v-model="this.newPet.name">
-  </div>
-</div>
-<div class="field">
-  <label class="label">Breed</label>
-  <div class="control">
-    <input class="input is-success" type="text"  v-model="this.newPet.breed">
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </div>
-</div>
-<div class="field">
-  <label class="label">Date of Birth</label>
-  <div class="control">
-    <input class="input is-danger" type="date" v-model="this.newPet.dateOfBirth">
-    <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-exclamation-triangle"></i>
-    </span>
-  </div>
-</div>
-<div class="field gender">
-  <label class="label">Gender</label>
-  <div class="control">
-    <div class="select">
-      <select v-model="this.newPet.gender">
-        <option>male</option>
-        <option>female</option>
-      </select>
+      <img v-bind:src="newPet.image" alt="pet image" width="300" height="200" v-if="pet.image">
     </div>
-  </div>
-</div>
-<div class="field size">
-  <label class="label">Size</label>
-  <div class="control">
-    <div class="select">
-      <select v-model="this.newPet.petSize">
-        <option>small</option>
-        <option>medium</option>
-        <option>large</option>
-        <option>extra large</option>
-      </select>
-    </div>
-  </div>
-</div>
 
-<div class="field vaccination">
-  <div class="control">
-    <label class="checkbox">
-     Is Vaccinated <input type="checkbox" v-model="this.newPet.vaccination">
-    </label>
-  </div>
-</div>
-<div class="field spay_neuter">
-  <div class="control">
-    <label class="checkbox">
-     Is Spayed or Neuter <input type="checkbox" v-model="this.newPet.spayNeuter">
-    </label>
-  </div>
-</div>
-<div class="field size">
-  <label class="label">Energy Level</label>
-  <div class="control">
-    <div class="select">
-      <select v-model="this.newPet.energyLevel">
-        <option>low</option>
-        <option>medium</option>
-        <option>high</option>
-      </select>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" v-model="this.newPet.name">
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="field">
-  <label class="label">Personality</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Describe your pet's personality" v-model="this.newPet.personality"></textarea>
-  </div>
-</div>
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link">Submit</button>
-  </div>
-  <div class="control">
-    <button class="button is-link is-light" v-on:click="cancelForm">Cancel</button>
-  </div>
-</div>
-</form>
+    <div class="field">
+      <label class="label">Breed</label>
+      <div class="control">
+        <input class="input is-success" type="text" v-model="this.newPet.breed">
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-check"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Date of Birth</label>
+      <div class="control">
+        <input class="input is-danger" type="date" v-model="this.newPet.dateOfBirth">
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field gender">
+      <label class="label">Gender</label>
+      <div class="control">
+        <div class="select">
+          <select v-model="this.newPet.gender">
+            <option>male</option>
+            <option>female</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field size">
+      <label class="label">Size</label>
+      <div class="control">
+        <div class="select">
+          <select v-model="this.newPet.petSize">
+            <option>small</option>
+            <option>medium</option>
+            <option>large</option>
+            <option>extra large</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field vaccination">
+      <div class="control">
+        <label class="checkbox">
+          Is Vaccinated <input type="checkbox" v-model="this.newPet.vaccination">
+        </label>
+      </div>
+    </div>
+
+    <div class="field spay_neuter">
+      <div class="control">
+        <label class="checkbox">
+          Is Spayed or Neuter <input type="checkbox" v-model="this.newPet.spayNeuter">
+        </label>
+      </div>
+    </div>
+
+    <div class="field size">
+      <label class="label">Energy Level</label>
+      <div class="control">
+        <div class="select">
+          <select v-model="this.newPet.energyLevel">
+            <option>low</option>
+            <option>medium</option>
+            <option>high</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Personality</label>
+      <div class="control">
+        <textarea class="textarea" placeholder="Describe your pet's personality"
+          v-model="this.newPet.personality"></textarea>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light" v-on:click="cancelForm">Cancel</button>
+      </div>
+    </div>
+
+  </form>
 </template>
+
 <script>
 import petService from '../services/petService';
 export default {
